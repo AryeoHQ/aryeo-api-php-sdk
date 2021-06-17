@@ -1,17 +1,16 @@
-# Aryeo
+# Aryeo SDK
 
-# Introduction
-The Aryeo API gives access to the Aryeo platform. You can use your favorite HTTP/REST library for interfacing with the Aryeo API, or you can use one of our SDKs. Our SDKs are procedurally generated and a great starting point for experimental testing. If there is an additional language or framework that you want to see supported, then please reach and out and make a contribution!
+## Introduction
+
+This is an auto-generated client SDK for interfacing with the Aryeo API. We support a variety of languages and frameworks that are a great starting point for experimenting with the API. If there is an additional language or framework that you want to see supported, then please reach out and make a contribution!
 
 <p align="center"> <a href="https://github.com/AryeoHQ/aryeo-api-dart-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/dart.svg" alt="Dart" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-go-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/go.svg" alt="Go" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-js-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/js.svg" alt="Node JS" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-php-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/php.svg" alt="PHP" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-ruby-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/ruby.svg" alt="Ruby" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-rust-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/rust.svg" alt="Rust" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> <a href="https://github.com/AryeoHQ/aryeo-api-swift-sdk"><img src="https://raw.githubusercontent.com/AryeoHQ/aryeo-api-docs/master/public/images/swift.svg" alt="Swift" width="44" style="padding:10px;border: 1px solid #d3d3d3;border-radius: 5px;margin:4px;"/></a> </p>
 
-**Note**: Some SDKs may require you to manually add the `Accept` header to all Aryeo API requests. If so, use the value `application/json`.
+## Authentication
 
-# Authentication
-To start using the Aryeo API, you will need to generate an API key from your group's developer settings. You can then authenticate to the Aryeo API by providing your key in the appropriate request header. Requests made without an API key will result in a `401 Unauthorized` error.
+To start using the Aryeo API, you will need to generate an API key from your group's developer settings. Then, make sure to provide your API key as a bearer token. Requests made without an API key will result in a `401 Unauthorized` error.
 
-
-For more information, please visit [https://www.aryeo.com](https://www.aryeo.com).
+Example: `Authorization: Bearer {API_KEY}`
 
 ## Installation & Usage
 
@@ -21,68 +20,36 @@ PHP 7.2 and later.
 
 ### Composer
 
-To install the bindings via [Composer](https://getcomposer.org/), add the following to `composer.json`:
-
 ```json
-{
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/GIT_USER_ID/GIT_REPO_ID.git"
-    }
-  ],
-  "require": {
-    "GIT_USER_ID/GIT_REPO_ID": "*@dev"
-  }
-}
-```
-
-Then run `composer install`
-
-### Manual Installation
-
-Download the files and include `autoload.php`:
-
-```php
-<?php
-require_once('/path/to/Aryeo/vendor/autoload.php');
+    "require": {
+        "aryeohq/aryeo-api-php-sdk": "dev-master"
+    },
+    "repositories": [
+        {
+            "url": "git@github.com:AryeoHQ/aryeo-api-php-sdk.git",
+            "type": "vcs"
+        }
+    ]
 ```
 
 ## Getting Started
-
-Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```php
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
+$config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('API_KEY');
 
+$apiInstance = new Aryeo\Api\ListingsApi(null, $config);
 
-// Configure Bearer (JWT) authorization: JWT
-$config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Aryeo\Api\ListingsApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$query = thoroughbred trail; // string | A search query.
-$per_page = 25; // string | The number of items per page. Defaults to 25.
-$page = 2; // string | The requested page. Defaults to 1.
-$status = coming_soon; // string | The status you want to scope down to, example sold,  coming_soon,  for_sale, sold
-$price = 100000; // int | The price value and greater will be returned.
-$bathrooms = 3.5; // float | Number of bathrooms minimum.
-$bedrooms = 4; // int | Number of bedrooms minimum.
+$id = "UUID";
 
 try {
-    $result = $apiInstance->getListings($query, $per_page, $page, $status, $price, $bathrooms, $bedrooms);
-    print_r($result);
+    $result = $apiInstance->getListingsId($id);
+    echo $result["data"]["address"]["address_line_1"], "\n";
 } catch (Exception $e) {
-    echo 'Exception when calling ListingsApi->getListings: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling ListingsApi->getListingsId: ', $e->getMessage(), PHP_EOL;
 }
-
 ```
 
 ## API Endpoints
@@ -146,11 +113,3 @@ vendor/bin/phpunit
 ## Author
 
 jarrod@aryeo.com
-
-## About this package
-
-This PHP package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
-
-- API version: `1.0.0`
-    - Package version: `1.0.0`
-- Build package: `org.openapitools.codegen.languages.PhpClientCodegen`
