@@ -63,7 +63,8 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'payment_status' => 'string',
         'payment_url' => 'string',
         'listing' => '\Aryeo\Model\PartialListing',
-        'fulfillment_status' => 'string'
+        'fulfillment_status' => 'string',
+        'status_url' => 'string'
     ];
 
     /**
@@ -81,7 +82,8 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'payment_status' => null,
         'payment_url' => null,
         'listing' => null,
-        'fulfillment_status' => null
+        'fulfillment_status' => null,
+        'status_url' => null
     ];
 
     /**
@@ -118,7 +120,8 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'payment_status' => 'payment_status',
         'payment_url' => 'payment_url',
         'listing' => 'listing',
-        'fulfillment_status' => 'fulfillment_status'
+        'fulfillment_status' => 'fulfillment_status',
+        'status_url' => 'status_url'
     ];
 
     /**
@@ -134,7 +137,8 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'payment_status' => 'setPaymentStatus',
         'payment_url' => 'setPaymentUrl',
         'listing' => 'setListing',
-        'fulfillment_status' => 'setFulfillmentStatus'
+        'fulfillment_status' => 'setFulfillmentStatus',
+        'status_url' => 'setStatusUrl'
     ];
 
     /**
@@ -150,7 +154,8 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'payment_status' => 'getPaymentStatus',
         'payment_url' => 'getPaymentUrl',
         'listing' => 'getListing',
-        'fulfillment_status' => 'getFulfillmentStatus'
+        'fulfillment_status' => 'getFulfillmentStatus',
+        'status_url' => 'getStatusUrl'
     ];
 
     /**
@@ -248,6 +253,7 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['payment_url'] = $data['payment_url'] ?? null;
         $this->container['listing'] = $data['listing'] ?? null;
         $this->container['fulfillment_status'] = $data['fulfillment_status'] ?? null;
+        $this->container['status_url'] = $data['status_url'] ?? null;
     }
 
     /**
@@ -325,6 +331,14 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if ((mb_strlen($this->container['fulfillment_status']) < 0)) {
             $invalidProperties[] = "invalid value for 'fulfillment_status', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['status_url']) && (mb_strlen($this->container['status_url']) > 65535)) {
+            $invalidProperties[] = "invalid value for 'status_url', the character length must be smaller than or equal to 65535.";
+        }
+
+        if (!is_null($this->container['status_url']) && (mb_strlen($this->container['status_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'status_url', the character length must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -578,6 +592,37 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['fulfillment_status'] = $fulfillment_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets status_url
+     *
+     * @return string|null
+     */
+    public function getStatusUrl()
+    {
+        return $this->container['status_url'];
+    }
+
+    /**
+     * Sets status_url
+     *
+     * @param string|null $status_url A URL to see the order's status.
+     *
+     * @return self
+     */
+    public function setStatusUrl($status_url)
+    {
+        if (!is_null($status_url) && (mb_strlen($status_url) > 65535)) {
+            throw new \InvalidArgumentException('invalid length for $status_url when calling Order., must be smaller than or equal to 65535.');
+        }
+        if (!is_null($status_url) && (mb_strlen($status_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $status_url when calling Order., must be bigger than or equal to 0.');
+        }
+
+        $this->container['status_url'] = $status_url;
 
         return $this;
     }

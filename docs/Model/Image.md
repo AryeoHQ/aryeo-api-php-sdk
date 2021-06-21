@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | ID of the image. |
+**uuid** | **string** | The UUID of the image. | [optional]
 **thumbnail_url** | **string** | A URL for a thumbnail-sized version of the image. |
 **large_url** | **string** | A URL for a large version of the image. |
 **original_url** | **string** | A URL for the original, full-resolution version of the image. Useful for downloading. |

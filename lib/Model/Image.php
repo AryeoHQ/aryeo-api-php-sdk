@@ -57,6 +57,7 @@ class Image implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => 'int',
+        'uuid' => 'string',
         'thumbnail_url' => 'string',
         'large_url' => 'string',
         'original_url' => 'string',
@@ -74,6 +75,7 @@ class Image implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'id' => null,
+        'uuid' => 'uuid',
         'thumbnail_url' => 'uri',
         'large_url' => 'uri',
         'original_url' => 'uri',
@@ -110,6 +112,7 @@ class Image implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
+        'uuid' => 'uuid',
         'thumbnail_url' => 'thumbnail_url',
         'large_url' => 'large_url',
         'original_url' => 'original_url',
@@ -125,6 +128,7 @@ class Image implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
+        'uuid' => 'setUuid',
         'thumbnail_url' => 'setThumbnailUrl',
         'large_url' => 'setLargeUrl',
         'original_url' => 'setOriginalUrl',
@@ -140,6 +144,7 @@ class Image implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
+        'uuid' => 'getUuid',
         'thumbnail_url' => 'getThumbnailUrl',
         'large_url' => 'getLargeUrl',
         'original_url' => 'getOriginalUrl',
@@ -206,6 +211,7 @@ class Image implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->container['id'] = $data['id'] ?? null;
+        $this->container['uuid'] = $data['uuid'] ?? null;
         $this->container['thumbnail_url'] = $data['thumbnail_url'] ?? null;
         $this->container['large_url'] = $data['large_url'] ?? null;
         $this->container['original_url'] = $data['original_url'] ?? null;
@@ -226,6 +232,14 @@ class Image implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
+        if (!is_null($this->container['uuid']) && (mb_strlen($this->container['uuid']) > 255)) {
+            $invalidProperties[] = "invalid value for 'uuid', the character length must be smaller than or equal to 255.";
+        }
+
+        if (!is_null($this->container['uuid']) && (mb_strlen($this->container['uuid']) < 0)) {
+            $invalidProperties[] = "invalid value for 'uuid', the character length must be bigger than or equal to 0.";
+        }
+
         if ($this->container['thumbnail_url'] === null) {
             $invalidProperties[] = "'thumbnail_url' can't be null";
         }
@@ -305,6 +319,37 @@ class Image implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setId($id)
     {
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets uuid
+     *
+     * @return string|null
+     */
+    public function getUuid()
+    {
+        return $this->container['uuid'];
+    }
+
+    /**
+     * Sets uuid
+     *
+     * @param string|null $uuid The UUID of the image.
+     *
+     * @return self
+     */
+    public function setUuid($uuid)
+    {
+        if (!is_null($uuid) && (mb_strlen($uuid) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $uuid when calling Image., must be smaller than or equal to 255.');
+        }
+        if (!is_null($uuid) && (mb_strlen($uuid) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $uuid when calling Image., must be bigger than or equal to 0.');
+        }
+
+        $this->container['uuid'] = $uuid;
 
         return $this;
     }

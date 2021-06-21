@@ -12,5 +12,6 @@ Name | Type | Description | Notes
 **payment_url** | **string** | A URL for to pay for the order. | [optional]
 **listing** | [**\Aryeo\Model\PartialListing**](PartialListing.md) |  | [optional]
 **fulfillment_status** | **string** | The fulfillment status of the order. |
+**status_url** | **string** | A URL to see the order&#39;s status. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

@@ -146,4 +146,13 @@ class OrderTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "status_url"
+     */
+    public function testPropertyStatusUrl()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }
