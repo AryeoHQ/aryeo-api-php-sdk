@@ -42,10 +42,10 @@ $config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('API_KE
 
 $apiInstance = new Aryeo\Api\ListingsApi(null, $config);
 
-$id = "UUID";
+$uuid = "UUID";
 
 try {
-    $result = $apiInstance->getListingsId($id);
+    $result = $apiInstance->getListingsId($uuid);
     echo $result["data"]["address"]["address_line_1"], "\n";
 } catch (Exception $e) {
     echo 'Exception when calling ListingsApi->getListingsId: ', $e->getMessage(), PHP_EOL;
@@ -59,9 +59,7 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ListingsApi* | [**getListings**](docs/Api/ListingsApi.md#getlistings) | **GET** /listings | Get the listings available to a group.
-*ListingsApi* | [**getListingsId**](docs/Api/ListingsApi.md#getlistingsid) | **GET** /listings/{id} | Get information about a listing.
-*MarketingMaterialsApi* | [**putMarketingMaterialsTemplatesUuidPublish**](docs/Api/MarketingMaterialsApi.md#putmarketingmaterialstemplatesuuidpublish) | **PUT** /marketing-materials/templates/{uuid}/publish | Publish a marketing material template.
-*MarketingMaterialsApi* | [**putMarketingMaterialsUuidPublish**](docs/Api/MarketingMaterialsApi.md#putmarketingmaterialsuuidpublish) | **PUT** /marketing-materials/{uuid}/publish | Publish a marketing material.
+*ListingsApi* | [**getListingsId**](docs/Api/ListingsApi.md#getlistingsid) | **GET** /listings/{uuid} | Get information about a listing.
 *OrdersApi* | [**getOrders**](docs/Api/OrdersApi.md#getorders) | **GET** /orders | Get orders available to a group.
 *OrdersApi* | [**postOrders**](docs/Api/OrdersApi.md#postorders) | **POST** /orders | Create an order.
 *VendorsApi* | [**getVendors**](docs/Api/VendorsApi.md#getvendors) | **GET** /vendors | Get vendors available to a group.
@@ -79,8 +77,6 @@ Class | Method | HTTP request | Description
 - [InteractiveContent](docs/Model/InteractiveContent.md)
 - [Listing](docs/Model/Listing.md)
 - [ListingResource](docs/Model/ListingResource.md)
-- [MarketingMaterialPublishPayload](docs/Model/MarketingMaterialPublishPayload.md)
-- [MarketingMaterialTemplatePublishPayload](docs/Model/MarketingMaterialTemplatePublishPayload.md)
 - [Order](docs/Model/Order.md)
 - [OrderCollection](docs/Model/OrderCollection.md)
 - [OrderForm](docs/Model/OrderForm.md)
