@@ -564,15 +564,15 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $uuid The UUID of a listing. (required)
+     * @param  string $id The UUID of a listing. (required)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Aryeo\Model\ListingResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError
      */
-    public function getListingsId($uuid)
+    public function getListingsId($id)
     {
-        list($response) = $this->getListingsIdWithHttpInfo($uuid);
+        list($response) = $this->getListingsIdWithHttpInfo($id);
         return $response;
     }
 
@@ -581,15 +581,15 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $uuid The UUID of a listing. (required)
+     * @param  string $id The UUID of a listing. (required)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Aryeo\Model\ListingResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getListingsIdWithHttpInfo($uuid)
+    public function getListingsIdWithHttpInfo($id)
     {
-        $request = $this->getListingsIdRequest($uuid);
+        $request = $this->getListingsIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -727,14 +727,14 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $uuid The UUID of a listing. (required)
+     * @param  string $id The UUID of a listing. (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getListingsIdAsync($uuid)
+    public function getListingsIdAsync($id)
     {
-        return $this->getListingsIdAsyncWithHttpInfo($uuid)
+        return $this->getListingsIdAsyncWithHttpInfo($id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -747,15 +747,15 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $uuid The UUID of a listing. (required)
+     * @param  string $id The UUID of a listing. (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getListingsIdAsyncWithHttpInfo($uuid)
+    public function getListingsIdAsyncWithHttpInfo($id)
     {
         $returnType = '\Aryeo\Model\ListingResource';
-        $request = $this->getListingsIdRequest($uuid);
+        $request = $this->getListingsIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -793,28 +793,28 @@ class ListingsApi
     /**
      * Create request for operation 'getListingsId'
      *
-     * @param  string $uuid The UUID of a listing. (required)
+     * @param  string $id The UUID of a listing. (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getListingsIdRequest($uuid)
+    public function getListingsIdRequest($id)
     {
-        // verify the required parameter 'uuid' is set
-        if ($uuid === null || (is_array($uuid) && count($uuid) === 0)) {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $uuid when calling getListingsId'
+                'Missing the required parameter $id when calling getListingsId'
             );
         }
-        if (strlen($uuid) > 255) {
-            throw new \InvalidArgumentException('invalid length for "$uuid" when calling ListingsApi.getListingsId, must be smaller than or equal to 255.');
+        if (strlen($id) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$id" when calling ListingsApi.getListingsId, must be smaller than or equal to 255.');
         }
-        if (strlen($uuid) < 0) {
-            throw new \InvalidArgumentException('invalid length for "$uuid" when calling ListingsApi.getListingsId, must be bigger than or equal to 0.');
+        if (strlen($id) < 0) {
+            throw new \InvalidArgumentException('invalid length for "$id" when calling ListingsApi.getListingsId, must be bigger than or equal to 0.');
         }
 
 
-        $resourcePath = '/listings/{uuid}';
+        $resourcePath = '/listings/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -824,10 +824,10 @@ class ListingsApi
 
 
         // path params
-        if ($uuid !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
-                '{' . 'uuid' . '}',
-                ObjectSerializer::toPathValue($uuid),
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }

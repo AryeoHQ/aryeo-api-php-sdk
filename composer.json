@@ -1,6 +1,6 @@
 {
     "name": "aryeohq/aryeo-api-php-sdk",
-    "version": "",
+    "version": "1.0.0",
     "description": "PHP SDK for Aryeo API.",
     "keywords": [
         "openapitools",

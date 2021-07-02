@@ -5,7 +5,7 @@ All URIs are relative to https://api.aryeo.com/v1.
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getListings()**](ListingsApi.md#getListings) | **GET** /listings | Get the listings available to a group.
-[**getListingsId()**](ListingsApi.md#getListingsId) | **GET** /listings/{uuid} | Get information about a listing.
+[**getListingsId()**](ListingsApi.md#getListingsId) | **GET** /listings/{id} | Get information about a listing.
 
 
 ## `getListings()`
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 ## `getListingsId()`
 
 ```php
-getListingsId($uuid): \Aryeo\Model\ListingResource
+getListingsId($id): \Aryeo\Model\ListingResource
 ```
 
 Get information about a listing.
@@ -107,10 +107,10 @@ $apiInstance = new Aryeo\Api\ListingsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$uuid = 05a1c594-f469-483c-b490-51d790090593; // string | The UUID of a listing.
+$id = 05a1c594-f469-483c-b490-51d790090593; // string | The UUID of a listing.
 
 try {
-    $result = $apiInstance->getListingsId($uuid);
+    $result = $apiInstance->getListingsId($id);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ListingsApi->getListingsId: ', $e->getMessage(), PHP_EOL;
@@ -121,7 +121,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **uuid** | [**string**](../Model/.md)| The UUID of a listing. |
+ **id** | [**string**](../Model/.md)| The UUID of a listing. |
 
 ### Return type
 
