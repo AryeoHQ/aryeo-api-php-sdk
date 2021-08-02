@@ -57,8 +57,7 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'fulfillment_status' => 'string',
-        'payment_status' => 'string',
-        'product_items' => '\Aryeo\Model\ProductItem[]'
+        'payment_status' => 'string'
     ];
 
     /**
@@ -70,8 +69,7 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'fulfillment_status' => null,
-        'payment_status' => null,
-        'product_items' => null
+        'payment_status' => null
     ];
 
     /**
@@ -102,8 +100,7 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'fulfillment_status' => 'fulfillment_status',
-        'payment_status' => 'payment_status',
-        'product_items' => 'product_items'
+        'payment_status' => 'payment_status'
     ];
 
     /**
@@ -113,8 +110,7 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'fulfillment_status' => 'setFulfillmentStatus',
-        'payment_status' => 'setPaymentStatus',
-        'product_items' => 'setProductItems'
+        'payment_status' => 'setPaymentStatus'
     ];
 
     /**
@@ -124,8 +120,7 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'fulfillment_status' => 'getFulfillmentStatus',
-        'payment_status' => 'getPaymentStatus',
-        'product_items' => 'getProductItems'
+        'payment_status' => 'getPaymentStatus'
     ];
 
     /**
@@ -169,10 +164,10 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    const FULFILLMENT_STATUS_FULFILLED = 'fulfilled';
-    const FULFILLMENT_STATUS_UNFULFILLED = 'unfulfilled';
-    const PAYMENT_STATUS_PAID = 'paid';
-    const PAYMENT_STATUS_UNPAID = 'unpaid';
+    const FULFILLMENT_STATUS_FULFILLED = 'FULFILLED';
+    const FULFILLMENT_STATUS_UNFULFILLED = 'UNFULFILLED';
+    const PAYMENT_STATUS_PAID = 'PAID';
+    const PAYMENT_STATUS_UNPAID = 'UNPAID';
 
     /**
      * Gets allowable values of the enum
@@ -217,7 +212,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->container['fulfillment_status'] = $data['fulfillment_status'] ?? null;
         $this->container['payment_status'] = $data['payment_status'] ?? null;
-        $this->container['product_items'] = $data['product_items'] ?? null;
     }
 
     /**
@@ -291,7 +285,7 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets fulfillment_status
      *
-     * @param string|null $fulfillment_status The fulfillment status of the order.
+     * @param string|null $fulfillment_status The fulfillment status of the order. Defaults to \"UNFULFILLED\".
      *
      * @return self
      */
@@ -332,7 +326,7 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets payment_status
      *
-     * @param string|null $payment_status The payment status of the order.
+     * @param string|null $payment_status The payment status of the order. Defaults to \"UNPAID\".
      *
      * @return self
      */
@@ -356,30 +350,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['payment_status'] = $payment_status;
-
-        return $this;
-    }
-
-    /**
-     * Gets product_items
-     *
-     * @return \Aryeo\Model\ProductItem[]|null
-     */
-    public function getProductItems()
-    {
-        return $this->container['product_items'];
-    }
-
-    /**
-     * Sets product_items
-     *
-     * @param \Aryeo\Model\ProductItem[]|null $product_items product_items
-     *
-     * @return self
-     */
-    public function setProductItems($product_items)
-    {
-        $this->container['product_items'] = $product_items;
 
         return $this;
     }

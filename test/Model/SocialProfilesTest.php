@@ -30,7 +30,7 @@ use PHPUnit\Framework\TestCase;
  * SocialProfilesTest Class Doc Comment
  *
  * @category    Class
- * @description Details for a real estate agent.
+ * @description External profile URLs for an agent or brokerage group.
  * @package     Aryeo
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech

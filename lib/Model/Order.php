@@ -57,13 +57,13 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => 'string',
-        'display_id' => 'int',
-        'total_price_cents' => 'int',
-        'currency' => '\Aryeo\Model\Currency',
-        'payment_status' => 'string',
-        'payment_url' => 'string',
-        'listing' => '\Aryeo\Model\PartialListing',
+        'number' => 'int',
+        'title' => 'string',
         'fulfillment_status' => 'string',
+        'payment_status' => 'string',
+        'currency' => 'string',
+        'total_amount' => 'int',
+        'payment_url' => 'string',
         'status_url' => 'string'
     ];
 
@@ -76,13 +76,13 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'id' => 'uuid',
-        'display_id' => null,
-        'total_price_cents' => 'double',
-        'currency' => null,
-        'payment_status' => null,
-        'payment_url' => null,
-        'listing' => null,
+        'number' => null,
+        'title' => null,
         'fulfillment_status' => null,
+        'payment_status' => null,
+        'currency' => null,
+        'total_amount' => null,
+        'payment_url' => null,
         'status_url' => null
     ];
 
@@ -114,13 +114,13 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
-        'display_id' => 'display_id',
-        'total_price_cents' => 'total_price_cents',
-        'currency' => 'currency',
-        'payment_status' => 'payment_status',
-        'payment_url' => 'payment_url',
-        'listing' => 'listing',
+        'number' => 'number',
+        'title' => 'title',
         'fulfillment_status' => 'fulfillment_status',
+        'payment_status' => 'payment_status',
+        'currency' => 'currency',
+        'total_amount' => 'total_amount',
+        'payment_url' => 'payment_url',
         'status_url' => 'status_url'
     ];
 
@@ -131,13 +131,13 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
-        'display_id' => 'setDisplayId',
-        'total_price_cents' => 'setTotalPriceCents',
-        'currency' => 'setCurrency',
-        'payment_status' => 'setPaymentStatus',
-        'payment_url' => 'setPaymentUrl',
-        'listing' => 'setListing',
+        'number' => 'setNumber',
+        'title' => 'setTitle',
         'fulfillment_status' => 'setFulfillmentStatus',
+        'payment_status' => 'setPaymentStatus',
+        'currency' => 'setCurrency',
+        'total_amount' => 'setTotalAmount',
+        'payment_url' => 'setPaymentUrl',
         'status_url' => 'setStatusUrl'
     ];
 
@@ -148,13 +148,13 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
-        'display_id' => 'getDisplayId',
-        'total_price_cents' => 'getTotalPriceCents',
-        'currency' => 'getCurrency',
-        'payment_status' => 'getPaymentStatus',
-        'payment_url' => 'getPaymentUrl',
-        'listing' => 'getListing',
+        'number' => 'getNumber',
+        'title' => 'getTitle',
         'fulfillment_status' => 'getFulfillmentStatus',
+        'payment_status' => 'getPaymentStatus',
+        'currency' => 'getCurrency',
+        'total_amount' => 'getTotalAmount',
+        'payment_url' => 'getPaymentUrl',
         'status_url' => 'getStatusUrl'
     ];
 
@@ -199,10 +199,31 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    const PAYMENT_STATUS_PAID = 'paid';
-    const PAYMENT_STATUS_UNPAID = 'unpaid';
-    const FULFILLMENT_STATUS_FULFILLED = 'fulfilled';
-    const FULFILLMENT_STATUS_UNFULFILLED = 'unfulfilled';
+    const FULFILLMENT_STATUS_FULFILLED = 'FULFILLED';
+    const FULFILLMENT_STATUS_UNFULFILLED = 'UNFULFILLED';
+    const PAYMENT_STATUS_PAID = 'PAID';
+    const PAYMENT_STATUS_UNPAID = 'UNPAID';
+    const CURRENCY_USD = 'USD';
+    const CURRENCY_CAD = 'CAD';
+    const CURRENCY_GBP = 'GBP';
+    const CURRENCY_CHF = 'CHF';
+    const CURRENCY_EUR = 'EUR';
+    const CURRENCY_AUD = 'AUD';
+    const CURRENCY_NZD = 'NZD';
+    const CURRENCY_ZAR = 'ZAR';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getFulfillmentStatusAllowableValues()
+    {
+        return [
+            self::FULFILLMENT_STATUS_FULFILLED,
+            self::FULFILLMENT_STATUS_UNFULFILLED,
+        ];
+    }
 
     /**
      * Gets allowable values of the enum
@@ -222,11 +243,17 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
      *
      * @return string[]
      */
-    public function getFulfillmentStatusAllowableValues()
+    public function getCurrencyAllowableValues()
     {
         return [
-            self::FULFILLMENT_STATUS_FULFILLED,
-            self::FULFILLMENT_STATUS_UNFULFILLED,
+            self::CURRENCY_USD,
+            self::CURRENCY_CAD,
+            self::CURRENCY_GBP,
+            self::CURRENCY_CHF,
+            self::CURRENCY_EUR,
+            self::CURRENCY_AUD,
+            self::CURRENCY_NZD,
+            self::CURRENCY_ZAR,
         ];
     }
 
@@ -246,13 +273,13 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->container['id'] = $data['id'] ?? null;
-        $this->container['display_id'] = $data['display_id'] ?? null;
-        $this->container['total_price_cents'] = $data['total_price_cents'] ?? null;
-        $this->container['currency'] = $data['currency'] ?? null;
-        $this->container['payment_status'] = $data['payment_status'] ?? null;
-        $this->container['payment_url'] = $data['payment_url'] ?? null;
-        $this->container['listing'] = $data['listing'] ?? null;
+        $this->container['number'] = $data['number'] ?? null;
+        $this->container['title'] = $data['title'] ?? null;
         $this->container['fulfillment_status'] = $data['fulfillment_status'] ?? null;
+        $this->container['payment_status'] = $data['payment_status'] ?? null;
+        $this->container['currency'] = $data['currency'] ?? null;
+        $this->container['total_amount'] = $data['total_amount'] ?? null;
+        $this->container['payment_url'] = $data['payment_url'] ?? null;
         $this->container['status_url'] = $data['status_url'] ?? null;
     }
 
@@ -276,41 +303,18 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
         }
 
-        if ($this->container['display_id'] === null) {
-            $invalidProperties[] = "'display_id' can't be null";
+        if ($this->container['number'] === null) {
+            $invalidProperties[] = "'number' can't be null";
         }
-        if ($this->container['total_price_cents'] === null) {
-            $invalidProperties[] = "'total_price_cents' can't be null";
+        if ($this->container['title'] === null) {
+            $invalidProperties[] = "'title' can't be null";
         }
-        if ($this->container['currency'] === null) {
-            $invalidProperties[] = "'currency' can't be null";
-        }
-        if ($this->container['payment_status'] === null) {
-            $invalidProperties[] = "'payment_status' can't be null";
-        }
-        $allowedValues = $this->getPaymentStatusAllowableValues();
-        if (!is_null($this->container['payment_status']) && !in_array($this->container['payment_status'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'payment_status', must be one of '%s'",
-                $this->container['payment_status'],
-                implode("', '", $allowedValues)
-            );
+        if ((mb_strlen($this->container['title']) > 255)) {
+            $invalidProperties[] = "invalid value for 'title', the character length must be smaller than or equal to 255.";
         }
 
-        if ((mb_strlen($this->container['payment_status']) > 255)) {
-            $invalidProperties[] = "invalid value for 'payment_status', the character length must be smaller than or equal to 255.";
-        }
-
-        if ((mb_strlen($this->container['payment_status']) < 0)) {
-            $invalidProperties[] = "invalid value for 'payment_status', the character length must be bigger than or equal to 0.";
-        }
-
-        if (!is_null($this->container['payment_url']) && (mb_strlen($this->container['payment_url']) > 65535)) {
-            $invalidProperties[] = "invalid value for 'payment_url', the character length must be smaller than or equal to 65535.";
-        }
-
-        if (!is_null($this->container['payment_url']) && (mb_strlen($this->container['payment_url']) < 0)) {
-            $invalidProperties[] = "invalid value for 'payment_url', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['title']) < 0)) {
+            $invalidProperties[] = "invalid value for 'title', the character length must be bigger than or equal to 0.";
         }
 
         if ($this->container['fulfillment_status'] === null) {
@@ -331,6 +335,55 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if ((mb_strlen($this->container['fulfillment_status']) < 0)) {
             $invalidProperties[] = "invalid value for 'fulfillment_status', the character length must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['payment_status'] === null) {
+            $invalidProperties[] = "'payment_status' can't be null";
+        }
+        $allowedValues = $this->getPaymentStatusAllowableValues();
+        if (!is_null($this->container['payment_status']) && !in_array($this->container['payment_status'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'payment_status', must be one of '%s'",
+                $this->container['payment_status'],
+                implode("', '", $allowedValues)
+            );
+        }
+
+        if ((mb_strlen($this->container['payment_status']) > 255)) {
+            $invalidProperties[] = "invalid value for 'payment_status', the character length must be smaller than or equal to 255.";
+        }
+
+        if ((mb_strlen($this->container['payment_status']) < 0)) {
+            $invalidProperties[] = "invalid value for 'payment_status', the character length must be bigger than or equal to 0.";
+        }
+
+        $allowedValues = $this->getCurrencyAllowableValues();
+        if (!is_null($this->container['currency']) && !in_array($this->container['currency'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'currency', must be one of '%s'",
+                $this->container['currency'],
+                implode("', '", $allowedValues)
+            );
+        }
+
+        if (!is_null($this->container['currency']) && (mb_strlen($this->container['currency']) > 255)) {
+            $invalidProperties[] = "invalid value for 'currency', the character length must be smaller than or equal to 255.";
+        }
+
+        if (!is_null($this->container['currency']) && (mb_strlen($this->container['currency']) < 0)) {
+            $invalidProperties[] = "invalid value for 'currency', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['total_amount']) && ($this->container['total_amount'] < 0)) {
+            $invalidProperties[] = "invalid value for 'total_amount', must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['payment_url']) && (mb_strlen($this->container['payment_url']) > 65535)) {
+            $invalidProperties[] = "invalid value for 'payment_url', the character length must be smaller than or equal to 65535.";
+        }
+
+        if (!is_null($this->container['payment_url']) && (mb_strlen($this->container['payment_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'payment_url', the character length must be bigger than or equal to 0.";
         }
 
         if (!is_null($this->container['status_url']) && (mb_strlen($this->container['status_url']) > 65535)) {
@@ -388,169 +441,56 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets display_id
+     * Gets number
      *
      * @return int
      */
-    public function getDisplayId()
+    public function getNumber()
     {
-        return $this->container['display_id'];
+        return $this->container['number'];
     }
 
     /**
-     * Sets display_id
+     * Sets number
      *
-     * @param int $display_id A vanity id to be displayed for the order. For example, \"Order #1000\".
+     * @param int $number A vanity id used for internal tracking of orders for a given vendor.
      *
      * @return self
      */
-    public function setDisplayId($display_id)
+    public function setNumber($number)
     {
-        $this->container['display_id'] = $display_id;
+        $this->container['number'] = $number;
 
         return $this;
     }
 
     /**
-     * Gets total_price_cents
-     *
-     * @return int
-     */
-    public function getTotalPriceCents()
-    {
-        return $this->container['total_price_cents'];
-    }
-
-    /**
-     * Sets total_price_cents
-     *
-     * @param int $total_price_cents The total price of the order given in cents.
-     *
-     * @return self
-     */
-    public function setTotalPriceCents($total_price_cents)
-    {
-        $this->container['total_price_cents'] = $total_price_cents;
-
-        return $this;
-    }
-
-    /**
-     * Gets currency
-     *
-     * @return \Aryeo\Model\Currency
-     */
-    public function getCurrency()
-    {
-        return $this->container['currency'];
-    }
-
-    /**
-     * Sets currency
-     *
-     * @param \Aryeo\Model\Currency $currency currency
-     *
-     * @return self
-     */
-    public function setCurrency($currency)
-    {
-        $this->container['currency'] = $currency;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_status
+     * Gets title
      *
      * @return string
      */
-    public function getPaymentStatus()
+    public function getTitle()
     {
-        return $this->container['payment_status'];
+        return $this->container['title'];
     }
 
     /**
-     * Sets payment_status
+     * Sets title
      *
-     * @param string $payment_status The payment status of the order.
+     * @param string $title The title of the order, generated by combining the order's number property with the prefix \"Order #\".
      *
      * @return self
      */
-    public function setPaymentStatus($payment_status)
+    public function setTitle($title)
     {
-        $allowedValues = $this->getPaymentStatusAllowableValues();
-        if (!in_array($payment_status, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'payment_status', must be one of '%s'",
-                    $payment_status,
-                    implode("', '", $allowedValues)
-                )
-            );
+        if ((mb_strlen($title) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $title when calling Order., must be smaller than or equal to 255.');
         }
-        if ((mb_strlen($payment_status) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $payment_status when calling Order., must be smaller than or equal to 255.');
-        }
-        if ((mb_strlen($payment_status) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $payment_status when calling Order., must be bigger than or equal to 0.');
+        if ((mb_strlen($title) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $title when calling Order., must be bigger than or equal to 0.');
         }
 
-        $this->container['payment_status'] = $payment_status;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_url
-     *
-     * @return string|null
-     */
-    public function getPaymentUrl()
-    {
-        return $this->container['payment_url'];
-    }
-
-    /**
-     * Sets payment_url
-     *
-     * @param string|null $payment_url A URL for to pay for the order.
-     *
-     * @return self
-     */
-    public function setPaymentUrl($payment_url)
-    {
-        if (!is_null($payment_url) && (mb_strlen($payment_url) > 65535)) {
-            throw new \InvalidArgumentException('invalid length for $payment_url when calling Order., must be smaller than or equal to 65535.');
-        }
-        if (!is_null($payment_url) && (mb_strlen($payment_url) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $payment_url when calling Order., must be bigger than or equal to 0.');
-        }
-
-        $this->container['payment_url'] = $payment_url;
-
-        return $this;
-    }
-
-    /**
-     * Gets listing
-     *
-     * @return \Aryeo\Model\PartialListing|null
-     */
-    public function getListing()
-    {
-        return $this->container['listing'];
-    }
-
-    /**
-     * Sets listing
-     *
-     * @param \Aryeo\Model\PartialListing|null $listing listing
-     *
-     * @return self
-     */
-    public function setListing($listing)
-    {
-        $this->container['listing'] = $listing;
+        $this->container['title'] = $title;
 
         return $this;
     }
@@ -597,6 +537,148 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets payment_status
+     *
+     * @return string
+     */
+    public function getPaymentStatus()
+    {
+        return $this->container['payment_status'];
+    }
+
+    /**
+     * Sets payment_status
+     *
+     * @param string $payment_status The payment status of the order.
+     *
+     * @return self
+     */
+    public function setPaymentStatus($payment_status)
+    {
+        $allowedValues = $this->getPaymentStatusAllowableValues();
+        if (!in_array($payment_status, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'payment_status', must be one of '%s'",
+                    $payment_status,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        if ((mb_strlen($payment_status) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $payment_status when calling Order., must be smaller than or equal to 255.');
+        }
+        if ((mb_strlen($payment_status) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $payment_status when calling Order., must be bigger than or equal to 0.');
+        }
+
+        $this->container['payment_status'] = $payment_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets currency
+     *
+     * @return string|null
+     */
+    public function getCurrency()
+    {
+        return $this->container['currency'];
+    }
+
+    /**
+     * Sets currency
+     *
+     * @param string|null $currency The three-letter ISO 4217 currency code for the currency in which this order was or will be transacted. Must be a supported currency of Aryeo.
+     *
+     * @return self
+     */
+    public function setCurrency($currency)
+    {
+        $allowedValues = $this->getCurrencyAllowableValues();
+        if (!is_null($currency) && !in_array($currency, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'currency', must be one of '%s'",
+                    $currency,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        if (!is_null($currency) && (mb_strlen($currency) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $currency when calling Order., must be smaller than or equal to 255.');
+        }
+        if (!is_null($currency) && (mb_strlen($currency) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $currency when calling Order., must be bigger than or equal to 0.');
+        }
+
+        $this->container['currency'] = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Gets total_amount
+     *
+     * @return int|null
+     */
+    public function getTotalAmount()
+    {
+        return $this->container['total_amount'];
+    }
+
+    /**
+     * Sets total_amount
+     *
+     * @param int|null $total_amount A positive integer in cents representing the total order amount that was or will be charged.
+     *
+     * @return self
+     */
+    public function setTotalAmount($total_amount)
+    {
+
+        if (!is_null($total_amount) && ($total_amount < 0)) {
+            throw new \InvalidArgumentException('invalid value for $total_amount when calling Order., must be bigger than or equal to 0.');
+        }
+
+        $this->container['total_amount'] = $total_amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets payment_url
+     *
+     * @return string|null
+     */
+    public function getPaymentUrl()
+    {
+        return $this->container['payment_url'];
+    }
+
+    /**
+     * Sets payment_url
+     *
+     * @param string|null $payment_url A URL of a publicly-accessible webpage to pay for the order.
+     *
+     * @return self
+     */
+    public function setPaymentUrl($payment_url)
+    {
+        if (!is_null($payment_url) && (mb_strlen($payment_url) > 65535)) {
+            throw new \InvalidArgumentException('invalid length for $payment_url when calling Order., must be smaller than or equal to 65535.');
+        }
+        if (!is_null($payment_url) && (mb_strlen($payment_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $payment_url when calling Order., must be bigger than or equal to 0.');
+        }
+
+        $this->container['payment_url'] = $payment_url;
+
+        return $this;
+    }
+
+    /**
      * Gets status_url
      *
      * @return string|null
@@ -609,7 +691,7 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status_url
      *
-     * @param string|null $status_url A URL to see the order's status.
+     * @param string|null $status_url A URL of a publicly-accessible webpage to see the order's status.
      *
      * @return self
      */

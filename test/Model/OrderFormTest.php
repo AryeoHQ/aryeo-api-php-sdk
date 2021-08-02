@@ -85,9 +85,9 @@ class OrderFormTest extends TestCase
     }
 
     /**
-     * Test attribute "name"
+     * Test attribute "title"
      */
-    public function testPropertyName()
+    public function testPropertyTitle()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

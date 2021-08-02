@@ -56,10 +56,10 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'id' => 'int',
-        'thumbnail_url' => 'string',
-        'large_url' => 'string',
+        'id' => 'string',
         'original_url' => 'string',
+        'large_url' => 'string',
+        'thumbnail_url' => 'string',
         'title' => 'string',
         'index' => 'int'
     ];
@@ -72,10 +72,10 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'id' => null,
-        'thumbnail_url' => 'uri',
-        'large_url' => 'uri',
+        'id' => 'uuid',
         'original_url' => 'uri',
+        'large_url' => 'uri',
+        'thumbnail_url' => 'uri',
         'title' => null,
         'index' => 'int32'
     ];
@@ -108,9 +108,9 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
-        'thumbnail_url' => 'thumbnail_url',
-        'large_url' => 'large_url',
         'original_url' => 'original_url',
+        'large_url' => 'large_url',
+        'thumbnail_url' => 'thumbnail_url',
         'title' => 'title',
         'index' => 'index'
     ];
@@ -122,9 +122,9 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
-        'thumbnail_url' => 'setThumbnailUrl',
-        'large_url' => 'setLargeUrl',
         'original_url' => 'setOriginalUrl',
+        'large_url' => 'setLargeUrl',
+        'thumbnail_url' => 'setThumbnailUrl',
         'title' => 'setTitle',
         'index' => 'setIndex'
     ];
@@ -136,9 +136,9 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
-        'thumbnail_url' => 'getThumbnailUrl',
-        'large_url' => 'getLargeUrl',
         'original_url' => 'getOriginalUrl',
+        'large_url' => 'getLargeUrl',
+        'thumbnail_url' => 'getThumbnailUrl',
         'title' => 'getTitle',
         'index' => 'getIndex'
     ];
@@ -201,9 +201,9 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->container['id'] = $data['id'] ?? null;
-        $this->container['thumbnail_url'] = $data['thumbnail_url'] ?? null;
-        $this->container['large_url'] = $data['large_url'] ?? null;
         $this->container['original_url'] = $data['original_url'] ?? null;
+        $this->container['large_url'] = $data['large_url'] ?? null;
+        $this->container['thumbnail_url'] = $data['thumbnail_url'] ?? null;
         $this->container['title'] = $data['title'] ?? null;
         $this->container['index'] = $data['index'] ?? null;
     }
@@ -220,15 +220,23 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ($this->container['thumbnail_url'] === null) {
-            $invalidProperties[] = "'thumbnail_url' can't be null";
-        }
-        if ((mb_strlen($this->container['thumbnail_url']) > 65535)) {
-            $invalidProperties[] = "invalid value for 'thumbnail_url', the character length must be smaller than or equal to 65535.";
+        if ((mb_strlen($this->container['id']) > 255)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 255.";
         }
 
-        if ((mb_strlen($this->container['thumbnail_url']) < 1)) {
-            $invalidProperties[] = "invalid value for 'thumbnail_url', the character length must be bigger than or equal to 1.";
+        if ((mb_strlen($this->container['id']) < 0)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['original_url'] === null) {
+            $invalidProperties[] = "'original_url' can't be null";
+        }
+        if ((mb_strlen($this->container['original_url']) > 65535)) {
+            $invalidProperties[] = "invalid value for 'original_url', the character length must be smaller than or equal to 65535.";
+        }
+
+        if ((mb_strlen($this->container['original_url']) < 1)) {
+            $invalidProperties[] = "invalid value for 'original_url', the character length must be bigger than or equal to 1.";
         }
 
         if ($this->container['large_url'] === null) {
@@ -242,15 +250,15 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'large_url', the character length must be bigger than or equal to 1.";
         }
 
-        if ($this->container['original_url'] === null) {
-            $invalidProperties[] = "'original_url' can't be null";
+        if ($this->container['thumbnail_url'] === null) {
+            $invalidProperties[] = "'thumbnail_url' can't be null";
         }
-        if ((mb_strlen($this->container['original_url']) > 65535)) {
-            $invalidProperties[] = "invalid value for 'original_url', the character length must be smaller than or equal to 65535.";
+        if ((mb_strlen($this->container['thumbnail_url']) > 65535)) {
+            $invalidProperties[] = "invalid value for 'thumbnail_url', the character length must be smaller than or equal to 65535.";
         }
 
-        if ((mb_strlen($this->container['original_url']) < 1)) {
-            $invalidProperties[] = "invalid value for 'original_url', the character length must be bigger than or equal to 1.";
+        if ((mb_strlen($this->container['thumbnail_url']) < 1)) {
+            $invalidProperties[] = "invalid value for 'thumbnail_url', the character length must be bigger than or equal to 1.";
         }
 
         if (!is_null($this->container['title']) && (mb_strlen($this->container['title']) > 255)) {
@@ -283,7 +291,7 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -293,44 +301,51 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int $id ID of the floor plan.
+     * @param string $id ID of the floor plan.
      *
      * @return self
      */
     public function setId($id)
     {
+        if ((mb_strlen($id) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling FloorPlan., must be smaller than or equal to 255.');
+        }
+        if ((mb_strlen($id) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling FloorPlan., must be bigger than or equal to 0.');
+        }
+
         $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets thumbnail_url
+     * Gets original_url
      *
      * @return string
      */
-    public function getThumbnailUrl()
+    public function getOriginalUrl()
     {
-        return $this->container['thumbnail_url'];
+        return $this->container['original_url'];
     }
 
     /**
-     * Sets thumbnail_url
+     * Sets original_url
      *
-     * @param string $thumbnail_url A URL for a thumbnail-sized version of the floor plan.
+     * @param string $original_url A URL for the original, full-resolution version of the floor plan. Useful for downloading.
      *
      * @return self
      */
-    public function setThumbnailUrl($thumbnail_url)
+    public function setOriginalUrl($original_url)
     {
-        if ((mb_strlen($thumbnail_url) > 65535)) {
-            throw new \InvalidArgumentException('invalid length for $thumbnail_url when calling FloorPlan., must be smaller than or equal to 65535.');
+        if ((mb_strlen($original_url) > 65535)) {
+            throw new \InvalidArgumentException('invalid length for $original_url when calling FloorPlan., must be smaller than or equal to 65535.');
         }
-        if ((mb_strlen($thumbnail_url) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $thumbnail_url when calling FloorPlan., must be bigger than or equal to 1.');
+        if ((mb_strlen($original_url) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $original_url when calling FloorPlan., must be bigger than or equal to 1.');
         }
 
-        $this->container['thumbnail_url'] = $thumbnail_url;
+        $this->container['original_url'] = $original_url;
 
         return $this;
     }
@@ -367,32 +382,32 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets original_url
+     * Gets thumbnail_url
      *
      * @return string
      */
-    public function getOriginalUrl()
+    public function getThumbnailUrl()
     {
-        return $this->container['original_url'];
+        return $this->container['thumbnail_url'];
     }
 
     /**
-     * Sets original_url
+     * Sets thumbnail_url
      *
-     * @param string $original_url A URL for the original, full-resolution version of the floor plan. Useful for downloading.
+     * @param string $thumbnail_url A URL for a thumbnail-sized version of the floor plan.
      *
      * @return self
      */
-    public function setOriginalUrl($original_url)
+    public function setThumbnailUrl($thumbnail_url)
     {
-        if ((mb_strlen($original_url) > 65535)) {
-            throw new \InvalidArgumentException('invalid length for $original_url when calling FloorPlan., must be smaller than or equal to 65535.');
+        if ((mb_strlen($thumbnail_url) > 65535)) {
+            throw new \InvalidArgumentException('invalid length for $thumbnail_url when calling FloorPlan., must be smaller than or equal to 65535.');
         }
-        if ((mb_strlen($original_url) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $original_url when calling FloorPlan., must be bigger than or equal to 1.');
+        if ((mb_strlen($thumbnail_url) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $thumbnail_url when calling FloorPlan., must be bigger than or equal to 1.');
         }
 
-        $this->container['original_url'] = $original_url;
+        $this->container['thumbnail_url'] = $thumbnail_url;
 
         return $this;
     }

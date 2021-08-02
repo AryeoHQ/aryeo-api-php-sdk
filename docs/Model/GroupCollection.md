@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**status** | **string** | What was the state of the request? |
 **data** | [**\Aryeo\Model\Group[]**](Group.md) |  | [optional]
 **meta** | [**\Aryeo\Model\PaginationMeta**](PaginationMeta.md) |  | [optional]
 **links** | [**\Aryeo\Model\PaginationLinks**](PaginationLinks.md) |  | [optional]

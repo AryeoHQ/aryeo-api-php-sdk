@@ -1,6 +1,6 @@
 <?php
 /**
- * ProductItem
+ * ListingLot
  *
  * PHP version 7.2
  *
@@ -28,10 +28,10 @@ use \ArrayAccess;
 use \Aryeo\ObjectSerializer;
 
 /**
- * ProductItem Class Doc Comment
+ * ListingLot Class Doc Comment
  *
  * @category Class
- * @description A subtype or part of a product that a group is selling.
+ * @description Parcel data of the lot of a listing. Includes nearly everything about the land that makes up the listing.
  * @package  Aryeo
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -39,7 +39,7 @@ use \Aryeo\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class ProductItem implements ModelInterface, ArrayAccess, \JsonSerializable
+class ListingLot implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class ProductItem implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ProductItem';
+    protected static $openAPIModelName = 'ListingLot';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,7 +56,8 @@ class ProductItem implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'id' => 'string'
+        'size_acres' => 'float',
+        'open_parking_spaces' => 'float'
     ];
 
     /**
@@ -67,7 +68,8 @@ class ProductItem implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'id' => 'uuid'
+        'size_acres' => null,
+        'open_parking_spaces' => null
     ];
 
     /**
@@ -97,7 +99,8 @@ class ProductItem implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id'
+        'size_acres' => 'size_acres',
+        'open_parking_spaces' => 'open_parking_spaces'
     ];
 
     /**
@@ -106,7 +109,8 @@ class ProductItem implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId'
+        'size_acres' => 'setSizeAcres',
+        'open_parking_spaces' => 'setOpenParkingSpaces'
     ];
 
     /**
@@ -115,7 +119,8 @@ class ProductItem implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId'
+        'size_acres' => 'getSizeAcres',
+        'open_parking_spaces' => 'getOpenParkingSpaces'
     ];
 
     /**
@@ -175,7 +180,8 @@ class ProductItem implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = $data['id'] ?? null;
+        $this->container['size_acres'] = $data['size_acres'] ?? null;
+        $this->container['open_parking_spaces'] = $data['open_parking_spaces'] ?? null;
     }
 
     /**
@@ -187,12 +193,12 @@ class ProductItem implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 255)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 255.";
+        if (!is_null($this->container['size_acres']) && ($this->container['size_acres'] < 0)) {
+            $invalidProperties[] = "invalid value for 'size_acres', must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) < 0)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        if (!is_null($this->container['open_parking_spaces']) && ($this->container['open_parking_spaces'] < 0)) {
+            $invalidProperties[] = "invalid value for 'open_parking_spaces', must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -211,32 +217,59 @@ class ProductItem implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets id
+     * Gets size_acres
      *
-     * @return string|null
+     * @return float|null
      */
-    public function getId()
+    public function getSizeAcres()
     {
-        return $this->container['id'];
+        return $this->container['size_acres'];
     }
 
     /**
-     * Sets id
+     * Sets size_acres
      *
-     * @param string|null $id ID of the product item.
+     * @param float|null $size_acres Total area of the lot of a listing in acres.
      *
      * @return self
      */
-    public function setId($id)
+    public function setSizeAcres($size_acres)
     {
-        if (!is_null($id) && (mb_strlen($id) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling ProductItem., must be smaller than or equal to 255.');
-        }
-        if (!is_null($id) && (mb_strlen($id) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling ProductItem., must be bigger than or equal to 0.');
+
+        if (!is_null($size_acres) && ($size_acres < 0)) {
+            throw new \InvalidArgumentException('invalid value for $size_acres when calling ListingLot., must be bigger than or equal to 0.');
         }
 
-        $this->container['id'] = $id;
+        $this->container['size_acres'] = $size_acres;
+
+        return $this;
+    }
+
+    /**
+     * Gets open_parking_spaces
+     *
+     * @return float|null
+     */
+    public function getOpenParkingSpaces()
+    {
+        return $this->container['open_parking_spaces'];
+    }
+
+    /**
+     * Sets open_parking_spaces
+     *
+     * @param float|null $open_parking_spaces Number of parking spaces.
+     *
+     * @return self
+     */
+    public function setOpenParkingSpaces($open_parking_spaces)
+    {
+
+        if (!is_null($open_parking_spaces) && ($open_parking_spaces < 0)) {
+            throw new \InvalidArgumentException('invalid value for $open_parking_spaces when calling ListingLot., must be bigger than or equal to 0.');
+        }
+
+        $this->container['open_parking_spaces'] = $open_parking_spaces;
 
         return $this;
     }

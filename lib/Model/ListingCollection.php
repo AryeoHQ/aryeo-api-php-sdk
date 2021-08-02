@@ -1,6 +1,6 @@
 <?php
 /**
- * Currency
+ * ListingCollection
  *
  * PHP version 7.2
  *
@@ -28,10 +28,10 @@ use \ArrayAccess;
 use \Aryeo\ObjectSerializer;
 
 /**
- * Currency Class Doc Comment
+ * ListingCollection Class Doc Comment
  *
  * @category Class
- * @description A system of money used for payment.
+ * @description A collection of listings.
  * @package  Aryeo
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -39,7 +39,7 @@ use \Aryeo\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class Currency implements ModelInterface, ArrayAccess, \JsonSerializable
+class ListingCollection implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class Currency implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Currency';
+    protected static $openAPIModelName = 'ListingCollection';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,10 +56,10 @@ class Currency implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'id' => 'string',
-        'name' => 'string',
-        'symbol' => 'string',
-        'enabled' => 'bool'
+        'status' => 'string',
+        'data' => '\Aryeo\Model\Listing[]',
+        'meta' => '\Aryeo\Model\PaginationMeta',
+        'links' => '\Aryeo\Model\PaginationLinks'
     ];
 
     /**
@@ -70,10 +70,10 @@ class Currency implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'id' => null,
-        'name' => null,
-        'symbol' => null,
-        'enabled' => null
+        'status' => null,
+        'data' => null,
+        'meta' => null,
+        'links' => null
     ];
 
     /**
@@ -103,10 +103,10 @@ class Currency implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'name' => 'name',
-        'symbol' => 'symbol',
-        'enabled' => 'enabled'
+        'status' => 'status',
+        'data' => 'data',
+        'meta' => 'meta',
+        'links' => 'links'
     ];
 
     /**
@@ -115,10 +115,10 @@ class Currency implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'name' => 'setName',
-        'symbol' => 'setSymbol',
-        'enabled' => 'setEnabled'
+        'status' => 'setStatus',
+        'data' => 'setData',
+        'meta' => 'setMeta',
+        'links' => 'setLinks'
     ];
 
     /**
@@ -127,10 +127,10 @@ class Currency implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'name' => 'getName',
-        'symbol' => 'getSymbol',
-        'enabled' => 'getEnabled'
+        'status' => 'getStatus',
+        'data' => 'getData',
+        'meta' => 'getMeta',
+        'links' => 'getLinks'
     ];
 
     /**
@@ -190,10 +190,10 @@ class Currency implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = $data['id'] ?? null;
-        $this->container['name'] = $data['name'] ?? null;
-        $this->container['symbol'] = $data['symbol'] ?? null;
-        $this->container['enabled'] = $data['enabled'] ?? null;
+        $this->container['status'] = $data['status'] ?? null;
+        $this->container['data'] = $data['data'] ?? null;
+        $this->container['meta'] = $data['meta'] ?? null;
+        $this->container['links'] = $data['links'] ?? null;
     }
 
     /**
@@ -205,42 +205,17 @@ class Currency implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
         }
-        if ((mb_strlen($this->container['id']) > 1000)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 1000.";
-        }
-
-        if ((mb_strlen($this->container['id']) < 1)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
+        if ((mb_strlen($this->container['status']) > 255)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be smaller than or equal to 255.";
         }
 
-        if ($this->container['name'] === null) {
-            $invalidProperties[] = "'name' can't be null";
-        }
-        if ((mb_strlen($this->container['name']) > 100)) {
-            $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 100.";
+        if ((mb_strlen($this->container['status']) < 0)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be bigger than or equal to 0.";
         }
 
-        if ((mb_strlen($this->container['name']) < 1)) {
-            $invalidProperties[] = "invalid value for 'name', the character length must be bigger than or equal to 1.";
-        }
-
-        if ($this->container['symbol'] === null) {
-            $invalidProperties[] = "'symbol' can't be null";
-        }
-        if ((mb_strlen($this->container['symbol']) > 10)) {
-            $invalidProperties[] = "invalid value for 'symbol', the character length must be smaller than or equal to 10.";
-        }
-
-        if ((mb_strlen($this->container['symbol']) < 1)) {
-            $invalidProperties[] = "invalid value for 'symbol', the character length must be bigger than or equal to 1.";
-        }
-
-        if ($this->container['enabled'] === null) {
-            $invalidProperties[] = "'enabled' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -257,118 +232,104 @@ class Currency implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets id
+     * Gets status
      *
      * @return string
      */
-    public function getId()
+    public function getStatus()
     {
-        return $this->container['id'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets id
+     * Sets status
      *
-     * @param string $id The ID of the currency.
+     * @param string $status What was the state of the request?
      *
      * @return self
      */
-    public function setId($id)
+    public function setStatus($status)
     {
-        if ((mb_strlen($id) > 1000)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling Currency., must be smaller than or equal to 1000.');
+        if ((mb_strlen($status) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling ListingCollection., must be smaller than or equal to 255.');
         }
-        if ((mb_strlen($id) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling Currency., must be bigger than or equal to 1.');
+        if ((mb_strlen($status) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling ListingCollection., must be bigger than or equal to 0.');
         }
 
-        $this->container['id'] = $id;
+        $this->container['status'] = $status;
 
         return $this;
     }
 
     /**
-     * Gets name
+     * Gets data
      *
-     * @return string
+     * @return \Aryeo\Model\Listing[]|null
      */
-    public function getName()
+    public function getData()
     {
-        return $this->container['name'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets name
+     * Sets data
      *
-     * @param string $name The name of the currency.
+     * @param \Aryeo\Model\Listing[]|null $data 
      *
      * @return self
      */
-    public function setName($name)
+    public function setData($data)
     {
-        if ((mb_strlen($name) > 100)) {
-            throw new \InvalidArgumentException('invalid length for $name when calling Currency., must be smaller than or equal to 100.');
-        }
-        if ((mb_strlen($name) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $name when calling Currency., must be bigger than or equal to 1.');
-        }
-
-        $this->container['name'] = $name;
+        $this->container['data'] = $data;
 
         return $this;
     }
 
     /**
-     * Gets symbol
+     * Gets meta
      *
-     * @return string
+     * @return \Aryeo\Model\PaginationMeta|null
      */
-    public function getSymbol()
+    public function getMeta()
     {
-        return $this->container['symbol'];
+        return $this->container['meta'];
     }
 
     /**
-     * Sets symbol
+     * Sets meta
      *
-     * @param string $symbol The currency symbol.
+     * @param \Aryeo\Model\PaginationMeta|null $meta meta
      *
      * @return self
      */
-    public function setSymbol($symbol)
+    public function setMeta($meta)
     {
-        if ((mb_strlen($symbol) > 10)) {
-            throw new \InvalidArgumentException('invalid length for $symbol when calling Currency., must be smaller than or equal to 10.');
-        }
-        if ((mb_strlen($symbol) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $symbol when calling Currency., must be bigger than or equal to 1.');
-        }
-
-        $this->container['symbol'] = $symbol;
+        $this->container['meta'] = $meta;
 
         return $this;
     }
 
     /**
-     * Gets enabled
+     * Gets links
      *
-     * @return bool
+     * @return \Aryeo\Model\PaginationLinks|null
      */
-    public function getEnabled()
+    public function getLinks()
     {
-        return $this->container['enabled'];
+        return $this->container['links'];
     }
 
     /**
-     * Sets enabled
+     * Sets links
      *
-     * @param bool $enabled Is this currency enabled for Aryeo?
+     * @param \Aryeo\Model\PaginationLinks|null $links links
      *
      * @return self
      */
-    public function setEnabled($enabled)
+    public function setLinks($links)
     {
-        $this->container['enabled'] = $enabled;
+        $this->container['links'] = $links;
 
         return $this;
     }

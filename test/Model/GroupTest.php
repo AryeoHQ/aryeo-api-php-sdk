@@ -85,9 +85,9 @@ class GroupTest extends TestCase
     }
 
     /**
-     * Test attribute "group_type"
+     * Test attribute "type"
      */
-    public function testPropertyGroupType()
+    public function testPropertyType()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -97,15 +97,6 @@ class GroupTest extends TestCase
      * Test attribute "name"
      */
     public function testPropertyName()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "logo"
-     */
-    public function testPropertyLogo()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -130,18 +121,45 @@ class GroupTest extends TestCase
     }
 
     /**
-     * Test attribute "website"
+     * Test attribute "website_url"
      */
-    public function testPropertyWebsite()
+    public function testPropertyWebsiteUrl()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "is_brokerage_or_brokerage_agent"
+     * Test attribute "logo_url"
      */
-    public function testPropertyIsBrokerageOrBrokerageAgent()
+    public function testPropertyLogoUrl()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "avatar_url"
+     */
+    public function testPropertyAvatarUrl()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "office_name"
+     */
+    public function testPropertyOfficeName()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "license_number"
+     */
+    public function testPropertyLicenseNumber()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -151,24 +169,6 @@ class GroupTest extends TestCase
      * Test attribute "social_profiles"
      */
     public function testPropertySocialProfiles()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "agent_properties"
-     */
-    public function testPropertyAgentProperties()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "users"
-     */
-    public function testPropertyUsers()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -187,6 +187,33 @@ class GroupTest extends TestCase
      * Test attribute "order_forms"
      */
     public function testPropertyOrderForms()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "owner"
+     */
+    public function testPropertyOwner()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "users"
+     */
+    public function testPropertyUsers()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "is_brokerage_or_brokerage_agent"
+     */
+    public function testPropertyIsBrokerageOrBrokerageAgent()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

@@ -1,6 +1,6 @@
 <?php
 /**
- * MarketingMaterialPublishPayload
+ * ListingPrice
  *
  * PHP version 7.2
  *
@@ -28,10 +28,10 @@ use \ArrayAccess;
 use \Aryeo\ObjectSerializer;
 
 /**
- * MarketingMaterialPublishPayload Class Doc Comment
+ * ListingPrice Class Doc Comment
  *
  * @category Class
- * @description Payload for publishing a marketing material record.
+ * @description Valuation data relating to the price of a listing.
  * @package  Aryeo
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -39,7 +39,7 @@ use \Aryeo\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class MarketingMaterialPublishPayload implements ModelInterface, ArrayAccess, \JsonSerializable
+class ListingPrice implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class MarketingMaterialPublishPayload implements ModelInterface, ArrayAccess, \J
       *
       * @var string
       */
-    protected static $openAPIModelName = 'MarketingMaterialPublishPayload';
+    protected static $openAPIModelName = 'ListingPrice';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,7 +56,7 @@ class MarketingMaterialPublishPayload implements ModelInterface, ArrayAccess, \J
       * @var string[]
       */
     protected static $openAPITypes = [
-        'polotno_json' => 'string'
+        'list_price' => 'int'
     ];
 
     /**
@@ -67,7 +67,7 @@ class MarketingMaterialPublishPayload implements ModelInterface, ArrayAccess, \J
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'polotno_json' => null
+        'list_price' => null
     ];
 
     /**
@@ -97,7 +97,7 @@ class MarketingMaterialPublishPayload implements ModelInterface, ArrayAccess, \J
      * @var string[]
      */
     protected static $attributeMap = [
-        'polotno_json' => 'polotno_json'
+        'list_price' => 'list_price'
     ];
 
     /**
@@ -106,7 +106,7 @@ class MarketingMaterialPublishPayload implements ModelInterface, ArrayAccess, \J
      * @var string[]
      */
     protected static $setters = [
-        'polotno_json' => 'setPolotnoJson'
+        'list_price' => 'setListPrice'
     ];
 
     /**
@@ -115,7 +115,7 @@ class MarketingMaterialPublishPayload implements ModelInterface, ArrayAccess, \J
      * @var string[]
      */
     protected static $getters = [
-        'polotno_json' => 'getPolotnoJson'
+        'list_price' => 'getListPrice'
     ];
 
     /**
@@ -175,7 +175,7 @@ class MarketingMaterialPublishPayload implements ModelInterface, ArrayAccess, \J
      */
     public function __construct(array $data = null)
     {
-        $this->container['polotno_json'] = $data['polotno_json'] ?? null;
+        $this->container['list_price'] = $data['list_price'] ?? null;
     }
 
     /**
@@ -187,12 +187,8 @@ class MarketingMaterialPublishPayload implements ModelInterface, ArrayAccess, \J
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['polotno_json']) && (mb_strlen($this->container['polotno_json']) > 99999999)) {
-            $invalidProperties[] = "invalid value for 'polotno_json', the character length must be smaller than or equal to 99999999.";
-        }
-
-        if (!is_null($this->container['polotno_json']) && (mb_strlen($this->container['polotno_json']) < 0)) {
-            $invalidProperties[] = "invalid value for 'polotno_json', the character length must be bigger than or equal to 0.";
+        if (!is_null($this->container['list_price']) && ($this->container['list_price'] < 0)) {
+            $invalidProperties[] = "invalid value for 'list_price', must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -211,32 +207,30 @@ class MarketingMaterialPublishPayload implements ModelInterface, ArrayAccess, \J
 
 
     /**
-     * Gets polotno_json
+     * Gets list_price
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getPolotnoJson()
+    public function getListPrice()
     {
-        return $this->container['polotno_json'];
+        return $this->container['list_price'];
     }
 
     /**
-     * Sets polotno_json
+     * Sets list_price
      *
-     * @param string|null $polotno_json String representation of a polotno JSON object.
+     * @param int|null $list_price The current price of the listing.
      *
      * @return self
      */
-    public function setPolotnoJson($polotno_json)
+    public function setListPrice($list_price)
     {
-        if (!is_null($polotno_json) && (mb_strlen($polotno_json) > 99999999)) {
-            throw new \InvalidArgumentException('invalid length for $polotno_json when calling MarketingMaterialPublishPayload., must be smaller than or equal to 99999999.');
-        }
-        if (!is_null($polotno_json) && (mb_strlen($polotno_json) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $polotno_json when calling MarketingMaterialPublishPayload., must be bigger than or equal to 0.');
+
+        if (!is_null($list_price) && ($list_price < 0)) {
+            throw new \InvalidArgumentException('invalid value for $list_price when calling ListingPrice., must be bigger than or equal to 0.');
         }
 
-        $this->container['polotno_json'] = $polotno_json;
+        $this->container['list_price'] = $list_price;
 
         return $this;
     }

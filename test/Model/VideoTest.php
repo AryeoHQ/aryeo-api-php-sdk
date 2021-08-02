@@ -94,6 +94,15 @@ class VideoTest extends TestCase
     }
 
     /**
+     * Test attribute "duration"
+     */
+    public function testPropertyDuration()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "display_type"
      */
     public function testPropertyDisplayType()
@@ -133,15 +142,6 @@ class VideoTest extends TestCase
      * Test attribute "download_url"
      */
     public function testPropertyDownloadUrl()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "seconds"
-     */
-    public function testPropertySeconds()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

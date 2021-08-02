@@ -31,7 +31,7 @@ use \Aryeo\ObjectSerializer;
  * Listing Class Doc Comment
  *
  * @category Class
- * @description A real-estate property.
+ * @description A real estate listing.
  * @package  Aryeo
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -57,19 +57,25 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => 'string',
-        'address' => '\Aryeo\Model\PartialAddress',
-        'delivery_status' => 'string',
-        'thumbnail_url' => 'string',
-        'agent' => '\Aryeo\Model\Group',
-        'co_agent' => '\Aryeo\Model\Group',
+        'address' => '\Aryeo\Model\Address',
+        'mls_number' => 'string',
+        'type' => 'string',
+        'sub_type' => 'string',
+        'status' => 'string',
+        'standard_status' => 'string',
+        'description' => 'string',
+        'lot' => '\Aryeo\Model\ListingLot',
+        'building' => '\Aryeo\Model\ListingBuilding',
+        'price' => '\Aryeo\Model\ListingPrice',
+        'list_agent' => '\Aryeo\Model\Group',
+        'co_list_agent' => '\Aryeo\Model\Group',
         'images' => '\Aryeo\Model\Image[]',
         'videos' => '\Aryeo\Model\Video[]',
         'floor_plans' => '\Aryeo\Model\FloorPlan[]',
-        'property_websites' => '\Aryeo\Model\PropertyWebsites',
         'interactive_content' => '\Aryeo\Model\InteractiveContent[]',
-        'property_details' => '\Aryeo\Model\PropertyDetails',
-        'downloads_enabled' => 'bool',
-        'orders' => '\Aryeo\Model\Order[]'
+        'property_website' => '\Aryeo\Model\PropertyWebsite',
+        'orders' => '\Aryeo\Model\Order[]',
+        'downloads_enabled' => 'bool'
     ];
 
     /**
@@ -82,18 +88,24 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'id' => 'uuid',
         'address' => null,
-        'delivery_status' => null,
-        'thumbnail_url' => 'uri',
-        'agent' => null,
-        'co_agent' => null,
+        'mls_number' => null,
+        'type' => null,
+        'sub_type' => null,
+        'status' => null,
+        'standard_status' => null,
+        'description' => null,
+        'lot' => null,
+        'building' => null,
+        'price' => null,
+        'list_agent' => null,
+        'co_list_agent' => null,
         'images' => null,
         'videos' => null,
         'floor_plans' => null,
-        'property_websites' => null,
         'interactive_content' => null,
-        'property_details' => null,
-        'downloads_enabled' => null,
-        'orders' => null
+        'property_website' => null,
+        'orders' => null,
+        'downloads_enabled' => null
     ];
 
     /**
@@ -125,18 +137,24 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'id' => 'id',
         'address' => 'address',
-        'delivery_status' => 'delivery_status',
-        'thumbnail_url' => 'thumbnail_url',
-        'agent' => 'agent',
-        'co_agent' => 'co_agent',
+        'mls_number' => 'mls_number',
+        'type' => 'type',
+        'sub_type' => 'sub_type',
+        'status' => 'status',
+        'standard_status' => 'standard_status',
+        'description' => 'description',
+        'lot' => 'lot',
+        'building' => 'building',
+        'price' => 'price',
+        'list_agent' => 'list_agent',
+        'co_list_agent' => 'co_list_agent',
         'images' => 'images',
         'videos' => 'videos',
         'floor_plans' => 'floor_plans',
-        'property_websites' => 'property_websites',
         'interactive_content' => 'interactive_content',
-        'property_details' => 'property_details',
-        'downloads_enabled' => 'downloads_enabled',
-        'orders' => 'orders'
+        'property_website' => 'property_website',
+        'orders' => 'orders',
+        'downloads_enabled' => 'downloads_enabled'
     ];
 
     /**
@@ -147,18 +165,24 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'id' => 'setId',
         'address' => 'setAddress',
-        'delivery_status' => 'setDeliveryStatus',
-        'thumbnail_url' => 'setThumbnailUrl',
-        'agent' => 'setAgent',
-        'co_agent' => 'setCoAgent',
+        'mls_number' => 'setMlsNumber',
+        'type' => 'setType',
+        'sub_type' => 'setSubType',
+        'status' => 'setStatus',
+        'standard_status' => 'setStandardStatus',
+        'description' => 'setDescription',
+        'lot' => 'setLot',
+        'building' => 'setBuilding',
+        'price' => 'setPrice',
+        'list_agent' => 'setListAgent',
+        'co_list_agent' => 'setCoListAgent',
         'images' => 'setImages',
         'videos' => 'setVideos',
         'floor_plans' => 'setFloorPlans',
-        'property_websites' => 'setPropertyWebsites',
         'interactive_content' => 'setInteractiveContent',
-        'property_details' => 'setPropertyDetails',
-        'downloads_enabled' => 'setDownloadsEnabled',
-        'orders' => 'setOrders'
+        'property_website' => 'setPropertyWebsite',
+        'orders' => 'setOrders',
+        'downloads_enabled' => 'setDownloadsEnabled'
     ];
 
     /**
@@ -169,18 +193,24 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'id' => 'getId',
         'address' => 'getAddress',
-        'delivery_status' => 'getDeliveryStatus',
-        'thumbnail_url' => 'getThumbnailUrl',
-        'agent' => 'getAgent',
-        'co_agent' => 'getCoAgent',
+        'mls_number' => 'getMlsNumber',
+        'type' => 'getType',
+        'sub_type' => 'getSubType',
+        'status' => 'getStatus',
+        'standard_status' => 'getStandardStatus',
+        'description' => 'getDescription',
+        'lot' => 'getLot',
+        'building' => 'getBuilding',
+        'price' => 'getPrice',
+        'list_agent' => 'getListAgent',
+        'co_list_agent' => 'getCoListAgent',
         'images' => 'getImages',
         'videos' => 'getVideos',
         'floor_plans' => 'getFloorPlans',
-        'property_websites' => 'getPropertyWebsites',
         'interactive_content' => 'getInteractiveContent',
-        'property_details' => 'getPropertyDetails',
-        'downloads_enabled' => 'getDownloadsEnabled',
-        'orders' => 'getOrders'
+        'property_website' => 'getPropertyWebsite',
+        'orders' => 'getOrders',
+        'downloads_enabled' => 'getDownloadsEnabled'
     ];
 
     /**
@@ -224,19 +254,122 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    const DELIVERY_STATUS_DELIVERED = 'delivered';
-    const DELIVERY_STATUS_UNDELIVERED = 'undelivered';
+    const TYPE_BUSINESS_OPPORTUNITY = 'BUSINESS_OPPORTUNITY';
+    const TYPE_COMMERCIAL_LEASE = 'COMMERCIAL_LEASE';
+    const TYPE_COMMERCIAL_SALE = 'COMMERCIAL_SALE';
+    const TYPE_FARM = 'FARM';
+    const TYPE_LAND = 'LAND';
+    const TYPE_MANUFACTURED_IN_PARK = 'MANUFACTURED_IN_PARK';
+    const TYPE_RESIDENTIAL = 'RESIDENTIAL';
+    const TYPE_RESIDENTIAL_INCOME = 'RESIDENTIAL_INCOME';
+    const TYPE_RESIDENTIAL_LEASE = 'RESIDENTIAL_LEASE';
+    const SUB_TYPE_APARTMENT = 'APARTMENT';
+    const SUB_TYPE_CONDOMINIUM = 'CONDOMINIUM';
+    const SUB_TYPE_DUPLEX = 'DUPLEX';
+    const SUB_TYPE_FARM = 'FARM';
+    const SUB_TYPE_SINGLE_FAMILY_RESIDENCE = 'SINGLE_FAMILY_RESIDENCE';
+    const SUB_TYPE_TIMESHARE = 'TIMESHARE';
+    const SUB_TYPE_TOWNHOUSE = 'TOWNHOUSE';
+    const SUB_TYPE_OFFICE = 'OFFICE';
+    const STATUS_DRAFT = 'DRAFT';
+    const STATUS_COMING_SOON = 'COMING_SOON';
+    const STATUS_FOR_SALE = 'FOR_SALE';
+    const STATUS_FOR_LEASE = 'FOR_LEASE';
+    const STATUS_PENDING_SALE = 'PENDING_SALE';
+    const STATUS_PENDING_LEASE = 'PENDING_LEASE';
+    const STATUS_SOLD = 'SOLD';
+    const STATUS_LEASED = 'LEASED';
+    const STATUS_OFF_MARKET = 'OFF_MARKET';
+    const STANDARD_STATUS_ACTIVE = 'ACTIVE';
+    const STANDARD_STATUS_ACTIVE_UNDER_CONTRACT = 'ACTIVE_UNDER_CONTRACT';
+    const STANDARD_STATUS_CANCELED = 'CANCELED';
+    const STANDARD_STATUS_CLOSED = 'CLOSED';
+    const STANDARD_STATUS_COMING_SOON = 'COMING_SOON';
+    const STANDARD_STATUS_DELETE = 'DELETE';
+    const STANDARD_STATUS_EXPIRED = 'EXPIRED';
+    const STANDARD_STATUS_HOLD = 'HOLD';
+    const STANDARD_STATUS_INCOMPLETE = 'INCOMPLETE';
+    const STANDARD_STATUS_PENDING = 'PENDING';
+    const STANDARD_STATUS_WITHDRAWN = 'WITHDRAWN';
 
     /**
      * Gets allowable values of the enum
      *
      * @return string[]
      */
-    public function getDeliveryStatusAllowableValues()
+    public function getTypeAllowableValues()
     {
         return [
-            self::DELIVERY_STATUS_DELIVERED,
-            self::DELIVERY_STATUS_UNDELIVERED,
+            self::TYPE_BUSINESS_OPPORTUNITY,
+            self::TYPE_COMMERCIAL_LEASE,
+            self::TYPE_COMMERCIAL_SALE,
+            self::TYPE_FARM,
+            self::TYPE_LAND,
+            self::TYPE_MANUFACTURED_IN_PARK,
+            self::TYPE_RESIDENTIAL,
+            self::TYPE_RESIDENTIAL_INCOME,
+            self::TYPE_RESIDENTIAL_LEASE,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getSubTypeAllowableValues()
+    {
+        return [
+            self::SUB_TYPE_APARTMENT,
+            self::SUB_TYPE_CONDOMINIUM,
+            self::SUB_TYPE_DUPLEX,
+            self::SUB_TYPE_FARM,
+            self::SUB_TYPE_SINGLE_FAMILY_RESIDENCE,
+            self::SUB_TYPE_TIMESHARE,
+            self::SUB_TYPE_TOWNHOUSE,
+            self::SUB_TYPE_OFFICE,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getStatusAllowableValues()
+    {
+        return [
+            self::STATUS_DRAFT,
+            self::STATUS_COMING_SOON,
+            self::STATUS_FOR_SALE,
+            self::STATUS_FOR_LEASE,
+            self::STATUS_PENDING_SALE,
+            self::STATUS_PENDING_LEASE,
+            self::STATUS_SOLD,
+            self::STATUS_LEASED,
+            self::STATUS_OFF_MARKET,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getStandardStatusAllowableValues()
+    {
+        return [
+            self::STANDARD_STATUS_ACTIVE,
+            self::STANDARD_STATUS_ACTIVE_UNDER_CONTRACT,
+            self::STANDARD_STATUS_CANCELED,
+            self::STANDARD_STATUS_CLOSED,
+            self::STANDARD_STATUS_COMING_SOON,
+            self::STANDARD_STATUS_DELETE,
+            self::STANDARD_STATUS_EXPIRED,
+            self::STANDARD_STATUS_HOLD,
+            self::STANDARD_STATUS_INCOMPLETE,
+            self::STANDARD_STATUS_PENDING,
+            self::STANDARD_STATUS_WITHDRAWN,
         ];
     }
 
@@ -257,18 +390,24 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->container['id'] = $data['id'] ?? null;
         $this->container['address'] = $data['address'] ?? null;
-        $this->container['delivery_status'] = $data['delivery_status'] ?? null;
-        $this->container['thumbnail_url'] = $data['thumbnail_url'] ?? null;
-        $this->container['agent'] = $data['agent'] ?? null;
-        $this->container['co_agent'] = $data['co_agent'] ?? null;
+        $this->container['mls_number'] = $data['mls_number'] ?? null;
+        $this->container['type'] = $data['type'] ?? null;
+        $this->container['sub_type'] = $data['sub_type'] ?? null;
+        $this->container['status'] = $data['status'] ?? null;
+        $this->container['standard_status'] = $data['standard_status'] ?? null;
+        $this->container['description'] = $data['description'] ?? null;
+        $this->container['lot'] = $data['lot'] ?? null;
+        $this->container['building'] = $data['building'] ?? null;
+        $this->container['price'] = $data['price'] ?? null;
+        $this->container['list_agent'] = $data['list_agent'] ?? null;
+        $this->container['co_list_agent'] = $data['co_list_agent'] ?? null;
         $this->container['images'] = $data['images'] ?? null;
         $this->container['videos'] = $data['videos'] ?? null;
         $this->container['floor_plans'] = $data['floor_plans'] ?? null;
-        $this->container['property_websites'] = $data['property_websites'] ?? null;
         $this->container['interactive_content'] = $data['interactive_content'] ?? null;
-        $this->container['property_details'] = $data['property_details'] ?? null;
-        $this->container['downloads_enabled'] = $data['downloads_enabled'] ?? null;
+        $this->container['property_website'] = $data['property_website'] ?? null;
         $this->container['orders'] = $data['orders'] ?? null;
+        $this->container['downloads_enabled'] = $data['downloads_enabled'] ?? null;
     }
 
     /**
@@ -294,32 +433,88 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['address'] === null) {
             $invalidProperties[] = "'address' can't be null";
         }
-        if ($this->container['delivery_status'] === null) {
-            $invalidProperties[] = "'delivery_status' can't be null";
+        if (!is_null($this->container['mls_number']) && (mb_strlen($this->container['mls_number']) > 100)) {
+            $invalidProperties[] = "invalid value for 'mls_number', the character length must be smaller than or equal to 100.";
         }
-        $allowedValues = $this->getDeliveryStatusAllowableValues();
-        if (!is_null($this->container['delivery_status']) && !in_array($this->container['delivery_status'], $allowedValues, true)) {
+
+        if (!is_null($this->container['mls_number']) && (mb_strlen($this->container['mls_number']) < 1)) {
+            $invalidProperties[] = "invalid value for 'mls_number', the character length must be bigger than or equal to 1.";
+        }
+
+        $allowedValues = $this->getTypeAllowableValues();
+        if (!is_null($this->container['type']) && !in_array($this->container['type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'delivery_status', must be one of '%s'",
-                $this->container['delivery_status'],
+                "invalid value '%s' for 'type', must be one of '%s'",
+                $this->container['type'],
                 implode("', '", $allowedValues)
             );
         }
 
-        if ((mb_strlen($this->container['delivery_status']) > 255)) {
-            $invalidProperties[] = "invalid value for 'delivery_status', the character length must be smaller than or equal to 255.";
+        if (!is_null($this->container['type']) && (mb_strlen($this->container['type']) > 100)) {
+            $invalidProperties[] = "invalid value for 'type', the character length must be smaller than or equal to 100.";
         }
 
-        if ((mb_strlen($this->container['delivery_status']) < 0)) {
-            $invalidProperties[] = "invalid value for 'delivery_status', the character length must be bigger than or equal to 0.";
+        if (!is_null($this->container['type']) && (mb_strlen($this->container['type']) < 1)) {
+            $invalidProperties[] = "invalid value for 'type', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['thumbnail_url']) && (mb_strlen($this->container['thumbnail_url']) > 65535)) {
-            $invalidProperties[] = "invalid value for 'thumbnail_url', the character length must be smaller than or equal to 65535.";
+        $allowedValues = $this->getSubTypeAllowableValues();
+        if (!is_null($this->container['sub_type']) && !in_array($this->container['sub_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'sub_type', must be one of '%s'",
+                $this->container['sub_type'],
+                implode("', '", $allowedValues)
+            );
         }
 
-        if (!is_null($this->container['thumbnail_url']) && (mb_strlen($this->container['thumbnail_url']) < 0)) {
-            $invalidProperties[] = "invalid value for 'thumbnail_url', the character length must be bigger than or equal to 0.";
+        if (!is_null($this->container['sub_type']) && (mb_strlen($this->container['sub_type']) > 100)) {
+            $invalidProperties[] = "invalid value for 'sub_type', the character length must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['sub_type']) && (mb_strlen($this->container['sub_type']) < 1)) {
+            $invalidProperties[] = "invalid value for 'sub_type', the character length must be bigger than or equal to 1.";
+        }
+
+        $allowedValues = $this->getStatusAllowableValues();
+        if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'status', must be one of '%s'",
+                $this->container['status'],
+                implode("', '", $allowedValues)
+            );
+        }
+
+        if (!is_null($this->container['status']) && (mb_strlen($this->container['status']) > 100)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['status']) && (mb_strlen($this->container['status']) < 1)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be bigger than or equal to 1.";
+        }
+
+        $allowedValues = $this->getStandardStatusAllowableValues();
+        if (!is_null($this->container['standard_status']) && !in_array($this->container['standard_status'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'standard_status', must be one of '%s'",
+                $this->container['standard_status'],
+                implode("', '", $allowedValues)
+            );
+        }
+
+        if (!is_null($this->container['standard_status']) && (mb_strlen($this->container['standard_status']) > 100)) {
+            $invalidProperties[] = "invalid value for 'standard_status', the character length must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['standard_status']) && (mb_strlen($this->container['standard_status']) < 1)) {
+            $invalidProperties[] = "invalid value for 'standard_status', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 65535)) {
+            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 65535.";
+        }
+
+        if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) < 1)) {
+            $invalidProperties[] = "invalid value for 'description', the character length must be bigger than or equal to 1.";
         }
 
         if ($this->container['downloads_enabled'] === null) {
@@ -374,7 +569,7 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets address
      *
-     * @return \Aryeo\Model\PartialAddress
+     * @return \Aryeo\Model\Address
      */
     public function getAddress()
     {
@@ -384,7 +579,7 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets address
      *
-     * @param \Aryeo\Model\PartialAddress $address address
+     * @param \Aryeo\Model\Address $address address
      *
      * @return self
      */
@@ -396,121 +591,347 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets delivery_status
+     * Gets mls_number
      *
-     * @return string
+     * @return string|null
      */
-    public function getDeliveryStatus()
+    public function getMlsNumber()
     {
-        return $this->container['delivery_status'];
+        return $this->container['mls_number'];
     }
 
     /**
-     * Sets delivery_status
+     * Sets mls_number
      *
-     * @param string $delivery_status Has this listing been delivered?
+     * @param string|null $mls_number The identifier for a listing on its local MLS.
      *
      * @return self
      */
-    public function setDeliveryStatus($delivery_status)
+    public function setMlsNumber($mls_number)
     {
-        $allowedValues = $this->getDeliveryStatusAllowableValues();
-        if (!in_array($delivery_status, $allowedValues, true)) {
+        if (!is_null($mls_number) && (mb_strlen($mls_number) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $mls_number when calling Listing., must be smaller than or equal to 100.');
+        }
+        if (!is_null($mls_number) && (mb_strlen($mls_number) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $mls_number when calling Listing., must be bigger than or equal to 1.');
+        }
+
+        $this->container['mls_number'] = $mls_number;
+
+        return $this;
+    }
+
+    /**
+     * Gets type
+     *
+     * @return string|null
+     */
+    public function getType()
+    {
+        return $this->container['type'];
+    }
+
+    /**
+     * Sets type
+     *
+     * @param string|null $type General type of the listing, primarily categorizing its use case. Examples include residential and commercial.
+     *
+     * @return self
+     */
+    public function setType($type)
+    {
+        $allowedValues = $this->getTypeAllowableValues();
+        if (!is_null($type) && !in_array($type, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    "Invalid value '%s' for 'delivery_status', must be one of '%s'",
-                    $delivery_status,
+                    "Invalid value '%s' for 'type', must be one of '%s'",
+                    $type,
                     implode("', '", $allowedValues)
                 )
             );
         }
-        if ((mb_strlen($delivery_status) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $delivery_status when calling Listing., must be smaller than or equal to 255.');
+        if (!is_null($type) && (mb_strlen($type) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $type when calling Listing., must be smaller than or equal to 100.');
         }
-        if ((mb_strlen($delivery_status) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $delivery_status when calling Listing., must be bigger than or equal to 0.');
+        if (!is_null($type) && (mb_strlen($type) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $type when calling Listing., must be bigger than or equal to 1.');
         }
 
-        $this->container['delivery_status'] = $delivery_status;
+        $this->container['type'] = $type;
 
         return $this;
     }
 
     /**
-     * Gets thumbnail_url
+     * Gets sub_type
      *
      * @return string|null
      */
-    public function getThumbnailUrl()
+    public function getSubType()
     {
-        return $this->container['thumbnail_url'];
+        return $this->container['sub_type'];
     }
 
     /**
-     * Sets thumbnail_url
+     * Sets sub_type
      *
-     * @param string|null $thumbnail_url Thumbnail URL for the listing.
+     * @param string|null $sub_type Further specifies the listing type. Examples include family residence and condominium.
      *
      * @return self
      */
-    public function setThumbnailUrl($thumbnail_url)
+    public function setSubType($sub_type)
     {
-        if (!is_null($thumbnail_url) && (mb_strlen($thumbnail_url) > 65535)) {
-            throw new \InvalidArgumentException('invalid length for $thumbnail_url when calling Listing., must be smaller than or equal to 65535.');
+        $allowedValues = $this->getSubTypeAllowableValues();
+        if (!is_null($sub_type) && !in_array($sub_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'sub_type', must be one of '%s'",
+                    $sub_type,
+                    implode("', '", $allowedValues)
+                )
+            );
         }
-        if (!is_null($thumbnail_url) && (mb_strlen($thumbnail_url) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $thumbnail_url when calling Listing., must be bigger than or equal to 0.');
+        if (!is_null($sub_type) && (mb_strlen($sub_type) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $sub_type when calling Listing., must be smaller than or equal to 100.');
+        }
+        if (!is_null($sub_type) && (mb_strlen($sub_type) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $sub_type when calling Listing., must be bigger than or equal to 1.');
         }
 
-        $this->container['thumbnail_url'] = $thumbnail_url;
+        $this->container['sub_type'] = $sub_type;
 
         return $this;
     }
 
     /**
-     * Gets agent
+     * Gets status
      *
-     * @return \Aryeo\Model\Group|null
+     * @return string|null
      */
-    public function getAgent()
+    public function getStatus()
     {
-        return $this->container['agent'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets agent
+     * Sets status
      *
-     * @param \Aryeo\Model\Group|null $agent agent
+     * @param string|null $status Local, regional, or otherwise custom status for the listing used by the parties involved in the listing transaction. While variable, these statuses are typically mapped to the listing's standard status.
      *
      * @return self
      */
-    public function setAgent($agent)
+    public function setStatus($status)
     {
-        $this->container['agent'] = $agent;
+        $allowedValues = $this->getStatusAllowableValues();
+        if (!is_null($status) && !in_array($status, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'status', must be one of '%s'",
+                    $status,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        if (!is_null($status) && (mb_strlen($status) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling Listing., must be smaller than or equal to 100.');
+        }
+        if (!is_null($status) && (mb_strlen($status) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling Listing., must be bigger than or equal to 1.');
+        }
+
+        $this->container['status'] = $status;
 
         return $this;
     }
 
     /**
-     * Gets co_agent
+     * Gets standard_status
      *
-     * @return \Aryeo\Model\Group|null
+     * @return string|null
      */
-    public function getCoAgent()
+    public function getStandardStatus()
     {
-        return $this->container['co_agent'];
+        return $this->container['standard_status'];
     }
 
     /**
-     * Sets co_agent
+     * Sets standard_status
      *
-     * @param \Aryeo\Model\Group|null $co_agent co_agent
+     * @param string|null $standard_status The status of the listing as it reflects the state of the contract between the listing agent and seller or an agreement with a buyer, including Active, Active Under Contract, Canceled, Closed, Expired, Pending, and Withdrawn.
      *
      * @return self
      */
-    public function setCoAgent($co_agent)
+    public function setStandardStatus($standard_status)
     {
-        $this->container['co_agent'] = $co_agent;
+        $allowedValues = $this->getStandardStatusAllowableValues();
+        if (!is_null($standard_status) && !in_array($standard_status, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'standard_status', must be one of '%s'",
+                    $standard_status,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        if (!is_null($standard_status) && (mb_strlen($standard_status) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $standard_status when calling Listing., must be smaller than or equal to 100.');
+        }
+        if (!is_null($standard_status) && (mb_strlen($standard_status) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $standard_status when calling Listing., must be bigger than or equal to 1.');
+        }
+
+        $this->container['standard_status'] = $standard_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets description
+     *
+     * @return string|null
+     */
+    public function getDescription()
+    {
+        return $this->container['description'];
+    }
+
+    /**
+     * Sets description
+     *
+     * @param string|null $description Description of the selling points of the building and/or land for sale.
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        if (!is_null($description) && (mb_strlen($description) > 65535)) {
+            throw new \InvalidArgumentException('invalid length for $description when calling Listing., must be smaller than or equal to 65535.');
+        }
+        if (!is_null($description) && (mb_strlen($description) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $description when calling Listing., must be bigger than or equal to 1.');
+        }
+
+        $this->container['description'] = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets lot
+     *
+     * @return \Aryeo\Model\ListingLot|null
+     */
+    public function getLot()
+    {
+        return $this->container['lot'];
+    }
+
+    /**
+     * Sets lot
+     *
+     * @param \Aryeo\Model\ListingLot|null $lot lot
+     *
+     * @return self
+     */
+    public function setLot($lot)
+    {
+        $this->container['lot'] = $lot;
+
+        return $this;
+    }
+
+    /**
+     * Gets building
+     *
+     * @return \Aryeo\Model\ListingBuilding|null
+     */
+    public function getBuilding()
+    {
+        return $this->container['building'];
+    }
+
+    /**
+     * Sets building
+     *
+     * @param \Aryeo\Model\ListingBuilding|null $building building
+     *
+     * @return self
+     */
+    public function setBuilding($building)
+    {
+        $this->container['building'] = $building;
+
+        return $this;
+    }
+
+    /**
+     * Gets price
+     *
+     * @return \Aryeo\Model\ListingPrice|null
+     */
+    public function getPrice()
+    {
+        return $this->container['price'];
+    }
+
+    /**
+     * Sets price
+     *
+     * @param \Aryeo\Model\ListingPrice|null $price price
+     *
+     * @return self
+     */
+    public function setPrice($price)
+    {
+        $this->container['price'] = $price;
+
+        return $this;
+    }
+
+    /**
+     * Gets list_agent
+     *
+     * @return \Aryeo\Model\Group|null
+     */
+    public function getListAgent()
+    {
+        return $this->container['list_agent'];
+    }
+
+    /**
+     * Sets list_agent
+     *
+     * @param \Aryeo\Model\Group|null $list_agent list_agent
+     *
+     * @return self
+     */
+    public function setListAgent($list_agent)
+    {
+        $this->container['list_agent'] = $list_agent;
+
+        return $this;
+    }
+
+    /**
+     * Gets co_list_agent
+     *
+     * @return \Aryeo\Model\Group|null
+     */
+    public function getCoListAgent()
+    {
+        return $this->container['co_list_agent'];
+    }
+
+    /**
+     * Sets co_list_agent
+     *
+     * @param \Aryeo\Model\Group|null $co_list_agent co_list_agent
+     *
+     * @return self
+     */
+    public function setCoListAgent($co_list_agent)
+    {
+        $this->container['co_list_agent'] = $co_list_agent;
 
         return $this;
     }
@@ -588,30 +1009,6 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets property_websites
-     *
-     * @return \Aryeo\Model\PropertyWebsites|null
-     */
-    public function getPropertyWebsites()
-    {
-        return $this->container['property_websites'];
-    }
-
-    /**
-     * Sets property_websites
-     *
-     * @param \Aryeo\Model\PropertyWebsites|null $property_websites property_websites
-     *
-     * @return self
-     */
-    public function setPropertyWebsites($property_websites)
-    {
-        $this->container['property_websites'] = $property_websites;
-
-        return $this;
-    }
-
-    /**
      * Gets interactive_content
      *
      * @return \Aryeo\Model\InteractiveContent[]|null
@@ -636,49 +1033,25 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets property_details
+     * Gets property_website
      *
-     * @return \Aryeo\Model\PropertyDetails|null
+     * @return \Aryeo\Model\PropertyWebsite|null
      */
-    public function getPropertyDetails()
+    public function getPropertyWebsite()
     {
-        return $this->container['property_details'];
+        return $this->container['property_website'];
     }
 
     /**
-     * Sets property_details
+     * Sets property_website
      *
-     * @param \Aryeo\Model\PropertyDetails|null $property_details property_details
+     * @param \Aryeo\Model\PropertyWebsite|null $property_website property_website
      *
      * @return self
      */
-    public function setPropertyDetails($property_details)
+    public function setPropertyWebsite($property_website)
     {
-        $this->container['property_details'] = $property_details;
-
-        return $this;
-    }
-
-    /**
-     * Gets downloads_enabled
-     *
-     * @return bool
-     */
-    public function getDownloadsEnabled()
-    {
-        return $this->container['downloads_enabled'];
-    }
-
-    /**
-     * Sets downloads_enabled
-     *
-     * @param bool $downloads_enabled Are downloads enabled for this listing?
-     *
-     * @return self
-     */
-    public function setDownloadsEnabled($downloads_enabled)
-    {
-        $this->container['downloads_enabled'] = $downloads_enabled;
+        $this->container['property_website'] = $property_website;
 
         return $this;
     }
@@ -703,6 +1076,30 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setOrders($orders)
     {
         $this->container['orders'] = $orders;
+
+        return $this;
+    }
+
+    /**
+     * Gets downloads_enabled
+     *
+     * @return bool
+     */
+    public function getDownloadsEnabled()
+    {
+        return $this->container['downloads_enabled'];
+    }
+
+    /**
+     * Sets downloads_enabled
+     *
+     * @param bool $downloads_enabled Are downloads enabled for this listing?
+     *
+     * @return self
+     */
+    public function setDownloadsEnabled($downloads_enabled)
+    {
+        $this->container['downloads_enabled'] = $downloads_enabled;
 
         return $this;
     }

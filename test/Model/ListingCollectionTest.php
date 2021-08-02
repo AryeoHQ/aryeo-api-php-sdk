@@ -1,6 +1,6 @@
 <?php
 /**
- * PartialGroupTest
+ * ListingCollectionTest
  *
  * PHP version 7.2
  *
@@ -27,15 +27,15 @@ namespace Aryeo\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PartialGroupTest Class Doc Comment
+ * ListingCollectionTest Class Doc Comment
  *
  * @category    Class
- * @description A collection of users that can interact with the Aryeo platform. Permissions and properties are determined based on the type which can be creator, agent, or brokerage.
+ * @description A collection of listings.
  * @package     Aryeo
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class PartialGroupTest extends TestCase
+class ListingCollectionTest extends TestCase
 {
 
     /**
@@ -67,72 +67,45 @@ class PartialGroupTest extends TestCase
     }
 
     /**
-     * Test "PartialGroup"
+     * Test "ListingCollection"
      */
-    public function testPartialGroup()
+    public function testListingCollection()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "id"
+     * Test attribute "status"
      */
-    public function testPropertyId()
+    public function testPropertyStatus()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "group_type"
+     * Test attribute "data"
      */
-    public function testPropertyGroupType()
+    public function testPropertyData()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "name"
+     * Test attribute "meta"
      */
-    public function testPropertyName()
+    public function testPropertyMeta()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "logo"
+     * Test attribute "links"
      */
-    public function testPropertyLogo()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "email"
-     */
-    public function testPropertyEmail()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "phone"
-     */
-    public function testPropertyPhone()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "is_brokerage_or_brokerage_agent"
-     */
-    public function testPropertyIsBrokerageOrBrokerageAgent()
+    public function testPropertyLinks()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

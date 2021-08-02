@@ -1,6 +1,6 @@
 <?php
 /**
- * PropertyDetailsTest
+ * ListingBuildingTest
  *
  * PHP version 7.2
  *
@@ -27,15 +27,15 @@ namespace Aryeo\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PropertyDetailsTest Class Doc Comment
+ * ListingBuildingTest Class Doc Comment
  *
  * @category    Class
- * @description Details about a real-estate listing.
+ * @description Structural data of the primary building on a listing. Includes everything from square footage of certain spaces to construction dates.
  * @package     Aryeo
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class PropertyDetailsTest extends TestCase
+class ListingBuildingTest extends TestCase
 {
 
     /**
@@ -67,27 +67,9 @@ class PropertyDetailsTest extends TestCase
     }
 
     /**
-     * Test "PropertyDetails"
+     * Test "ListingBuilding"
      */
-    public function testPropertyDetails()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "price"
-     */
-    public function testPropertyPrice()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "mls_number"
-     */
-    public function testPropertyMlsNumber()
+    public function testListingBuilding()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -121,45 +103,9 @@ class PropertyDetailsTest extends TestCase
     }
 
     /**
-     * Test attribute "lot_acres"
-     */
-    public function testPropertyLotAcres()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "parking_spots"
-     */
-    public function testPropertyParkingSpots()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
      * Test attribute "year_built"
      */
     public function testPropertyYearBuilt()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "property_type"
-     */
-    public function testPropertyPropertyType()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "description"
-     */
-    public function testPropertyDescription()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

@@ -57,7 +57,7 @@ class OrderForm implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => 'string',
-        'name' => 'string',
+        'title' => 'string',
         'url' => 'string'
     ];
 
@@ -70,7 +70,7 @@ class OrderForm implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'id' => 'uuid',
-        'name' => null,
+        'title' => null,
         'url' => 'uri'
     ];
 
@@ -102,7 +102,7 @@ class OrderForm implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
-        'name' => 'name',
+        'title' => 'title',
         'url' => 'url'
     ];
 
@@ -113,7 +113,7 @@ class OrderForm implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
-        'name' => 'setName',
+        'title' => 'setTitle',
         'url' => 'setUrl'
     ];
 
@@ -124,7 +124,7 @@ class OrderForm implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
-        'name' => 'getName',
+        'title' => 'getTitle',
         'url' => 'getUrl'
     ];
 
@@ -186,7 +186,7 @@ class OrderForm implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->container['id'] = $data['id'] ?? null;
-        $this->container['name'] = $data['name'] ?? null;
+        $this->container['title'] = $data['title'] ?? null;
         $this->container['url'] = $data['url'] ?? null;
     }
 
@@ -210,12 +210,12 @@ class OrderForm implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['name']) && (mb_strlen($this->container['name']) > 255)) {
-            $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 255.";
+        if (!is_null($this->container['title']) && (mb_strlen($this->container['title']) > 255)) {
+            $invalidProperties[] = "invalid value for 'title', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['name']) && (mb_strlen($this->container['name']) < 0)) {
-            $invalidProperties[] = "invalid value for 'name', the character length must be bigger than or equal to 0.";
+        if (!is_null($this->container['title']) && (mb_strlen($this->container['title']) < 0)) {
+            $invalidProperties[] = "invalid value for 'title', the character length must be bigger than or equal to 0.";
         }
 
         if ($this->container['url'] === null) {
@@ -276,32 +276,32 @@ class OrderForm implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets name
+     * Gets title
      *
      * @return string|null
      */
-    public function getName()
+    public function getTitle()
     {
-        return $this->container['name'];
+        return $this->container['title'];
     }
 
     /**
-     * Sets name
+     * Sets title
      *
-     * @param string|null $name The name of the order form.
+     * @param string|null $title The title or name of the order form.
      *
      * @return self
      */
-    public function setName($name)
+    public function setTitle($title)
     {
-        if (!is_null($name) && (mb_strlen($name) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $name when calling OrderForm., must be smaller than or equal to 255.');
+        if (!is_null($title) && (mb_strlen($title) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $title when calling OrderForm., must be smaller than or equal to 255.');
         }
-        if (!is_null($name) && (mb_strlen($name) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $name when calling OrderForm., must be bigger than or equal to 0.');
+        if (!is_null($title) && (mb_strlen($title) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $title when calling OrderForm., must be bigger than or equal to 0.');
         }
 
-        $this->container['name'] = $name;
+        $this->container['title'] = $title;
 
         return $this;
     }

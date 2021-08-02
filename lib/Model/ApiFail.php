@@ -1,6 +1,6 @@
 <?php
 /**
- * MarketingMaterialTemplatePublishPayload
+ * ApiFail
  *
  * PHP version 7.2
  *
@@ -28,10 +28,10 @@ use \ArrayAccess;
 use \Aryeo\ObjectSerializer;
 
 /**
- * MarketingMaterialTemplatePublishPayload Class Doc Comment
+ * ApiFail Class Doc Comment
  *
  * @category Class
- * @description Payload for publishing a marketing material template record.
+ * @description A generic failure returned by the API.
  * @package  Aryeo
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -39,7 +39,7 @@ use \Aryeo\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class MarketingMaterialTemplatePublishPayload implements ModelInterface, ArrayAccess, \JsonSerializable
+class ApiFail implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class MarketingMaterialTemplatePublishPayload implements ModelInterface, ArrayAc
       *
       * @var string
       */
-    protected static $openAPIModelName = 'MarketingMaterialTemplatePublishPayload';
+    protected static $openAPIModelName = 'ApiFail';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,7 +56,7 @@ class MarketingMaterialTemplatePublishPayload implements ModelInterface, ArrayAc
       * @var string[]
       */
     protected static $openAPITypes = [
-        'polotno_json' => 'string'
+        'status' => 'string'
     ];
 
     /**
@@ -67,7 +67,7 @@ class MarketingMaterialTemplatePublishPayload implements ModelInterface, ArrayAc
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'polotno_json' => null
+        'status' => null
     ];
 
     /**
@@ -97,7 +97,7 @@ class MarketingMaterialTemplatePublishPayload implements ModelInterface, ArrayAc
      * @var string[]
      */
     protected static $attributeMap = [
-        'polotno_json' => 'polotno_json'
+        'status' => 'status'
     ];
 
     /**
@@ -106,7 +106,7 @@ class MarketingMaterialTemplatePublishPayload implements ModelInterface, ArrayAc
      * @var string[]
      */
     protected static $setters = [
-        'polotno_json' => 'setPolotnoJson'
+        'status' => 'setStatus'
     ];
 
     /**
@@ -115,7 +115,7 @@ class MarketingMaterialTemplatePublishPayload implements ModelInterface, ArrayAc
      * @var string[]
      */
     protected static $getters = [
-        'polotno_json' => 'getPolotnoJson'
+        'status' => 'getStatus'
     ];
 
     /**
@@ -175,7 +175,7 @@ class MarketingMaterialTemplatePublishPayload implements ModelInterface, ArrayAc
      */
     public function __construct(array $data = null)
     {
-        $this->container['polotno_json'] = $data['polotno_json'] ?? null;
+        $this->container['status'] = $data['status'] ?? null;
     }
 
     /**
@@ -187,12 +187,15 @@ class MarketingMaterialTemplatePublishPayload implements ModelInterface, ArrayAc
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['polotno_json']) && (mb_strlen($this->container['polotno_json']) > 99999999)) {
-            $invalidProperties[] = "invalid value for 'polotno_json', the character length must be smaller than or equal to 99999999.";
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
+        if ((mb_strlen($this->container['status']) > 255)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['polotno_json']) && (mb_strlen($this->container['polotno_json']) < 0)) {
-            $invalidProperties[] = "invalid value for 'polotno_json', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['status']) < 0)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -211,32 +214,32 @@ class MarketingMaterialTemplatePublishPayload implements ModelInterface, ArrayAc
 
 
     /**
-     * Gets polotno_json
+     * Gets status
      *
-     * @return string|null
+     * @return string
      */
-    public function getPolotnoJson()
+    public function getStatus()
     {
-        return $this->container['polotno_json'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets polotno_json
+     * Sets status
      *
-     * @param string|null $polotno_json String representation of a polotno JSON object.
+     * @param string $status What was the state of the request?
      *
      * @return self
      */
-    public function setPolotnoJson($polotno_json)
+    public function setStatus($status)
     {
-        if (!is_null($polotno_json) && (mb_strlen($polotno_json) > 99999999)) {
-            throw new \InvalidArgumentException('invalid length for $polotno_json when calling MarketingMaterialTemplatePublishPayload., must be smaller than or equal to 99999999.');
+        if ((mb_strlen($status) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling ApiFail., must be smaller than or equal to 255.');
         }
-        if (!is_null($polotno_json) && (mb_strlen($polotno_json) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $polotno_json when calling MarketingMaterialTemplatePublishPayload., must be bigger than or equal to 0.');
+        if ((mb_strlen($status) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling ApiFail., must be bigger than or equal to 0.');
         }
 
-        $this->container['polotno_json'] = $polotno_json;
+        $this->container['status'] = $status;
 
         return $this;
     }

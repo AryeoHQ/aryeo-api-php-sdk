@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**fulfillment_status** | **string** | The fulfillment status of the order. | [optional]
-**payment_status** | **string** | The payment status of the order. | [optional]
-**product_items** | [**\Aryeo\Model\ProductItem[]**](ProductItem.md) | product_items | [optional]
+**fulfillment_status** | **string** | The fulfillment status of the order. Defaults to \&quot;UNFULFILLED\&quot;. | [optional]
+**payment_status** | **string** | The payment status of the order. Defaults to \&quot;UNPAID\&quot;. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

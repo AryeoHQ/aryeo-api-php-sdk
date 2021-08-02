@@ -56,6 +56,7 @@ class ListingResource implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'status' => 'string',
         'data' => '\Aryeo\Model\Listing'
     ];
 
@@ -67,6 +68,7 @@ class ListingResource implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'status' => null,
         'data' => null
     ];
 
@@ -97,6 +99,7 @@ class ListingResource implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'status' => 'status',
         'data' => 'data'
     ];
 
@@ -106,6 +109,7 @@ class ListingResource implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'status' => 'setStatus',
         'data' => 'setData'
     ];
 
@@ -115,6 +119,7 @@ class ListingResource implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'status' => 'getStatus',
         'data' => 'getData'
     ];
 
@@ -175,6 +180,7 @@ class ListingResource implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
+        $this->container['status'] = $data['status'] ?? null;
         $this->container['data'] = $data['data'] ?? null;
     }
 
@@ -186,6 +192,17 @@ class ListingResource implements ModelInterface, ArrayAccess, \JsonSerializable
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
+        if ((mb_strlen($this->container['status']) > 255)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be smaller than or equal to 255.";
+        }
+
+        if ((mb_strlen($this->container['status']) < 0)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be bigger than or equal to 0.";
+        }
 
         return $invalidProperties;
     }
@@ -201,6 +218,37 @@ class ListingResource implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->container['status'];
+    }
+
+    /**
+     * Sets status
+     *
+     * @param string $status What was the state of the request?
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        if ((mb_strlen($status) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling ListingResource., must be smaller than or equal to 255.');
+        }
+        if ((mb_strlen($status) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling ListingResource., must be bigger than or equal to 0.');
+        }
+
+        $this->container['status'] = $status;
+
+        return $this;
+    }
 
     /**
      * Gets data

@@ -56,6 +56,7 @@ class GroupCollection implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'status' => 'string',
         'data' => '\Aryeo\Model\Group[]',
         'meta' => '\Aryeo\Model\PaginationMeta',
         'links' => '\Aryeo\Model\PaginationLinks'
@@ -69,6 +70,7 @@ class GroupCollection implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'status' => null,
         'data' => null,
         'meta' => null,
         'links' => null
@@ -101,6 +103,7 @@ class GroupCollection implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'status' => 'status',
         'data' => 'data',
         'meta' => 'meta',
         'links' => 'links'
@@ -112,6 +115,7 @@ class GroupCollection implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'status' => 'setStatus',
         'data' => 'setData',
         'meta' => 'setMeta',
         'links' => 'setLinks'
@@ -123,6 +127,7 @@ class GroupCollection implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'status' => 'getStatus',
         'data' => 'getData',
         'meta' => 'getMeta',
         'links' => 'getLinks'
@@ -185,6 +190,7 @@ class GroupCollection implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
+        $this->container['status'] = $data['status'] ?? null;
         $this->container['data'] = $data['data'] ?? null;
         $this->container['meta'] = $data['meta'] ?? null;
         $this->container['links'] = $data['links'] ?? null;
@@ -198,6 +204,17 @@ class GroupCollection implements ModelInterface, ArrayAccess, \JsonSerializable
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
+        if ((mb_strlen($this->container['status']) > 255)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be smaller than or equal to 255.";
+        }
+
+        if ((mb_strlen($this->container['status']) < 0)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be bigger than or equal to 0.";
+        }
 
         return $invalidProperties;
     }
@@ -215,6 +232,37 @@ class GroupCollection implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
+     * Gets status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->container['status'];
+    }
+
+    /**
+     * Sets status
+     *
+     * @param string $status What was the state of the request?
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        if ((mb_strlen($status) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling GroupCollection., must be smaller than or equal to 255.');
+        }
+        if ((mb_strlen($status) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling GroupCollection., must be bigger than or equal to 0.');
+        }
+
+        $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
      * Gets data
      *
      * @return \Aryeo\Model\Group[]|null
@@ -227,7 +275,7 @@ class GroupCollection implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets data
      *
-     * @param \Aryeo\Model\Group[]|null $data data
+     * @param \Aryeo\Model\Group[]|null $data 
      *
      * @return self
      */

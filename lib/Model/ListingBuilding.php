@@ -1,6 +1,6 @@
 <?php
 /**
- * PropertyWebsites
+ * ListingBuilding
  *
  * PHP version 7.2
  *
@@ -28,10 +28,10 @@ use \ArrayAccess;
 use \Aryeo\ObjectSerializer;
 
 /**
- * PropertyWebsites Class Doc Comment
+ * ListingBuilding Class Doc Comment
  *
  * @category Class
- * @description Websites that displays information about a property.
+ * @description Structural data of the primary building on a listing. Includes everything from square footage of certain spaces to construction dates.
  * @package  Aryeo
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -39,7 +39,7 @@ use \Aryeo\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class PropertyWebsites implements ModelInterface, ArrayAccess, \JsonSerializable
+class ListingBuilding implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class PropertyWebsites implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'PropertyWebsites';
+    protected static $openAPIModelName = 'ListingBuilding';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,9 +56,10 @@ class PropertyWebsites implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'branded_url' => 'string',
-        'unbranded_url' => 'string',
-        'id' => 'int'
+        'bedrooms' => 'int',
+        'bathrooms' => 'float',
+        'square_feet' => 'float',
+        'year_built' => 'int'
     ];
 
     /**
@@ -69,9 +70,10 @@ class PropertyWebsites implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'branded_url' => 'uri',
-        'unbranded_url' => 'uri',
-        'id' => null
+        'bedrooms' => null,
+        'bathrooms' => null,
+        'square_feet' => null,
+        'year_built' => null
     ];
 
     /**
@@ -101,9 +103,10 @@ class PropertyWebsites implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'branded_url' => 'branded_url',
-        'unbranded_url' => 'unbranded_url',
-        'id' => 'id'
+        'bedrooms' => 'bedrooms',
+        'bathrooms' => 'bathrooms',
+        'square_feet' => 'square_feet',
+        'year_built' => 'year_built'
     ];
 
     /**
@@ -112,9 +115,10 @@ class PropertyWebsites implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'branded_url' => 'setBrandedUrl',
-        'unbranded_url' => 'setUnbrandedUrl',
-        'id' => 'setId'
+        'bedrooms' => 'setBedrooms',
+        'bathrooms' => 'setBathrooms',
+        'square_feet' => 'setSquareFeet',
+        'year_built' => 'setYearBuilt'
     ];
 
     /**
@@ -123,9 +127,10 @@ class PropertyWebsites implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'branded_url' => 'getBrandedUrl',
-        'unbranded_url' => 'getUnbrandedUrl',
-        'id' => 'getId'
+        'bedrooms' => 'getBedrooms',
+        'bathrooms' => 'getBathrooms',
+        'square_feet' => 'getSquareFeet',
+        'year_built' => 'getYearBuilt'
     ];
 
     /**
@@ -185,9 +190,10 @@ class PropertyWebsites implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
-        $this->container['branded_url'] = $data['branded_url'] ?? null;
-        $this->container['unbranded_url'] = $data['unbranded_url'] ?? null;
-        $this->container['id'] = $data['id'] ?? null;
+        $this->container['bedrooms'] = $data['bedrooms'] ?? null;
+        $this->container['bathrooms'] = $data['bathrooms'] ?? null;
+        $this->container['square_feet'] = $data['square_feet'] ?? null;
+        $this->container['year_built'] = $data['year_built'] ?? null;
     }
 
     /**
@@ -199,31 +205,6 @@ class PropertyWebsites implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['branded_url'] === null) {
-            $invalidProperties[] = "'branded_url' can't be null";
-        }
-        if ((mb_strlen($this->container['branded_url']) > 65535)) {
-            $invalidProperties[] = "invalid value for 'branded_url', the character length must be smaller than or equal to 65535.";
-        }
-
-        if ((mb_strlen($this->container['branded_url']) < 1)) {
-            $invalidProperties[] = "invalid value for 'branded_url', the character length must be bigger than or equal to 1.";
-        }
-
-        if ($this->container['unbranded_url'] === null) {
-            $invalidProperties[] = "'unbranded_url' can't be null";
-        }
-        if ((mb_strlen($this->container['unbranded_url']) > 65535)) {
-            $invalidProperties[] = "invalid value for 'unbranded_url', the character length must be smaller than or equal to 65535.";
-        }
-
-        if ((mb_strlen($this->container['unbranded_url']) < 1)) {
-            $invalidProperties[] = "invalid value for 'unbranded_url', the character length must be bigger than or equal to 1.";
-        }
-
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -240,87 +221,97 @@ class PropertyWebsites implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets branded_url
+     * Gets bedrooms
      *
-     * @return string
+     * @return int|null
      */
-    public function getBrandedUrl()
+    public function getBedrooms()
     {
-        return $this->container['branded_url'];
+        return $this->container['bedrooms'];
     }
 
     /**
-     * Sets branded_url
+     * Sets bedrooms
      *
-     * @param string $branded_url URL for website.
+     * @param int|null $bedrooms Total number of bedrooms.
      *
      * @return self
      */
-    public function setBrandedUrl($branded_url)
+    public function setBedrooms($bedrooms)
     {
-        if ((mb_strlen($branded_url) > 65535)) {
-            throw new \InvalidArgumentException('invalid length for $branded_url when calling PropertyWebsites., must be smaller than or equal to 65535.');
-        }
-        if ((mb_strlen($branded_url) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $branded_url when calling PropertyWebsites., must be bigger than or equal to 1.');
-        }
-
-        $this->container['branded_url'] = $branded_url;
+        $this->container['bedrooms'] = $bedrooms;
 
         return $this;
     }
 
     /**
-     * Gets unbranded_url
+     * Gets bathrooms
      *
-     * @return string
+     * @return float|null
      */
-    public function getUnbrandedUrl()
+    public function getBathrooms()
     {
-        return $this->container['unbranded_url'];
+        return $this->container['bathrooms'];
     }
 
     /**
-     * Sets unbranded_url
+     * Sets bathrooms
      *
-     * @param string $unbranded_url URL for website.
+     * @param float|null $bathrooms Sum of the number of bathrooms. Represented as a number in order to support half-baths.
      *
      * @return self
      */
-    public function setUnbrandedUrl($unbranded_url)
+    public function setBathrooms($bathrooms)
     {
-        if ((mb_strlen($unbranded_url) > 65535)) {
-            throw new \InvalidArgumentException('invalid length for $unbranded_url when calling PropertyWebsites., must be smaller than or equal to 65535.');
-        }
-        if ((mb_strlen($unbranded_url) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $unbranded_url when calling PropertyWebsites., must be bigger than or equal to 1.');
-        }
-
-        $this->container['unbranded_url'] = $unbranded_url;
+        $this->container['bathrooms'] = $bathrooms;
 
         return $this;
     }
 
     /**
-     * Gets id
+     * Gets square_feet
      *
-     * @return int
+     * @return float|null
      */
-    public function getId()
+    public function getSquareFeet()
     {
-        return $this->container['id'];
+        return $this->container['square_feet'];
     }
 
     /**
-     * Sets id
+     * Sets square_feet
      *
-     * @param int $id ID for property website
+     * @param float|null $square_feet Total number of square feet.
      *
      * @return self
      */
-    public function setId($id)
+    public function setSquareFeet($square_feet)
     {
-        $this->container['id'] = $id;
+        $this->container['square_feet'] = $square_feet;
+
+        return $this;
+    }
+
+    /**
+     * Gets year_built
+     *
+     * @return int|null
+     */
+    public function getYearBuilt()
+    {
+        return $this->container['year_built'];
+    }
+
+    /**
+     * Sets year_built
+     *
+     * @param int|null $year_built Year the property was built.
+     *
+     * @return self
+     */
+    public function setYearBuilt($year_built)
+    {
+        $this->container['year_built'] = $year_built;
 
         return $this;
     }

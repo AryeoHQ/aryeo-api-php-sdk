@@ -80,12 +80,12 @@ class VendorsApiTest extends TestCase
     }
 
     /**
-     * Test case for getVendorsSearch
+     * Test case for getVendorsId
      *
-     * Get vendors that can be added to the group's vendor list..
+     * Get vendors available to a group..
      *
      */
-    public function testGetVendorsSearch()
+    public function testGetVendorsId()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

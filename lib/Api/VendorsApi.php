@@ -115,14 +115,15 @@ class VendorsApi
      *
      * Get vendors available to a group.
      *
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\GroupCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\GroupCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
-    public function getVendors()
+    public function getVendors($include = null)
     {
-        list($response) = $this->getVendorsWithHttpInfo();
+        list($response) = $this->getVendorsWithHttpInfo($include);
         return $response;
     }
 
@@ -131,14 +132,15 @@ class VendorsApi
      *
      * Get vendors available to a group.
      *
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\GroupCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\GroupCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getVendorsWithHttpInfo()
+    public function getVendorsWithHttpInfo($include = null)
     {
-        $request = $this->getVendorsRequest();
+        $request = $this->getVendorsRequest($include);
 
         try {
             $options = $this->createHttpClientOption();
@@ -194,14 +196,14 @@ class VendorsApi
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -253,7 +255,7 @@ class VendorsApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiFail',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -276,13 +278,14 @@ class VendorsApi
      *
      * Get vendors available to a group.
      *
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getVendorsAsync()
+    public function getVendorsAsync($include = null)
     {
-        return $this->getVendorsAsyncWithHttpInfo()
+        return $this->getVendorsAsyncWithHttpInfo($include)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -295,14 +298,15 @@ class VendorsApi
      *
      * Get vendors available to a group.
      *
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getVendorsAsyncWithHttpInfo()
+    public function getVendorsAsyncWithHttpInfo($include = null)
     {
         $returnType = '\Aryeo\Model\GroupCollection';
-        $request = $this->getVendorsRequest();
+        $request = $this->getVendorsRequest($include);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -340,12 +344,20 @@ class VendorsApi
     /**
      * Create request for operation 'getVendors'
      *
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getVendorsRequest()
+    public function getVendorsRequest($include = null)
     {
+        if ($include !== null && strlen($include) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$include" when calling VendorsApi.getVendors, must be smaller than or equal to 255.');
+        }
+        if ($include !== null && strlen($include) < 0) {
+            throw new \InvalidArgumentException('invalid length for "$include" when calling VendorsApi.getVendors, must be bigger than or equal to 0.');
+        }
+
 
         $resourcePath = '/vendors';
         $formParams = [];
@@ -354,6 +366,17 @@ class VendorsApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        if ($include !== null) {
+            if('form' === 'form' && is_array($include)) {
+                foreach($include as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['include'] = $include;
+            }
+        }
 
 
 
@@ -394,7 +417,7 @@ class VendorsApi
             }
         }
 
-        // this endpoint requires Bearer (JWT) authentication (access token)
+        // this endpoint requires Bearer authentication (access token)
         if ($this->config->getAccessToken() !== null) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
         }
@@ -420,40 +443,38 @@ class VendorsApi
     }
 
     /**
-     * Operation getVendorsSearch
+     * Operation getVendorsId
      *
-     * Get vendors that can be added to the group&#39;s vendor list.
+     * Get vendors available to a group.
      *
-     * @param  string $query A search query. (optional)
-     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
-     * @param  string $page The requested page. Defaults to 1. (optional)
+     * @param  string $vendor_id ID of the group that is associated as a vendor. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\GroupCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\GroupResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
-    public function getVendorsSearch($query = null, $per_page = null, $page = null)
+    public function getVendorsId($vendor_id, $include = null)
     {
-        list($response) = $this->getVendorsSearchWithHttpInfo($query, $per_page, $page);
+        list($response) = $this->getVendorsIdWithHttpInfo($vendor_id, $include);
         return $response;
     }
 
     /**
-     * Operation getVendorsSearchWithHttpInfo
+     * Operation getVendorsIdWithHttpInfo
      *
-     * Get vendors that can be added to the group&#39;s vendor list.
+     * Get vendors available to a group.
      *
-     * @param  string $query A search query. (optional)
-     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
-     * @param  string $page The requested page. Defaults to 1. (optional)
+     * @param  string $vendor_id ID of the group that is associated as a vendor. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\GroupCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\GroupResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getVendorsSearchWithHttpInfo($query = null, $per_page = null, $page = null)
+    public function getVendorsIdWithHttpInfo($vendor_id, $include = null)
     {
-        $request = $this->getVendorsSearchRequest($query, $per_page, $page);
+        $request = $this->getVendorsIdRequest($vendor_id, $include);
 
         try {
             $options = $this->createHttpClientOption();
@@ -485,14 +506,14 @@ class VendorsApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\Aryeo\Model\GroupCollection' === '\SplFileObject') {
+                    if ('\Aryeo\Model\GroupResource' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\GroupCollection', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\GroupResource', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -509,14 +530,14 @@ class VendorsApi
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -534,7 +555,7 @@ class VendorsApi
                     ];
             }
 
-            $returnType = '\Aryeo\Model\GroupCollection';
+            $returnType = '\Aryeo\Model\GroupResource';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -552,7 +573,7 @@ class VendorsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\GroupCollection',
+                        '\Aryeo\Model\GroupResource',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -568,7 +589,7 @@ class VendorsApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiFail',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -587,20 +608,19 @@ class VendorsApi
     }
 
     /**
-     * Operation getVendorsSearchAsync
+     * Operation getVendorsIdAsync
      *
-     * Get vendors that can be added to the group&#39;s vendor list.
+     * Get vendors available to a group.
      *
-     * @param  string $query A search query. (optional)
-     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
-     * @param  string $page The requested page. Defaults to 1. (optional)
+     * @param  string $vendor_id ID of the group that is associated as a vendor. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getVendorsSearchAsync($query = null, $per_page = null, $page = null)
+    public function getVendorsIdAsync($vendor_id, $include = null)
     {
-        return $this->getVendorsSearchAsyncWithHttpInfo($query, $per_page, $page)
+        return $this->getVendorsIdAsyncWithHttpInfo($vendor_id, $include)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -609,21 +629,20 @@ class VendorsApi
     }
 
     /**
-     * Operation getVendorsSearchAsyncWithHttpInfo
+     * Operation getVendorsIdAsyncWithHttpInfo
      *
-     * Get vendors that can be added to the group&#39;s vendor list.
+     * Get vendors available to a group.
      *
-     * @param  string $query A search query. (optional)
-     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
-     * @param  string $page The requested page. Defaults to 1. (optional)
+     * @param  string $vendor_id ID of the group that is associated as a vendor. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getVendorsSearchAsyncWithHttpInfo($query = null, $per_page = null, $page = null)
+    public function getVendorsIdAsyncWithHttpInfo($vendor_id, $include = null)
     {
-        $returnType = '\Aryeo\Model\GroupCollection';
-        $request = $this->getVendorsSearchRequest($query, $per_page, $page);
+        $returnType = '\Aryeo\Model\GroupResource';
+        $request = $this->getVendorsIdRequest($vendor_id, $include);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -659,40 +678,38 @@ class VendorsApi
     }
 
     /**
-     * Create request for operation 'getVendorsSearch'
+     * Create request for operation 'getVendorsId'
      *
-     * @param  string $query A search query. (optional)
-     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
-     * @param  string $page The requested page. Defaults to 1. (optional)
+     * @param  string $vendor_id ID of the group that is associated as a vendor. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getVendorsSearchRequest($query = null, $per_page = null, $page = null)
+    public function getVendorsIdRequest($vendor_id, $include = null)
     {
-        if ($query !== null && strlen($query) > 255) {
-            throw new \InvalidArgumentException('invalid length for "$query" when calling VendorsApi.getVendorsSearch, must be smaller than or equal to 255.');
+        // verify the required parameter 'vendor_id' is set
+        if ($vendor_id === null || (is_array($vendor_id) && count($vendor_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $vendor_id when calling getVendorsId'
+            );
         }
-        if ($query !== null && strlen($query) < 0) {
-            throw new \InvalidArgumentException('invalid length for "$query" when calling VendorsApi.getVendorsSearch, must be bigger than or equal to 0.');
+        if (strlen($vendor_id) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$vendor_id" when calling VendorsApi.getVendorsId, must be smaller than or equal to 255.');
         }
-
-        if ($per_page !== null && strlen($per_page) > 5) {
-            throw new \InvalidArgumentException('invalid length for "$per_page" when calling VendorsApi.getVendorsSearch, must be smaller than or equal to 5.');
-        }
-        if ($per_page !== null && strlen($per_page) < 1) {
-            throw new \InvalidArgumentException('invalid length for "$per_page" when calling VendorsApi.getVendorsSearch, must be bigger than or equal to 1.');
-        }
-
-        if ($page !== null && strlen($page) > 255) {
-            throw new \InvalidArgumentException('invalid length for "$page" when calling VendorsApi.getVendorsSearch, must be smaller than or equal to 255.');
-        }
-        if ($page !== null && strlen($page) < 1) {
-            throw new \InvalidArgumentException('invalid length for "$page" when calling VendorsApi.getVendorsSearch, must be bigger than or equal to 1.');
+        if (strlen($vendor_id) < 0) {
+            throw new \InvalidArgumentException('invalid length for "$vendor_id" when calling VendorsApi.getVendorsId, must be bigger than or equal to 0.');
         }
 
+        if ($include !== null && strlen($include) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$include" when calling VendorsApi.getVendorsId, must be smaller than or equal to 255.');
+        }
+        if ($include !== null && strlen($include) < 0) {
+            throw new \InvalidArgumentException('invalid length for "$include" when calling VendorsApi.getVendorsId, must be bigger than or equal to 0.');
+        }
 
-        $resourcePath = '/vendors/search';
+
+        $resourcePath = '/vendors/{vendor_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -700,40 +717,26 @@ class VendorsApi
         $multipart = false;
 
         // query params
-        if ($query !== null) {
-            if('form' === 'form' && is_array($query)) {
-                foreach($query as $key => $value) {
+        if ($include !== null) {
+            if('form' === 'form' && is_array($include)) {
+                foreach($include as $key => $value) {
                     $queryParams[$key] = $value;
                 }
             }
             else {
-                $queryParams['query'] = $query;
-            }
-        }
-        // query params
-        if ($per_page !== null) {
-            if('form' === 'form' && is_array($per_page)) {
-                foreach($per_page as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['per_page'] = $per_page;
-            }
-        }
-        // query params
-        if ($page !== null) {
-            if('form' === 'form' && is_array($page)) {
-                foreach($page as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['page'] = $page;
+                $queryParams['include'] = $include;
             }
         }
 
 
+        // path params
+        if ($vendor_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'vendor_id' . '}',
+                ObjectSerializer::toPathValue($vendor_id),
+                $resourcePath
+            );
+        }
 
 
         if ($multipart) {
@@ -772,7 +775,7 @@ class VendorsApi
             }
         }
 
-        // this endpoint requires Bearer (JWT) authentication (access token)
+        // this endpoint requires Bearer authentication (access token)
         if ($this->config->getAccessToken() !== null) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
         }

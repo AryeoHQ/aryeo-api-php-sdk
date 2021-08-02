@@ -76,9 +76,27 @@ class ApiErrorTest extends TestCase
     }
 
     /**
+     * Test attribute "status"
+     */
+    public function testPropertyStatus()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "message"
      */
     public function testPropertyMessage()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "code"
+     */
+    public function testPropertyCode()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

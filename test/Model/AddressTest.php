@@ -1,6 +1,6 @@
 <?php
 /**
- * PartialAddressTest
+ * AddressTest
  *
  * PHP version 7.2
  *
@@ -27,15 +27,15 @@ namespace Aryeo\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PartialAddressTest Class Doc Comment
+ * AddressTest Class Doc Comment
  *
  * @category    Class
- * @description A structure containing a street address and additional metadata about a location.
+ * @description A street address and additional metadata about a location.
  * @package     Aryeo
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class PartialAddressTest extends TestCase
+class AddressTest extends TestCase
 {
 
     /**
@@ -67,9 +67,9 @@ class PartialAddressTest extends TestCase
     }
 
     /**
-     * Test "PartialAddress"
+     * Test "Address"
      */
-    public function testPartialAddress()
+    public function testAddress()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -79,33 +79,6 @@ class PartialAddressTest extends TestCase
      * Test attribute "id"
      */
     public function testPropertyId()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "full_address"
-     */
-    public function testPropertyFullAddress()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "formatted_address_1"
-     */
-    public function testPropertyFormattedAddress1()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "formatted_address_2"
-     */
-    public function testPropertyFormattedAddress2()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -130,27 +103,36 @@ class PartialAddressTest extends TestCase
     }
 
     /**
-     * Test attribute "place_id"
+     * Test attribute "street_number"
      */
-    public function testPropertyPlaceId()
+    public function testPropertyStreetNumber()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "address_line_1"
+     * Test attribute "street_name"
      */
-    public function testPropertyAddressLine1()
+    public function testPropertyStreetName()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "address_line_2"
+     * Test attribute "unit_number"
      */
-    public function testPropertyAddressLine2()
+    public function testPropertyUnitNumber()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "postal_code"
+     */
+    public function testPropertyPostalCode()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -166,18 +148,81 @@ class PartialAddressTest extends TestCase
     }
 
     /**
-     * Test attribute "state"
+     * Test attribute "city_region"
      */
-    public function testPropertyState()
+    public function testPropertyCityRegion()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "postal_code"
+     * Test attribute "county_or_parish"
      */
-    public function testPropertyPostalCode()
+    public function testPropertyCountyOrParish()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "state_or_province"
+     */
+    public function testPropertyStateOrProvince()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "state_or_province_region"
+     */
+    public function testPropertyStateOrProvinceRegion()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "country"
+     */
+    public function testPropertyCountry()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "country_region"
+     */
+    public function testPropertyCountryRegion()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "unparsed_address"
+     */
+    public function testPropertyUnparsedAddress()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "unparsed_address_part_one"
+     */
+    public function testPropertyUnparsedAddressPartOne()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "unparsed_address_part_two"
+     */
+    public function testPropertyUnparsedAddressPartTwo()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

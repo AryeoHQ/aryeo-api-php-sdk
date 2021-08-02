@@ -85,27 +85,27 @@ class OrderTest extends TestCase
     }
 
     /**
-     * Test attribute "display_id"
+     * Test attribute "number"
      */
-    public function testPropertyDisplayId()
+    public function testPropertyNumber()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "total_price_cents"
+     * Test attribute "title"
      */
-    public function testPropertyTotalPriceCents()
+    public function testPropertyTitle()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "currency"
+     * Test attribute "fulfillment_status"
      */
-    public function testPropertyCurrency()
+    public function testPropertyFulfillmentStatus()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -121,27 +121,27 @@ class OrderTest extends TestCase
     }
 
     /**
+     * Test attribute "currency"
+     */
+    public function testPropertyCurrency()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "total_amount"
+     */
+    public function testPropertyTotalAmount()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "payment_url"
      */
     public function testPropertyPaymentUrl()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "listing"
-     */
-    public function testPropertyListing()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "fulfillment_status"
-     */
-    public function testPropertyFulfillmentStatus()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

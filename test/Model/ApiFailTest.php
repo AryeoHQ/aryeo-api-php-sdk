@@ -1,6 +1,6 @@
 <?php
 /**
- * GroupAgentPropertiesTest
+ * ApiFailTest
  *
  * PHP version 7.2
  *
@@ -27,15 +27,15 @@ namespace Aryeo\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * GroupAgentPropertiesTest Class Doc Comment
+ * ApiFailTest Class Doc Comment
  *
  * @category    Class
- * @description A subset of group properties relevant to agents.
+ * @description A generic failure returned by the API.
  * @package     Aryeo
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class GroupAgentPropertiesTest extends TestCase
+class ApiFailTest extends TestCase
 {
 
     /**
@@ -67,36 +67,18 @@ class GroupAgentPropertiesTest extends TestCase
     }
 
     /**
-     * Test "GroupAgentProperties"
+     * Test "ApiFail"
      */
-    public function testGroupAgentProperties()
+    public function testApiFail()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "brokerage_name"
+     * Test attribute "status"
      */
-    public function testPropertyBrokerageName()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "agent_license_number"
-     */
-    public function testPropertyAgentLicenseNumber()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "agent_avatar"
-     */
-    public function testPropertyAgentAvatar()
+    public function testPropertyStatus()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

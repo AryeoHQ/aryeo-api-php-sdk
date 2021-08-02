@@ -85,15 +85,6 @@ class ImageTest extends TestCase
     }
 
     /**
-     * Test attribute "uuid"
-     */
-    public function testPropertyUuid()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
      * Test attribute "thumbnail_url"
      */
     public function testPropertyThumbnailUrl()

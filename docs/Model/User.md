@@ -4,13 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** | UUID of the user. |
-**avatar** | **string** | Avatar. | [optional]
-**email** | **string** | Email. |
-**first_name** | **string** | First name. | [optional]
-**last_name** | **string** | Last name. | [optional]
-**timezone** | **string** | Timezone. | [optional]
-**phone** | **string** | Phone number. | [optional]
-**relationship** | **string** | Describes user&#39;s relationship (access level) to a specified group. | [optional]
+**id** | **string** | ID of the user. |
+**email** | **string** | Email address of the user. |
+**first_name** | **string** | First name of the user. | [optional]
+**last_name** | **string** | Last name of the user. | [optional]
+**phone** | **string** | A phone number represented in whichever standards specified by the user, typically ###-###-#### (separated by hyphens). | [optional]
+**avatar_url** | **string** | The avatar image URL of a user. | [optional]
+**relationship** | **string** | Describes user&#39;s relationship (access level) to a specified group. Only returned if this resource is returned as a sub-resource of a group. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

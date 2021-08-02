@@ -115,14 +115,17 @@ class OrdersApi
      *
      * Get orders available to a group.
      *
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
+     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
+     * @param  string $page The requested page. Defaults to 1. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
-    public function getOrders()
+    public function getOrders($sort = null, $per_page = null, $page = null)
     {
-        list($response) = $this->getOrdersWithHttpInfo();
+        list($response) = $this->getOrdersWithHttpInfo($sort, $per_page, $page);
         return $response;
     }
 
@@ -131,14 +134,17 @@ class OrdersApi
      *
      * Get orders available to a group.
      *
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
+     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
+     * @param  string $page The requested page. Defaults to 1. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrdersWithHttpInfo()
+    public function getOrdersWithHttpInfo($sort = null, $per_page = null, $page = null)
     {
-        $request = $this->getOrdersRequest();
+        $request = $this->getOrdersRequest($sort, $per_page, $page);
 
         try {
             $options = $this->createHttpClientOption();
@@ -194,14 +200,14 @@ class OrdersApi
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -253,7 +259,7 @@ class OrdersApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiFail',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -276,13 +282,16 @@ class OrdersApi
      *
      * Get orders available to a group.
      *
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
+     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
+     * @param  string $page The requested page. Defaults to 1. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrdersAsync()
+    public function getOrdersAsync($sort = null, $per_page = null, $page = null)
     {
-        return $this->getOrdersAsyncWithHttpInfo()
+        return $this->getOrdersAsyncWithHttpInfo($sort, $per_page, $page)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -295,14 +304,17 @@ class OrdersApi
      *
      * Get orders available to a group.
      *
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
+     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
+     * @param  string $page The requested page. Defaults to 1. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrdersAsyncWithHttpInfo()
+    public function getOrdersAsyncWithHttpInfo($sort = null, $per_page = null, $page = null)
     {
         $returnType = '\Aryeo\Model\OrderCollection';
-        $request = $this->getOrdersRequest();
+        $request = $this->getOrdersRequest($sort, $per_page, $page);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -340,12 +352,36 @@ class OrdersApi
     /**
      * Create request for operation 'getOrders'
      *
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
+     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
+     * @param  string $page The requested page. Defaults to 1. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getOrdersRequest()
+    public function getOrdersRequest($sort = null, $per_page = null, $page = null)
     {
+        if ($sort !== null && strlen($sort) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$sort" when calling OrdersApi.getOrders, must be smaller than or equal to 100.');
+        }
+        if ($sort !== null && strlen($sort) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$sort" when calling OrdersApi.getOrders, must be bigger than or equal to 1.');
+        }
+
+        if ($per_page !== null && strlen($per_page) > 5) {
+            throw new \InvalidArgumentException('invalid length for "$per_page" when calling OrdersApi.getOrders, must be smaller than or equal to 5.');
+        }
+        if ($per_page !== null && strlen($per_page) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$per_page" when calling OrdersApi.getOrders, must be bigger than or equal to 1.');
+        }
+
+        if ($page !== null && strlen($page) > 5) {
+            throw new \InvalidArgumentException('invalid length for "$page" when calling OrdersApi.getOrders, must be smaller than or equal to 5.');
+        }
+        if ($page !== null && strlen($page) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$page" when calling OrdersApi.getOrders, must be bigger than or equal to 1.');
+        }
+
 
         $resourcePath = '/orders';
         $formParams = [];
@@ -354,6 +390,39 @@ class OrdersApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        if ($sort !== null) {
+            if('form' === 'form' && is_array($sort)) {
+                foreach($sort as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['sort'] = $sort;
+            }
+        }
+        // query params
+        if ($per_page !== null) {
+            if('form' === 'form' && is_array($per_page)) {
+                foreach($per_page as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['per_page'] = $per_page;
+            }
+        }
+        // query params
+        if ($page !== null) {
+            if('form' === 'form' && is_array($page)) {
+                foreach($page as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['page'] = $page;
+            }
+        }
 
 
 
@@ -394,7 +463,7 @@ class OrdersApi
             }
         }
 
-        // this endpoint requires Bearer (JWT) authentication (access token)
+        // this endpoint requires Bearer authentication (access token)
         if ($this->config->getAccessToken() !== null) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
         }
@@ -424,11 +493,11 @@ class OrdersApi
      *
      * Create an order.
      *
-     * @param  \Aryeo\Model\OrderPostPayload $order_post_payload order_post_payload (optional)
+     * @param  \Aryeo\Model\OrderPostPayload $order_post_payload OrderPostPayload (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
     public function postOrders($order_post_payload = null)
     {
@@ -441,11 +510,11 @@ class OrdersApi
      *
      * Create an order.
      *
-     * @param  \Aryeo\Model\OrderPostPayload $order_post_payload (optional)
+     * @param  \Aryeo\Model\OrderPostPayload $order_post_payload OrderPostPayload (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
     public function postOrdersWithHttpInfo($order_post_payload = null)
     {
@@ -480,7 +549,7 @@ class OrdersApi
             }
 
             switch($statusCode) {
-                case 200:
+                case 201:
                     if ('\Aryeo\Model\OrderResource' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
@@ -517,14 +586,14 @@ class OrdersApi
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -557,7 +626,7 @@ class OrdersApi
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Aryeo\Model\OrderResource',
@@ -584,7 +653,7 @@ class OrdersApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiFail',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -607,7 +676,7 @@ class OrdersApi
      *
      * Create an order.
      *
-     * @param  \Aryeo\Model\OrderPostPayload $order_post_payload (optional)
+     * @param  \Aryeo\Model\OrderPostPayload $order_post_payload OrderPostPayload (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -627,7 +696,7 @@ class OrdersApi
      *
      * Create an order.
      *
-     * @param  \Aryeo\Model\OrderPostPayload $order_post_payload (optional)
+     * @param  \Aryeo\Model\OrderPostPayload $order_post_payload OrderPostPayload (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -673,7 +742,7 @@ class OrdersApi
     /**
      * Create request for operation 'postOrders'
      *
-     * @param  \Aryeo\Model\OrderPostPayload $order_post_payload (optional)
+     * @param  \Aryeo\Model\OrderPostPayload $order_post_payload OrderPostPayload (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -734,7 +803,7 @@ class OrdersApi
             }
         }
 
-        // this endpoint requires Bearer (JWT) authentication (access token)
+        // this endpoint requires Bearer authentication (access token)
         if ($this->config->getAccessToken() !== null) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
         }

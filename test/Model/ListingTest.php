@@ -30,7 +30,7 @@ use PHPUnit\Framework\TestCase;
  * ListingTest Class Doc Comment
  *
  * @category    Class
- * @description A real-estate property.
+ * @description A real estate listing.
  * @package     Aryeo
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
@@ -94,36 +94,99 @@ class ListingTest extends TestCase
     }
 
     /**
-     * Test attribute "delivery_status"
+     * Test attribute "mls_number"
      */
-    public function testPropertyDeliveryStatus()
+    public function testPropertyMlsNumber()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "thumbnail_url"
+     * Test attribute "type"
      */
-    public function testPropertyThumbnailUrl()
+    public function testPropertyType()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "agent"
+     * Test attribute "sub_type"
      */
-    public function testPropertyAgent()
+    public function testPropertySubType()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "co_agent"
+     * Test attribute "status"
      */
-    public function testPropertyCoAgent()
+    public function testPropertyStatus()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "standard_status"
+     */
+    public function testPropertyStandardStatus()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "description"
+     */
+    public function testPropertyDescription()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "lot"
+     */
+    public function testPropertyLot()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "building"
+     */
+    public function testPropertyBuilding()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "price"
+     */
+    public function testPropertyPrice()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "list_agent"
+     */
+    public function testPropertyListAgent()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "co_list_agent"
+     */
+    public function testPropertyCoListAgent()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -157,15 +220,6 @@ class ListingTest extends TestCase
     }
 
     /**
-     * Test attribute "property_websites"
-     */
-    public function testPropertyPropertyWebsites()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
      * Test attribute "interactive_content"
      */
     public function testPropertyInteractiveContent()
@@ -175,18 +229,9 @@ class ListingTest extends TestCase
     }
 
     /**
-     * Test attribute "property_details"
+     * Test attribute "property_website"
      */
-    public function testPropertyPropertyDetails()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "downloads_enabled"
-     */
-    public function testPropertyDownloadsEnabled()
+    public function testPropertyPropertyWebsite()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -196,6 +241,15 @@ class ListingTest extends TestCase
      * Test attribute "orders"
      */
     public function testPropertyOrders()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "downloads_enabled"
+     */
+    public function testPropertyDownloadsEnabled()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

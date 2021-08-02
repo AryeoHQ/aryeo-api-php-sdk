@@ -1,6 +1,6 @@
 <?php
 /**
- * MarketingMaterialTemplatePublishPayloadTest
+ * ListingPriceTest
  *
  * PHP version 7.2
  *
@@ -27,15 +27,15 @@ namespace Aryeo\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * MarketingMaterialTemplatePublishPayloadTest Class Doc Comment
+ * ListingPriceTest Class Doc Comment
  *
  * @category    Class
- * @description Payload for publishing a marketing material template record.
+ * @description Valuation data relating to the price of a listing.
  * @package     Aryeo
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class MarketingMaterialTemplatePublishPayloadTest extends TestCase
+class ListingPriceTest extends TestCase
 {
 
     /**
@@ -67,18 +67,18 @@ class MarketingMaterialTemplatePublishPayloadTest extends TestCase
     }
 
     /**
-     * Test "MarketingMaterialTemplatePublishPayload"
+     * Test "ListingPrice"
      */
-    public function testMarketingMaterialTemplatePublishPayload()
+    public function testListingPrice()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "polotno_json"
+     * Test attribute "list_price"
      */
-    public function testPropertyPolotnoJson()
+    public function testPropertyListPrice()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

@@ -5,13 +5,13 @@ All URIs are relative to https://api.aryeo.com/v1.
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getVendors()**](VendorsApi.md#getVendors) | **GET** /vendors | Get vendors available to a group.
-[**getVendorsSearch()**](VendorsApi.md#getVendorsSearch) | **GET** /vendors/search | Get vendors that can be added to the group&#39;s vendor list.
+[**getVendorsId()**](VendorsApi.md#getVendorsId) | **GET** /vendors/{vendor_id} | Get vendors available to a group.
 
 
 ## `getVendors()`
 
 ```php
-getVendors(): \Aryeo\Model\GroupCollection
+getVendors($include): \Aryeo\Model\GroupCollection
 ```
 
 Get vendors available to a group.
@@ -25,7 +25,7 @@ Get vendors available to a group.
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure Bearer (JWT) authorization: JWT
+// Configure Bearer authorization: Token
 $config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
@@ -35,9 +35,10 @@ $apiInstance = new Aryeo\Api\VendorsApi(
     new GuzzleHttp\Client(),
     $config
 );
+$include = users; // string | Comma separated list of optional data to include in the response.
 
 try {
-    $result = $apiInstance->getVendors();
+    $result = $apiInstance->getVendors($include);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling VendorsApi->getVendors: ', $e->getMessage(), PHP_EOL;
@@ -46,7 +47,9 @@ try {
 
 ### Parameters
 
-This endpoint does not need any parameter.
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **include** | **string**| Comma separated list of optional data to include in the response. | [optional]
 
 ### Return type
 
@@ -54,7 +57,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[JWT](../../README.md#JWT)
+[Token](../../README.md#Token)
 
 ### HTTP request headers
 
@@ -65,15 +68,15 @@ This endpoint does not need any parameter.
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
-## `getVendorsSearch()`
+## `getVendorsId()`
 
 ```php
-getVendorsSearch($query, $per_page, $page): \Aryeo\Model\GroupCollection
+getVendorsId($vendor_id, $include): \Aryeo\Model\GroupResource
 ```
 
-Get vendors that can be added to the group's vendor list.
+Get vendors available to a group.
 
-Get vendors that can be added to the group's vendor list, excluding those already available to a group.
+Get information about a vendor.
 
 ### Example
 
@@ -82,7 +85,7 @@ Get vendors that can be added to the group's vendor list, excluding those alread
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure Bearer (JWT) authorization: JWT
+// Configure Bearer authorization: Token
 $config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
@@ -92,15 +95,14 @@ $apiInstance = new Aryeo\Api\VendorsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$query = Demo Photography Company; // string | A search query.
-$per_page = 25; // string | The number of items per page. Defaults to 25.
-$page = 2; // string | The requested page. Defaults to 1.
+$vendor_id = 00000000-0000-0000-0000-000000000000; // string | ID of the group that is associated as a vendor.
+$include = default_order_form; // string | Comma separated list of optional data to include in the response.
 
 try {
-    $result = $apiInstance->getVendorsSearch($query, $per_page, $page);
+    $result = $apiInstance->getVendorsId($vendor_id, $include);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling VendorsApi->getVendorsSearch: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling VendorsApi->getVendorsId: ', $e->getMessage(), PHP_EOL;
 }
 ```
 
@@ -108,17 +110,16 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **query** | **string**| A search query. | [optional]
- **per_page** | **string**| The number of items per page. Defaults to 25. | [optional]
- **page** | **string**| The requested page. Defaults to 1. | [optional]
+ **vendor_id** | [**string**](../Model/.md)| ID of the group that is associated as a vendor. |
+ **include** | **string**| Comma separated list of optional data to include in the response. | [optional]
 
 ### Return type
 
-[**\Aryeo\Model\GroupCollection**](../Model/GroupCollection.md)
+[**\Aryeo\Model\GroupResource**](../Model/GroupResource.md)
 
 ### Authorization
 
-[JWT](../../README.md#JWT)
+[Token](../../README.md#Token)
 
 ### HTTP request headers
 

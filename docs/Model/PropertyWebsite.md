@@ -1,9 +1,11 @@
-# # MarketingMaterialPublishPayload
+# # PropertyWebsite
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**polotno_json** | **string** | String representation of a polotno JSON object. | [optional]
+**id** | **string** | ID of the website. |
+**branded_url** | **string** | URL for branded version of website. |
+**unbranded_url** | **string** | URL for unbranded version of website. |
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

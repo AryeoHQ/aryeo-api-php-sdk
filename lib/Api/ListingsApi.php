@@ -115,21 +115,31 @@ class ListingsApi
      *
      * Get the listings available to a group.
      *
-     * @param  string $query A search query. (optional)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
+     * @param  string $filter_search Return listings that have fields matching this term. (optional)
+     * @param  string $filter_address Return listings that have an address matching this term. (optional)
+     * @param  string $filter_list_agent Return listings that have a listing agent or co-listing agent matching this term. (optional)
+     * @param  string $filter_status Return listings that have a certain status. (optional)
+     * @param  bool $filter_active Set as true to return listings that have an active status (e.g. active statuses include &#x60;COMING_SOON&#x60;, &#x60;FOR_SALE&#x60;, &#x60;FOR_LEASE&#x60;, &#x60;PENDING_SALE&#x60;, &#x60;PENDING_LEASE&#x60;, &#x60;SOLD&#x60;, &#x60;LEASED&#x60;). (optional)
+     * @param  float $filter_price_gte Return listings where the price field is greater than or equal to this value. (optional)
+     * @param  float $filter_price_lte Return listings where the price field is less than or equal to this value. (optional)
+     * @param  float $filter_square_feet_gte Return listings where the square feet field is greater than or equal to this value. (optional)
+     * @param  float $filter_square_feet_lte Return listings where the square feet field is less than or equal to this value. (optional)
+     * @param  int $filter_bedrooms_gte Return listings where the bedrooms field is greater than or equal to this value. (optional)
+     * @param  int $filter_bedrooms_lte Return listings where the bedrooms field is less than or equal to this value. (optional)
+     * @param  float $filter_bathrooms_gte Return listings where the bathrooms field is greater than or equal to this value. (optional)
+     * @param  float $filter_bathrooms_lte Return listings where the bathrooms field is less than or equal to this value. (optional)
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
-     * @param  string $status The status you want to scope down to, example sold,  coming_soon,  for_sale, sold (optional)
-     * @param  int $price The price value and greater will be returned. (optional)
-     * @param  float $bathrooms Number of bathrooms minimum. (optional)
-     * @param  int $bedrooms Number of bedrooms minimum. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\PartialListingCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\ListingCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
-    public function getListings($query = null, $per_page = null, $page = null, $status = null, $price = null, $bathrooms = null, $bedrooms = null)
+    public function getListings($include = null, $filter_search = null, $filter_address = null, $filter_list_agent = null, $filter_status = null, $filter_active = null, $filter_price_gte = null, $filter_price_lte = null, $filter_square_feet_gte = null, $filter_square_feet_lte = null, $filter_bedrooms_gte = null, $filter_bedrooms_lte = null, $filter_bathrooms_gte = null, $filter_bathrooms_lte = null, $sort = null, $per_page = null, $page = null)
     {
-        list($response) = $this->getListingsWithHttpInfo($query, $per_page, $page, $status, $price, $bathrooms, $bedrooms);
+        list($response) = $this->getListingsWithHttpInfo($include, $filter_search, $filter_address, $filter_list_agent, $filter_status, $filter_active, $filter_price_gte, $filter_price_lte, $filter_square_feet_gte, $filter_square_feet_lte, $filter_bedrooms_gte, $filter_bedrooms_lte, $filter_bathrooms_gte, $filter_bathrooms_lte, $sort, $per_page, $page);
         return $response;
     }
 
@@ -138,21 +148,31 @@ class ListingsApi
      *
      * Get the listings available to a group.
      *
-     * @param  string $query A search query. (optional)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
+     * @param  string $filter_search Return listings that have fields matching this term. (optional)
+     * @param  string $filter_address Return listings that have an address matching this term. (optional)
+     * @param  string $filter_list_agent Return listings that have a listing agent or co-listing agent matching this term. (optional)
+     * @param  string $filter_status Return listings that have a certain status. (optional)
+     * @param  bool $filter_active Set as true to return listings that have an active status (e.g. active statuses include &#x60;COMING_SOON&#x60;, &#x60;FOR_SALE&#x60;, &#x60;FOR_LEASE&#x60;, &#x60;PENDING_SALE&#x60;, &#x60;PENDING_LEASE&#x60;, &#x60;SOLD&#x60;, &#x60;LEASED&#x60;). (optional)
+     * @param  float $filter_price_gte Return listings where the price field is greater than or equal to this value. (optional)
+     * @param  float $filter_price_lte Return listings where the price field is less than or equal to this value. (optional)
+     * @param  float $filter_square_feet_gte Return listings where the square feet field is greater than or equal to this value. (optional)
+     * @param  float $filter_square_feet_lte Return listings where the square feet field is less than or equal to this value. (optional)
+     * @param  int $filter_bedrooms_gte Return listings where the bedrooms field is greater than or equal to this value. (optional)
+     * @param  int $filter_bedrooms_lte Return listings where the bedrooms field is less than or equal to this value. (optional)
+     * @param  float $filter_bathrooms_gte Return listings where the bathrooms field is greater than or equal to this value. (optional)
+     * @param  float $filter_bathrooms_lte Return listings where the bathrooms field is less than or equal to this value. (optional)
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
-     * @param  string $status The status you want to scope down to, example sold,  coming_soon,  for_sale, sold (optional)
-     * @param  int $price The price value and greater will be returned. (optional)
-     * @param  float $bathrooms Number of bathrooms minimum. (optional)
-     * @param  int $bedrooms Number of bedrooms minimum. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\PartialListingCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\ListingCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getListingsWithHttpInfo($query = null, $per_page = null, $page = null, $status = null, $price = null, $bathrooms = null, $bedrooms = null)
+    public function getListingsWithHttpInfo($include = null, $filter_search = null, $filter_address = null, $filter_list_agent = null, $filter_status = null, $filter_active = null, $filter_price_gte = null, $filter_price_lte = null, $filter_square_feet_gte = null, $filter_square_feet_lte = null, $filter_bedrooms_gte = null, $filter_bedrooms_lte = null, $filter_bathrooms_gte = null, $filter_bathrooms_lte = null, $sort = null, $per_page = null, $page = null)
     {
-        $request = $this->getListingsRequest($query, $per_page, $page, $status, $price, $bathrooms, $bedrooms);
+        $request = $this->getListingsRequest($include, $filter_search, $filter_address, $filter_list_agent, $filter_status, $filter_active, $filter_price_gte, $filter_price_lte, $filter_square_feet_gte, $filter_square_feet_lte, $filter_bedrooms_gte, $filter_bedrooms_lte, $filter_bathrooms_gte, $filter_bathrooms_lte, $sort, $per_page, $page);
 
         try {
             $options = $this->createHttpClientOption();
@@ -184,14 +204,14 @@ class ListingsApi
 
             switch($statusCode) {
                 case 200:
-                    if ('\Aryeo\Model\PartialListingCollection' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ListingCollection' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\PartialListingCollection', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ListingCollection', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -208,14 +228,14 @@ class ListingsApi
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -233,7 +253,7 @@ class ListingsApi
                     ];
             }
 
-            $returnType = '\Aryeo\Model\PartialListingCollection';
+            $returnType = '\Aryeo\Model\ListingCollection';
             if ($returnType === '\SplFileObject') {
                 $content = $response->getBody(); //stream goes to serializer
             } else {
@@ -251,7 +271,7 @@ class ListingsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\PartialListingCollection',
+                        '\Aryeo\Model\ListingCollection',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -267,7 +287,7 @@ class ListingsApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiFail',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -290,20 +310,30 @@ class ListingsApi
      *
      * Get the listings available to a group.
      *
-     * @param  string $query A search query. (optional)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
+     * @param  string $filter_search Return listings that have fields matching this term. (optional)
+     * @param  string $filter_address Return listings that have an address matching this term. (optional)
+     * @param  string $filter_list_agent Return listings that have a listing agent or co-listing agent matching this term. (optional)
+     * @param  string $filter_status Return listings that have a certain status. (optional)
+     * @param  bool $filter_active Set as true to return listings that have an active status (e.g. active statuses include &#x60;COMING_SOON&#x60;, &#x60;FOR_SALE&#x60;, &#x60;FOR_LEASE&#x60;, &#x60;PENDING_SALE&#x60;, &#x60;PENDING_LEASE&#x60;, &#x60;SOLD&#x60;, &#x60;LEASED&#x60;). (optional)
+     * @param  float $filter_price_gte Return listings where the price field is greater than or equal to this value. (optional)
+     * @param  float $filter_price_lte Return listings where the price field is less than or equal to this value. (optional)
+     * @param  float $filter_square_feet_gte Return listings where the square feet field is greater than or equal to this value. (optional)
+     * @param  float $filter_square_feet_lte Return listings where the square feet field is less than or equal to this value. (optional)
+     * @param  int $filter_bedrooms_gte Return listings where the bedrooms field is greater than or equal to this value. (optional)
+     * @param  int $filter_bedrooms_lte Return listings where the bedrooms field is less than or equal to this value. (optional)
+     * @param  float $filter_bathrooms_gte Return listings where the bathrooms field is greater than or equal to this value. (optional)
+     * @param  float $filter_bathrooms_lte Return listings where the bathrooms field is less than or equal to this value. (optional)
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
-     * @param  string $status The status you want to scope down to, example sold,  coming_soon,  for_sale, sold (optional)
-     * @param  int $price The price value and greater will be returned. (optional)
-     * @param  float $bathrooms Number of bathrooms minimum. (optional)
-     * @param  int $bedrooms Number of bedrooms minimum. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getListingsAsync($query = null, $per_page = null, $page = null, $status = null, $price = null, $bathrooms = null, $bedrooms = null)
+    public function getListingsAsync($include = null, $filter_search = null, $filter_address = null, $filter_list_agent = null, $filter_status = null, $filter_active = null, $filter_price_gte = null, $filter_price_lte = null, $filter_square_feet_gte = null, $filter_square_feet_lte = null, $filter_bedrooms_gte = null, $filter_bedrooms_lte = null, $filter_bathrooms_gte = null, $filter_bathrooms_lte = null, $sort = null, $per_page = null, $page = null)
     {
-        return $this->getListingsAsyncWithHttpInfo($query, $per_page, $page, $status, $price, $bathrooms, $bedrooms)
+        return $this->getListingsAsyncWithHttpInfo($include, $filter_search, $filter_address, $filter_list_agent, $filter_status, $filter_active, $filter_price_gte, $filter_price_lte, $filter_square_feet_gte, $filter_square_feet_lte, $filter_bedrooms_gte, $filter_bedrooms_lte, $filter_bathrooms_gte, $filter_bathrooms_lte, $sort, $per_page, $page)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -316,21 +346,31 @@ class ListingsApi
      *
      * Get the listings available to a group.
      *
-     * @param  string $query A search query. (optional)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
+     * @param  string $filter_search Return listings that have fields matching this term. (optional)
+     * @param  string $filter_address Return listings that have an address matching this term. (optional)
+     * @param  string $filter_list_agent Return listings that have a listing agent or co-listing agent matching this term. (optional)
+     * @param  string $filter_status Return listings that have a certain status. (optional)
+     * @param  bool $filter_active Set as true to return listings that have an active status (e.g. active statuses include &#x60;COMING_SOON&#x60;, &#x60;FOR_SALE&#x60;, &#x60;FOR_LEASE&#x60;, &#x60;PENDING_SALE&#x60;, &#x60;PENDING_LEASE&#x60;, &#x60;SOLD&#x60;, &#x60;LEASED&#x60;). (optional)
+     * @param  float $filter_price_gte Return listings where the price field is greater than or equal to this value. (optional)
+     * @param  float $filter_price_lte Return listings where the price field is less than or equal to this value. (optional)
+     * @param  float $filter_square_feet_gte Return listings where the square feet field is greater than or equal to this value. (optional)
+     * @param  float $filter_square_feet_lte Return listings where the square feet field is less than or equal to this value. (optional)
+     * @param  int $filter_bedrooms_gte Return listings where the bedrooms field is greater than or equal to this value. (optional)
+     * @param  int $filter_bedrooms_lte Return listings where the bedrooms field is less than or equal to this value. (optional)
+     * @param  float $filter_bathrooms_gte Return listings where the bathrooms field is greater than or equal to this value. (optional)
+     * @param  float $filter_bathrooms_lte Return listings where the bathrooms field is less than or equal to this value. (optional)
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
-     * @param  string $status The status you want to scope down to, example sold,  coming_soon,  for_sale, sold (optional)
-     * @param  int $price The price value and greater will be returned. (optional)
-     * @param  float $bathrooms Number of bathrooms minimum. (optional)
-     * @param  int $bedrooms Number of bedrooms minimum. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getListingsAsyncWithHttpInfo($query = null, $per_page = null, $page = null, $status = null, $price = null, $bathrooms = null, $bedrooms = null)
+    public function getListingsAsyncWithHttpInfo($include = null, $filter_search = null, $filter_address = null, $filter_list_agent = null, $filter_status = null, $filter_active = null, $filter_price_gte = null, $filter_price_lte = null, $filter_square_feet_gte = null, $filter_square_feet_lte = null, $filter_bedrooms_gte = null, $filter_bedrooms_lte = null, $filter_bathrooms_gte = null, $filter_bathrooms_lte = null, $sort = null, $per_page = null, $page = null)
     {
-        $returnType = '\Aryeo\Model\PartialListingCollection';
-        $request = $this->getListingsRequest($query, $per_page, $page, $status, $price, $bathrooms, $bedrooms);
+        $returnType = '\Aryeo\Model\ListingCollection';
+        $request = $this->getListingsRequest($include, $filter_search, $filter_address, $filter_list_agent, $filter_status, $filter_active, $filter_price_gte, $filter_price_lte, $filter_square_feet_gte, $filter_square_feet_lte, $filter_bedrooms_gte, $filter_bedrooms_lte, $filter_bathrooms_gte, $filter_bathrooms_lte, $sort, $per_page, $page);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -368,24 +408,76 @@ class ListingsApi
     /**
      * Create request for operation 'getListings'
      *
-     * @param  string $query A search query. (optional)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
+     * @param  string $filter_search Return listings that have fields matching this term. (optional)
+     * @param  string $filter_address Return listings that have an address matching this term. (optional)
+     * @param  string $filter_list_agent Return listings that have a listing agent or co-listing agent matching this term. (optional)
+     * @param  string $filter_status Return listings that have a certain status. (optional)
+     * @param  bool $filter_active Set as true to return listings that have an active status (e.g. active statuses include &#x60;COMING_SOON&#x60;, &#x60;FOR_SALE&#x60;, &#x60;FOR_LEASE&#x60;, &#x60;PENDING_SALE&#x60;, &#x60;PENDING_LEASE&#x60;, &#x60;SOLD&#x60;, &#x60;LEASED&#x60;). (optional)
+     * @param  float $filter_price_gte Return listings where the price field is greater than or equal to this value. (optional)
+     * @param  float $filter_price_lte Return listings where the price field is less than or equal to this value. (optional)
+     * @param  float $filter_square_feet_gte Return listings where the square feet field is greater than or equal to this value. (optional)
+     * @param  float $filter_square_feet_lte Return listings where the square feet field is less than or equal to this value. (optional)
+     * @param  int $filter_bedrooms_gte Return listings where the bedrooms field is greater than or equal to this value. (optional)
+     * @param  int $filter_bedrooms_lte Return listings where the bedrooms field is less than or equal to this value. (optional)
+     * @param  float $filter_bathrooms_gte Return listings where the bathrooms field is greater than or equal to this value. (optional)
+     * @param  float $filter_bathrooms_lte Return listings where the bathrooms field is less than or equal to this value. (optional)
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
-     * @param  string $status The status you want to scope down to, example sold,  coming_soon,  for_sale, sold (optional)
-     * @param  int $price The price value and greater will be returned. (optional)
-     * @param  float $bathrooms Number of bathrooms minimum. (optional)
-     * @param  int $bedrooms Number of bedrooms minimum. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getListingsRequest($query = null, $per_page = null, $page = null, $status = null, $price = null, $bathrooms = null, $bedrooms = null)
+    public function getListingsRequest($include = null, $filter_search = null, $filter_address = null, $filter_list_agent = null, $filter_status = null, $filter_active = null, $filter_price_gte = null, $filter_price_lte = null, $filter_square_feet_gte = null, $filter_square_feet_lte = null, $filter_bedrooms_gte = null, $filter_bedrooms_lte = null, $filter_bathrooms_gte = null, $filter_bathrooms_lte = null, $sort = null, $per_page = null, $page = null)
     {
-        if ($query !== null && strlen($query) > 255) {
-            throw new \InvalidArgumentException('invalid length for "$query" when calling ListingsApi.getListings, must be smaller than or equal to 255.');
+        if ($include !== null && strlen($include) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$include" when calling ListingsApi.getListings, must be smaller than or equal to 255.');
         }
-        if ($query !== null && strlen($query) < 0) {
-            throw new \InvalidArgumentException('invalid length for "$query" when calling ListingsApi.getListings, must be bigger than or equal to 0.');
+        if ($include !== null && strlen($include) < 0) {
+            throw new \InvalidArgumentException('invalid length for "$include" when calling ListingsApi.getListings, must be bigger than or equal to 0.');
+        }
+
+        if ($filter_search !== null && strlen($filter_search) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$filter_search" when calling ListingsApi.getListings, must be smaller than or equal to 255.');
+        }
+        if ($filter_search !== null && strlen($filter_search) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_search" when calling ListingsApi.getListings, must be bigger than or equal to 1.');
+        }
+
+        if ($filter_address !== null && strlen($filter_address) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$filter_address" when calling ListingsApi.getListings, must be smaller than or equal to 255.');
+        }
+        if ($filter_address !== null && strlen($filter_address) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_address" when calling ListingsApi.getListings, must be bigger than or equal to 1.');
+        }
+
+        if ($filter_list_agent !== null && strlen($filter_list_agent) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$filter_list_agent" when calling ListingsApi.getListings, must be smaller than or equal to 255.');
+        }
+        if ($filter_list_agent !== null && strlen($filter_list_agent) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_list_agent" when calling ListingsApi.getListings, must be bigger than or equal to 1.');
+        }
+
+        if ($filter_status !== null && strlen($filter_status) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$filter_status" when calling ListingsApi.getListings, must be smaller than or equal to 100.');
+        }
+        if ($filter_status !== null && strlen($filter_status) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_status" when calling ListingsApi.getListings, must be bigger than or equal to 1.');
+        }
+
+        if ($filter_active !== null && strlen($filter_active) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$filter_active" when calling ListingsApi.getListings, must be smaller than or equal to 255.');
+        }
+        if ($filter_active !== null && strlen($filter_active) < 0) {
+            throw new \InvalidArgumentException('invalid length for "$filter_active" when calling ListingsApi.getListings, must be bigger than or equal to 0.');
+        }
+
+        if ($sort !== null && strlen($sort) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$sort" when calling ListingsApi.getListings, must be smaller than or equal to 100.');
+        }
+        if ($sort !== null && strlen($sort) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$sort" when calling ListingsApi.getListings, must be bigger than or equal to 1.');
         }
 
         if ($per_page !== null && strlen($per_page) > 5) {
@@ -402,13 +494,6 @@ class ListingsApi
             throw new \InvalidArgumentException('invalid length for "$page" when calling ListingsApi.getListings, must be bigger than or equal to 1.');
         }
 
-        if ($status !== null && strlen($status) > 100) {
-            throw new \InvalidArgumentException('invalid length for "$status" when calling ListingsApi.getListings, must be smaller than or equal to 100.');
-        }
-        if ($status !== null && strlen($status) < 1) {
-            throw new \InvalidArgumentException('invalid length for "$status" when calling ListingsApi.getListings, must be bigger than or equal to 1.');
-        }
-
 
         $resourcePath = '/listings';
         $formParams = [];
@@ -418,14 +503,168 @@ class ListingsApi
         $multipart = false;
 
         // query params
-        if ($query !== null) {
-            if('form' === 'form' && is_array($query)) {
-                foreach($query as $key => $value) {
+        if ($include !== null) {
+            if('form' === 'form' && is_array($include)) {
+                foreach($include as $key => $value) {
                     $queryParams[$key] = $value;
                 }
             }
             else {
-                $queryParams['query'] = $query;
+                $queryParams['include'] = $include;
+            }
+        }
+        // query params
+        if ($filter_search !== null) {
+            if('form' === 'form' && is_array($filter_search)) {
+                foreach($filter_search as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[search]'] = $filter_search;
+            }
+        }
+        // query params
+        if ($filter_address !== null) {
+            if('form' === 'form' && is_array($filter_address)) {
+                foreach($filter_address as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[address]'] = $filter_address;
+            }
+        }
+        // query params
+        if ($filter_list_agent !== null) {
+            if('form' === 'form' && is_array($filter_list_agent)) {
+                foreach($filter_list_agent as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[list_agent]'] = $filter_list_agent;
+            }
+        }
+        // query params
+        if ($filter_status !== null) {
+            if('form' === 'form' && is_array($filter_status)) {
+                foreach($filter_status as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[status]'] = $filter_status;
+            }
+        }
+        // query params
+        if ($filter_active !== null) {
+            if('form' === 'form' && is_array($filter_active)) {
+                foreach($filter_active as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[active]'] = $filter_active;
+            }
+        }
+        // query params
+        if ($filter_price_gte !== null) {
+            if('form' === 'form' && is_array($filter_price_gte)) {
+                foreach($filter_price_gte as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[price_gte]'] = $filter_price_gte;
+            }
+        }
+        // query params
+        if ($filter_price_lte !== null) {
+            if('form' === 'form' && is_array($filter_price_lte)) {
+                foreach($filter_price_lte as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[price_lte]'] = $filter_price_lte;
+            }
+        }
+        // query params
+        if ($filter_square_feet_gte !== null) {
+            if('form' === 'form' && is_array($filter_square_feet_gte)) {
+                foreach($filter_square_feet_gte as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[square_feet_gte]'] = $filter_square_feet_gte;
+            }
+        }
+        // query params
+        if ($filter_square_feet_lte !== null) {
+            if('form' === 'form' && is_array($filter_square_feet_lte)) {
+                foreach($filter_square_feet_lte as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[square_feet_lte]'] = $filter_square_feet_lte;
+            }
+        }
+        // query params
+        if ($filter_bedrooms_gte !== null) {
+            if('form' === 'form' && is_array($filter_bedrooms_gte)) {
+                foreach($filter_bedrooms_gte as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[bedrooms_gte]'] = $filter_bedrooms_gte;
+            }
+        }
+        // query params
+        if ($filter_bedrooms_lte !== null) {
+            if('form' === 'form' && is_array($filter_bedrooms_lte)) {
+                foreach($filter_bedrooms_lte as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[bedrooms_lte]'] = $filter_bedrooms_lte;
+            }
+        }
+        // query params
+        if ($filter_bathrooms_gte !== null) {
+            if('form' === 'form' && is_array($filter_bathrooms_gte)) {
+                foreach($filter_bathrooms_gte as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[bathrooms_gte]'] = $filter_bathrooms_gte;
+            }
+        }
+        // query params
+        if ($filter_bathrooms_lte !== null) {
+            if('form' === 'form' && is_array($filter_bathrooms_lte)) {
+                foreach($filter_bathrooms_lte as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[bathrooms_lte]'] = $filter_bathrooms_lte;
+            }
+        }
+        // query params
+        if ($sort !== null) {
+            if('form' === 'form' && is_array($sort)) {
+                foreach($sort as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['sort'] = $sort;
             }
         }
         // query params
@@ -448,50 +687,6 @@ class ListingsApi
             }
             else {
                 $queryParams['page'] = $page;
-            }
-        }
-        // query params
-        if ($status !== null) {
-            if('form' === 'form' && is_array($status)) {
-                foreach($status as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['status'] = $status;
-            }
-        }
-        // query params
-        if ($price !== null) {
-            if('form' === 'form' && is_array($price)) {
-                foreach($price as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['price'] = $price;
-            }
-        }
-        // query params
-        if ($bathrooms !== null) {
-            if('form' === 'form' && is_array($bathrooms)) {
-                foreach($bathrooms as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['bathrooms'] = $bathrooms;
-            }
-        }
-        // query params
-        if ($bedrooms !== null) {
-            if('form' === 'form' && is_array($bedrooms)) {
-                foreach($bedrooms as $key => $value) {
-                    $queryParams[$key] = $value;
-                }
-            }
-            else {
-                $queryParams['bedrooms'] = $bedrooms;
             }
         }
 
@@ -534,7 +729,7 @@ class ListingsApi
             }
         }
 
-        // this endpoint requires Bearer (JWT) authentication (access token)
+        // this endpoint requires Bearer authentication (access token)
         if ($this->config->getAccessToken() !== null) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
         }
@@ -564,15 +759,16 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $id The UUID of a listing. (required)
+     * @param  string $listing_id The ID of a listing. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\ListingResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\ListingResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
-    public function getListingsId($id)
+    public function getListingsId($listing_id, $include = null)
     {
-        list($response) = $this->getListingsIdWithHttpInfo($id);
+        list($response) = $this->getListingsIdWithHttpInfo($listing_id, $include);
         return $response;
     }
 
@@ -581,15 +777,16 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $id The UUID of a listing. (required)
+     * @param  string $listing_id The ID of a listing. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\ListingResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\ListingResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getListingsIdWithHttpInfo($id)
+    public function getListingsIdWithHttpInfo($listing_id, $include = null)
     {
-        $request = $this->getListingsIdRequest($id);
+        $request = $this->getListingsIdRequest($listing_id, $include);
 
         try {
             $options = $this->createHttpClientOption();
@@ -645,14 +842,14 @@ class ListingsApi
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -704,7 +901,7 @@ class ListingsApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiFail',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -727,14 +924,15 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $id The UUID of a listing. (required)
+     * @param  string $listing_id The ID of a listing. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getListingsIdAsync($id)
+    public function getListingsIdAsync($listing_id, $include = null)
     {
-        return $this->getListingsIdAsyncWithHttpInfo($id)
+        return $this->getListingsIdAsyncWithHttpInfo($listing_id, $include)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -747,15 +945,16 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $id The UUID of a listing. (required)
+     * @param  string $listing_id The ID of a listing. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getListingsIdAsyncWithHttpInfo($id)
+    public function getListingsIdAsyncWithHttpInfo($listing_id, $include = null)
     {
         $returnType = '\Aryeo\Model\ListingResource';
-        $request = $this->getListingsIdRequest($id);
+        $request = $this->getListingsIdRequest($listing_id, $include);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -793,41 +992,60 @@ class ListingsApi
     /**
      * Create request for operation 'getListingsId'
      *
-     * @param  string $id The UUID of a listing. (required)
+     * @param  string $listing_id The ID of a listing. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getListingsIdRequest($id)
+    public function getListingsIdRequest($listing_id, $include = null)
     {
-        // verify the required parameter 'id' is set
-        if ($id === null || (is_array($id) && count($id) === 0)) {
+        // verify the required parameter 'listing_id' is set
+        if ($listing_id === null || (is_array($listing_id) && count($listing_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling getListingsId'
+                'Missing the required parameter $listing_id when calling getListingsId'
             );
         }
-        if (strlen($id) > 255) {
-            throw new \InvalidArgumentException('invalid length for "$id" when calling ListingsApi.getListingsId, must be smaller than or equal to 255.');
+        if (strlen($listing_id) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$listing_id" when calling ListingsApi.getListingsId, must be smaller than or equal to 255.');
         }
-        if (strlen($id) < 0) {
-            throw new \InvalidArgumentException('invalid length for "$id" when calling ListingsApi.getListingsId, must be bigger than or equal to 0.');
+        if (strlen($listing_id) < 0) {
+            throw new \InvalidArgumentException('invalid length for "$listing_id" when calling ListingsApi.getListingsId, must be bigger than or equal to 0.');
+        }
+
+        if ($include !== null && strlen($include) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$include" when calling ListingsApi.getListingsId, must be smaller than or equal to 255.');
+        }
+        if ($include !== null && strlen($include) < 0) {
+            throw new \InvalidArgumentException('invalid length for "$include" when calling ListingsApi.getListingsId, must be bigger than or equal to 0.');
         }
 
 
-        $resourcePath = '/listings/{id}';
+        $resourcePath = '/listings/{listing_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        if ($include !== null) {
+            if('form' === 'form' && is_array($include)) {
+                foreach($include as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['include'] = $include;
+            }
+        }
 
 
         // path params
-        if ($id !== null) {
+        if ($listing_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($id),
+                '{' . 'listing_id' . '}',
+                ObjectSerializer::toPathValue($listing_id),
                 $resourcePath
             );
         }
@@ -869,7 +1087,7 @@ class ListingsApi
             }
         }
 
-        // this endpoint requires Bearer (JWT) authentication (access token)
+        // this endpoint requires Bearer authentication (access token)
         if ($this->config->getAccessToken() !== null) {
             $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
         }

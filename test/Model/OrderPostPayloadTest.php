@@ -92,13 +92,4 @@ class OrderPostPayloadTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
-
-    /**
-     * Test attribute "product_items"
-     */
-    public function testPropertyProductItems()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
 }

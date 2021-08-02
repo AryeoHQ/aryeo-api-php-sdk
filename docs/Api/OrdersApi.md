@@ -11,7 +11,7 @@ Method | HTTP request | Description
 ## `getOrders()`
 
 ```php
-getOrders(): \Aryeo\Model\OrderCollection
+getOrders($sort, $per_page, $page): \Aryeo\Model\OrderCollection
 ```
 
 Get orders available to a group.
@@ -25,7 +25,7 @@ Get orders of a group.
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure Bearer (JWT) authorization: JWT
+// Configure Bearer authorization: Token
 $config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
@@ -35,9 +35,12 @@ $apiInstance = new Aryeo\Api\OrdersApi(
     new GuzzleHttp\Client(),
     $config
 );
+$sort = -created_at; // string | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `-created_at`.
+$per_page = 25; // string | The number of items per page. Defaults to 25.
+$page = 2; // string | The requested page. Defaults to 1.
 
 try {
-    $result = $apiInstance->getOrders();
+    $result = $apiInstance->getOrders($sort, $per_page, $page);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OrdersApi->getOrders: ', $e->getMessage(), PHP_EOL;
@@ -46,7 +49,11 @@ try {
 
 ### Parameters
 
-This endpoint does not need any parameter.
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **string**| Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. | [optional]
+ **per_page** | **string**| The number of items per page. Defaults to 25. | [optional]
+ **page** | **string**| The requested page. Defaults to 1. | [optional]
 
 ### Return type
 
@@ -54,7 +61,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[JWT](../../README.md#JWT)
+[Token](../../README.md#Token)
 
 ### HTTP request headers
 
@@ -82,7 +89,7 @@ Create an order.
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
-// Configure Bearer (JWT) authorization: JWT
+// Configure Bearer authorization: Token
 $config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
@@ -92,7 +99,7 @@ $apiInstance = new Aryeo\Api\OrdersApi(
     new GuzzleHttp\Client(),
     $config
 );
-$order_post_payload = new \Aryeo\Model\OrderPostPayload(); // \Aryeo\Model\OrderPostPayload
+$order_post_payload = new \Aryeo\Model\OrderPostPayload(); // \Aryeo\Model\OrderPostPayload | OrderPostPayload
 
 try {
     $result = $apiInstance->postOrders($order_post_payload);
@@ -106,7 +113,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **order_post_payload** | [**\Aryeo\Model\OrderPostPayload**](../Model/OrderPostPayload.md)|  | [optional]
+ **order_post_payload** | [**\Aryeo\Model\OrderPostPayload**](../Model/OrderPostPayload.md)| OrderPostPayload | [optional]
 
 ### Return type
 
@@ -114,7 +121,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[JWT](../../README.md#JWT)
+[Token](../../README.md#Token)
 
 ### HTTP request headers
 

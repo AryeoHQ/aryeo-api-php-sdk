@@ -57,18 +57,21 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => 'string',
-        'group_type' => 'string',
+        'type' => 'string',
         'name' => 'string',
-        'logo' => 'string',
         'email' => 'string',
         'phone' => 'string',
-        'website' => 'string',
-        'is_brokerage_or_brokerage_agent' => 'bool',
+        'website_url' => 'string',
+        'logo_url' => 'string',
+        'avatar_url' => 'string',
+        'office_name' => 'string',
+        'license_number' => 'string',
         'social_profiles' => '\Aryeo\Model\SocialProfiles',
-        'agent_properties' => '\Aryeo\Model\GroupAgentProperties',
-        'users' => '\Aryeo\Model\User[]',
         'default_order_form' => '\Aryeo\Model\OrderForm',
-        'order_forms' => '\Aryeo\Model\OrderForm[]'
+        'order_forms' => '\Aryeo\Model\OrderForm[]',
+        'owner' => '\Aryeo\Model\User',
+        'users' => '\Aryeo\Model\User[]',
+        'is_brokerage_or_brokerage_agent' => 'bool'
     ];
 
     /**
@@ -80,18 +83,21 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'id' => 'uuid',
-        'group_type' => null,
+        'type' => null,
         'name' => null,
-        'logo' => 'uri',
         'email' => 'email',
         'phone' => null,
-        'website' => 'uri',
-        'is_brokerage_or_brokerage_agent' => null,
+        'website_url' => 'uri',
+        'logo_url' => 'uri',
+        'avatar_url' => 'uri',
+        'office_name' => null,
+        'license_number' => null,
         'social_profiles' => null,
-        'agent_properties' => null,
-        'users' => null,
         'default_order_form' => null,
-        'order_forms' => null
+        'order_forms' => null,
+        'owner' => null,
+        'users' => null,
+        'is_brokerage_or_brokerage_agent' => null
     ];
 
     /**
@@ -122,18 +128,21 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
-        'group_type' => 'group_type',
+        'type' => 'type',
         'name' => 'name',
-        'logo' => 'logo',
         'email' => 'email',
         'phone' => 'phone',
-        'website' => 'website',
-        'is_brokerage_or_brokerage_agent' => 'is_brokerage_or_brokerage_agent',
+        'website_url' => 'website_url',
+        'logo_url' => 'logo_url',
+        'avatar_url' => 'avatar_url',
+        'office_name' => 'office_name',
+        'license_number' => 'license_number',
         'social_profiles' => 'social_profiles',
-        'agent_properties' => 'agent_properties',
-        'users' => 'users',
         'default_order_form' => 'default_order_form',
-        'order_forms' => 'order_forms'
+        'order_forms' => 'order_forms',
+        'owner' => 'owner',
+        'users' => 'users',
+        'is_brokerage_or_brokerage_agent' => 'is_brokerage_or_brokerage_agent'
     ];
 
     /**
@@ -143,18 +152,21 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
-        'group_type' => 'setGroupType',
+        'type' => 'setType',
         'name' => 'setName',
-        'logo' => 'setLogo',
         'email' => 'setEmail',
         'phone' => 'setPhone',
-        'website' => 'setWebsite',
-        'is_brokerage_or_brokerage_agent' => 'setIsBrokerageOrBrokerageAgent',
+        'website_url' => 'setWebsiteUrl',
+        'logo_url' => 'setLogoUrl',
+        'avatar_url' => 'setAvatarUrl',
+        'office_name' => 'setOfficeName',
+        'license_number' => 'setLicenseNumber',
         'social_profiles' => 'setSocialProfiles',
-        'agent_properties' => 'setAgentProperties',
-        'users' => 'setUsers',
         'default_order_form' => 'setDefaultOrderForm',
-        'order_forms' => 'setOrderForms'
+        'order_forms' => 'setOrderForms',
+        'owner' => 'setOwner',
+        'users' => 'setUsers',
+        'is_brokerage_or_brokerage_agent' => 'setIsBrokerageOrBrokerageAgent'
     ];
 
     /**
@@ -164,18 +176,21 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
-        'group_type' => 'getGroupType',
+        'type' => 'getType',
         'name' => 'getName',
-        'logo' => 'getLogo',
         'email' => 'getEmail',
         'phone' => 'getPhone',
-        'website' => 'getWebsite',
-        'is_brokerage_or_brokerage_agent' => 'getIsBrokerageOrBrokerageAgent',
+        'website_url' => 'getWebsiteUrl',
+        'logo_url' => 'getLogoUrl',
+        'avatar_url' => 'getAvatarUrl',
+        'office_name' => 'getOfficeName',
+        'license_number' => 'getLicenseNumber',
         'social_profiles' => 'getSocialProfiles',
-        'agent_properties' => 'getAgentProperties',
-        'users' => 'getUsers',
         'default_order_form' => 'getDefaultOrderForm',
-        'order_forms' => 'getOrderForms'
+        'order_forms' => 'getOrderForms',
+        'owner' => 'getOwner',
+        'users' => 'getUsers',
+        'is_brokerage_or_brokerage_agent' => 'getIsBrokerageOrBrokerageAgent'
     ];
 
     /**
@@ -219,21 +234,21 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    const GROUP_TYPE_CREATOR = 'creator';
-    const GROUP_TYPE_AGENT = 'agent';
-    const GROUP_TYPE_BROKERAGE = 'brokerage';
+    const TYPE_CREATOR = 'CREATOR';
+    const TYPE_AGENT = 'AGENT';
+    const TYPE_BROKERAGE = 'BROKERAGE';
 
     /**
      * Gets allowable values of the enum
      *
      * @return string[]
      */
-    public function getGroupTypeAllowableValues()
+    public function getTypeAllowableValues()
     {
         return [
-            self::GROUP_TYPE_CREATOR,
-            self::GROUP_TYPE_AGENT,
-            self::GROUP_TYPE_BROKERAGE,
+            self::TYPE_CREATOR,
+            self::TYPE_AGENT,
+            self::TYPE_BROKERAGE,
         ];
     }
 
@@ -253,18 +268,21 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->container['id'] = $data['id'] ?? null;
-        $this->container['group_type'] = $data['group_type'] ?? null;
+        $this->container['type'] = $data['type'] ?? null;
         $this->container['name'] = $data['name'] ?? null;
-        $this->container['logo'] = $data['logo'] ?? null;
         $this->container['email'] = $data['email'] ?? null;
         $this->container['phone'] = $data['phone'] ?? null;
-        $this->container['website'] = $data['website'] ?? null;
-        $this->container['is_brokerage_or_brokerage_agent'] = $data['is_brokerage_or_brokerage_agent'] ?? null;
+        $this->container['website_url'] = $data['website_url'] ?? null;
+        $this->container['logo_url'] = $data['logo_url'] ?? null;
+        $this->container['avatar_url'] = $data['avatar_url'] ?? null;
+        $this->container['office_name'] = $data['office_name'] ?? null;
+        $this->container['license_number'] = $data['license_number'] ?? null;
         $this->container['social_profiles'] = $data['social_profiles'] ?? null;
-        $this->container['agent_properties'] = $data['agent_properties'] ?? null;
-        $this->container['users'] = $data['users'] ?? null;
         $this->container['default_order_form'] = $data['default_order_form'] ?? null;
         $this->container['order_forms'] = $data['order_forms'] ?? null;
+        $this->container['owner'] = $data['owner'] ?? null;
+        $this->container['users'] = $data['users'] ?? null;
+        $this->container['is_brokerage_or_brokerage_agent'] = $data['is_brokerage_or_brokerage_agent'] ?? null;
     }
 
     /**
@@ -287,24 +305,24 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
         }
 
-        if ($this->container['group_type'] === null) {
-            $invalidProperties[] = "'group_type' can't be null";
+        if ($this->container['type'] === null) {
+            $invalidProperties[] = "'type' can't be null";
         }
-        $allowedValues = $this->getGroupTypeAllowableValues();
-        if (!is_null($this->container['group_type']) && !in_array($this->container['group_type'], $allowedValues, true)) {
+        $allowedValues = $this->getTypeAllowableValues();
+        if (!is_null($this->container['type']) && !in_array($this->container['type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'group_type', must be one of '%s'",
-                $this->container['group_type'],
+                "invalid value '%s' for 'type', must be one of '%s'",
+                $this->container['type'],
                 implode("', '", $allowedValues)
             );
         }
 
-        if ((mb_strlen($this->container['group_type']) > 255)) {
-            $invalidProperties[] = "invalid value for 'group_type', the character length must be smaller than or equal to 255.";
+        if ((mb_strlen($this->container['type']) > 255)) {
+            $invalidProperties[] = "invalid value for 'type', the character length must be smaller than or equal to 255.";
         }
 
-        if ((mb_strlen($this->container['group_type']) < 0)) {
-            $invalidProperties[] = "invalid value for 'group_type', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['type']) < 0)) {
+            $invalidProperties[] = "invalid value for 'type', the character length must be bigger than or equal to 0.";
         }
 
         if ($this->container['name'] === null) {
@@ -316,14 +334,6 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if ((mb_strlen($this->container['name']) < 0)) {
             $invalidProperties[] = "invalid value for 'name', the character length must be bigger than or equal to 0.";
-        }
-
-        if (!is_null($this->container['logo']) && (mb_strlen($this->container['logo']) > 255)) {
-            $invalidProperties[] = "invalid value for 'logo', the character length must be smaller than or equal to 255.";
-        }
-
-        if (!is_null($this->container['logo']) && (mb_strlen($this->container['logo']) < 0)) {
-            $invalidProperties[] = "invalid value for 'logo', the character length must be bigger than or equal to 0.";
         }
 
         if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 255)) {
@@ -342,12 +352,44 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['website']) && (mb_strlen($this->container['website']) > 255)) {
-            $invalidProperties[] = "invalid value for 'website', the character length must be smaller than or equal to 255.";
+        if (!is_null($this->container['website_url']) && (mb_strlen($this->container['website_url']) > 255)) {
+            $invalidProperties[] = "invalid value for 'website_url', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['website']) && (mb_strlen($this->container['website']) < 0)) {
-            $invalidProperties[] = "invalid value for 'website', the character length must be bigger than or equal to 0.";
+        if (!is_null($this->container['website_url']) && (mb_strlen($this->container['website_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'website_url', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['logo_url']) && (mb_strlen($this->container['logo_url']) > 255)) {
+            $invalidProperties[] = "invalid value for 'logo_url', the character length must be smaller than or equal to 255.";
+        }
+
+        if (!is_null($this->container['logo_url']) && (mb_strlen($this->container['logo_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'logo_url', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['avatar_url']) && (mb_strlen($this->container['avatar_url']) > 255)) {
+            $invalidProperties[] = "invalid value for 'avatar_url', the character length must be smaller than or equal to 255.";
+        }
+
+        if (!is_null($this->container['avatar_url']) && (mb_strlen($this->container['avatar_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'avatar_url', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['office_name']) && (mb_strlen($this->container['office_name']) > 255)) {
+            $invalidProperties[] = "invalid value for 'office_name', the character length must be smaller than or equal to 255.";
+        }
+
+        if (!is_null($this->container['office_name']) && (mb_strlen($this->container['office_name']) < 0)) {
+            $invalidProperties[] = "invalid value for 'office_name', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['license_number']) && (mb_strlen($this->container['license_number']) > 255)) {
+            $invalidProperties[] = "invalid value for 'license_number', the character length must be smaller than or equal to 255.";
+        }
+
+        if (!is_null($this->container['license_number']) && (mb_strlen($this->container['license_number']) < 0)) {
+            $invalidProperties[] = "invalid value for 'license_number', the character length must be bigger than or equal to 0.";
         }
 
         if ($this->container['is_brokerage_or_brokerage_agent'] === null) {
@@ -400,42 +442,42 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets group_type
+     * Gets type
      *
      * @return string
      */
-    public function getGroupType()
+    public function getType()
     {
-        return $this->container['group_type'];
+        return $this->container['type'];
     }
 
     /**
-     * Sets group_type
+     * Sets type
      *
-     * @param string $group_type The type of group.
+     * @param string $type The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned.
      *
      * @return self
      */
-    public function setGroupType($group_type)
+    public function setType($type)
     {
-        $allowedValues = $this->getGroupTypeAllowableValues();
-        if (!in_array($group_type, $allowedValues, true)) {
+        $allowedValues = $this->getTypeAllowableValues();
+        if (!in_array($type, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    "Invalid value '%s' for 'group_type', must be one of '%s'",
-                    $group_type,
+                    "Invalid value '%s' for 'type', must be one of '%s'",
+                    $type,
                     implode("', '", $allowedValues)
                 )
             );
         }
-        if ((mb_strlen($group_type) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $group_type when calling Group., must be smaller than or equal to 255.');
+        if ((mb_strlen($type) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $type when calling Group., must be smaller than or equal to 255.');
         }
-        if ((mb_strlen($group_type) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $group_type when calling Group., must be bigger than or equal to 0.');
+        if ((mb_strlen($type) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $type when calling Group., must be bigger than or equal to 0.');
         }
 
-        $this->container['group_type'] = $group_type;
+        $this->container['type'] = $type;
 
         return $this;
     }
@@ -472,37 +514,6 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets logo
-     *
-     * @return string|null
-     */
-    public function getLogo()
-    {
-        return $this->container['logo'];
-    }
-
-    /**
-     * Sets logo
-     *
-     * @param string|null $logo Group logo.
-     *
-     * @return self
-     */
-    public function setLogo($logo)
-    {
-        if (!is_null($logo) && (mb_strlen($logo) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $logo when calling Group., must be smaller than or equal to 255.');
-        }
-        if (!is_null($logo) && (mb_strlen($logo) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $logo when calling Group., must be bigger than or equal to 0.');
-        }
-
-        $this->container['logo'] = $logo;
-
-        return $this;
-    }
-
-    /**
      * Gets email
      *
      * @return string|null
@@ -515,7 +526,7 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets email
      *
-     * @param string|null $email Email.
+     * @param string|null $email The email address of a group.
      *
      * @return self
      */
@@ -546,7 +557,7 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets phone
      *
-     * @param string|null $phone Phone number.
+     * @param string|null $phone A phone number represented in whichever standards specified by the group, typically ###-###-#### (separated by hyphens).
      *
      * @return self
      */
@@ -565,56 +576,156 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets website
+     * Gets website_url
      *
      * @return string|null
      */
-    public function getWebsite()
+    public function getWebsiteUrl()
     {
-        return $this->container['website'];
+        return $this->container['website_url'];
     }
 
     /**
-     * Sets website
+     * Sets website_url
      *
-     * @param string|null $website Website.
+     * @param string|null $website_url The website URL of a group.
      *
      * @return self
      */
-    public function setWebsite($website)
+    public function setWebsiteUrl($website_url)
     {
-        if (!is_null($website) && (mb_strlen($website) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $website when calling Group., must be smaller than or equal to 255.');
+        if (!is_null($website_url) && (mb_strlen($website_url) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $website_url when calling Group., must be smaller than or equal to 255.');
         }
-        if (!is_null($website) && (mb_strlen($website) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $website when calling Group., must be bigger than or equal to 0.');
+        if (!is_null($website_url) && (mb_strlen($website_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $website_url when calling Group., must be bigger than or equal to 0.');
         }
 
-        $this->container['website'] = $website;
+        $this->container['website_url'] = $website_url;
 
         return $this;
     }
 
     /**
-     * Gets is_brokerage_or_brokerage_agent
+     * Gets logo_url
      *
-     * @return bool
+     * @return string|null
      */
-    public function getIsBrokerageOrBrokerageAgent()
+    public function getLogoUrl()
     {
-        return $this->container['is_brokerage_or_brokerage_agent'];
+        return $this->container['logo_url'];
     }
 
     /**
-     * Sets is_brokerage_or_brokerage_agent
+     * Sets logo_url
      *
-     * @param bool $is_brokerage_or_brokerage_agent Does this group represent a brokerage or an agent who belongs to a brokerage?
+     * @param string|null $logo_url The logo URL of a group.
      *
      * @return self
      */
-    public function setIsBrokerageOrBrokerageAgent($is_brokerage_or_brokerage_agent)
+    public function setLogoUrl($logo_url)
     {
-        $this->container['is_brokerage_or_brokerage_agent'] = $is_brokerage_or_brokerage_agent;
+        if (!is_null($logo_url) && (mb_strlen($logo_url) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $logo_url when calling Group., must be smaller than or equal to 255.');
+        }
+        if (!is_null($logo_url) && (mb_strlen($logo_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $logo_url when calling Group., must be bigger than or equal to 0.');
+        }
+
+        $this->container['logo_url'] = $logo_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets avatar_url
+     *
+     * @return string|null
+     */
+    public function getAvatarUrl()
+    {
+        return $this->container['avatar_url'];
+    }
+
+    /**
+     * Sets avatar_url
+     *
+     * @param string|null $avatar_url The profile image URL of a real estate agent. Only returned if group's type is AGENT.
+     *
+     * @return self
+     */
+    public function setAvatarUrl($avatar_url)
+    {
+        if (!is_null($avatar_url) && (mb_strlen($avatar_url) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $avatar_url when calling Group., must be smaller than or equal to 255.');
+        }
+        if (!is_null($avatar_url) && (mb_strlen($avatar_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $avatar_url when calling Group., must be bigger than or equal to 0.');
+        }
+
+        $this->container['avatar_url'] = $avatar_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets office_name
+     *
+     * @return string|null
+     */
+    public function getOfficeName()
+    {
+        return $this->container['office_name'];
+    }
+
+    /**
+     * Sets office_name
+     *
+     * @param string|null $office_name The name of the brokerage or team of a real estate agent. Only returned if group's type is AGENT.
+     *
+     * @return self
+     */
+    public function setOfficeName($office_name)
+    {
+        if (!is_null($office_name) && (mb_strlen($office_name) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $office_name when calling Group., must be smaller than or equal to 255.');
+        }
+        if (!is_null($office_name) && (mb_strlen($office_name) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $office_name when calling Group., must be bigger than or equal to 0.');
+        }
+
+        $this->container['office_name'] = $office_name;
+
+        return $this;
+    }
+
+    /**
+     * Gets license_number
+     *
+     * @return string|null
+     */
+    public function getLicenseNumber()
+    {
+        return $this->container['license_number'];
+    }
+
+    /**
+     * Sets license_number
+     *
+     * @param string|null $license_number The license number of a real estate agent. Only returned if group's type is AGENT.
+     *
+     * @return self
+     */
+    public function setLicenseNumber($license_number)
+    {
+        if (!is_null($license_number) && (mb_strlen($license_number) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $license_number when calling Group., must be smaller than or equal to 255.');
+        }
+        if (!is_null($license_number) && (mb_strlen($license_number) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $license_number when calling Group., must be bigger than or equal to 0.');
+        }
+
+        $this->container['license_number'] = $license_number;
 
         return $this;
     }
@@ -639,54 +750,6 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setSocialProfiles($social_profiles)
     {
         $this->container['social_profiles'] = $social_profiles;
-
-        return $this;
-    }
-
-    /**
-     * Gets agent_properties
-     *
-     * @return \Aryeo\Model\GroupAgentProperties|null
-     */
-    public function getAgentProperties()
-    {
-        return $this->container['agent_properties'];
-    }
-
-    /**
-     * Sets agent_properties
-     *
-     * @param \Aryeo\Model\GroupAgentProperties|null $agent_properties agent_properties
-     *
-     * @return self
-     */
-    public function setAgentProperties($agent_properties)
-    {
-        $this->container['agent_properties'] = $agent_properties;
-
-        return $this;
-    }
-
-    /**
-     * Gets users
-     *
-     * @return \Aryeo\Model\User[]|null
-     */
-    public function getUsers()
-    {
-        return $this->container['users'];
-    }
-
-    /**
-     * Sets users
-     *
-     * @param \Aryeo\Model\User[]|null $users users
-     *
-     * @return self
-     */
-    public function setUsers($users)
-    {
-        $this->container['users'] = $users;
 
         return $this;
     }
@@ -728,13 +791,85 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets order_forms
      *
-     * @param \Aryeo\Model\OrderForm[]|null $order_forms An array of order forms.
+     * @param \Aryeo\Model\OrderForm[]|null $order_forms An array of order forms a vendor group provides for placing orders. Only returned if group's type is CREATOR.
      *
      * @return self
      */
     public function setOrderForms($order_forms)
     {
         $this->container['order_forms'] = $order_forms;
+
+        return $this;
+    }
+
+    /**
+     * Gets owner
+     *
+     * @return \Aryeo\Model\User|null
+     */
+    public function getOwner()
+    {
+        return $this->container['owner'];
+    }
+
+    /**
+     * Sets owner
+     *
+     * @param \Aryeo\Model\User|null $owner owner
+     *
+     * @return self
+     */
+    public function setOwner($owner)
+    {
+        $this->container['owner'] = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Gets users
+     *
+     * @return \Aryeo\Model\User[]|null
+     */
+    public function getUsers()
+    {
+        return $this->container['users'];
+    }
+
+    /**
+     * Sets users
+     *
+     * @param \Aryeo\Model\User[]|null $users The Aryeo users associated with this group.
+     *
+     * @return self
+     */
+    public function setUsers($users)
+    {
+        $this->container['users'] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Gets is_brokerage_or_brokerage_agent
+     *
+     * @return bool
+     */
+    public function getIsBrokerageOrBrokerageAgent()
+    {
+        return $this->container['is_brokerage_or_brokerage_agent'];
+    }
+
+    /**
+     * Sets is_brokerage_or_brokerage_agent
+     *
+     * @param bool $is_brokerage_or_brokerage_agent Does this group represent a brokerage or an agent who belongs to a brokerage?
+     *
+     * @return self
+     */
+    public function setIsBrokerageOrBrokerageAgent($is_brokerage_or_brokerage_agent)
+    {
+        $this->container['is_brokerage_or_brokerage_agent'] = $is_brokerage_or_brokerage_agent;
 
         return $this;
     }

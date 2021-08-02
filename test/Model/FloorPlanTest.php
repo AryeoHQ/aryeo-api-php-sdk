@@ -85,9 +85,9 @@ class FloorPlanTest extends TestCase
     }
 
     /**
-     * Test attribute "thumbnail_url"
+     * Test attribute "original_url"
      */
-    public function testPropertyThumbnailUrl()
+    public function testPropertyOriginalUrl()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -103,9 +103,9 @@ class FloorPlanTest extends TestCase
     }
 
     /**
-     * Test attribute "original_url"
+     * Test attribute "thumbnail_url"
      */
-    public function testPropertyOriginalUrl()
+    public function testPropertyThumbnailUrl()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

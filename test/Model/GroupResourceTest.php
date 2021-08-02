@@ -1,6 +1,6 @@
 <?php
 /**
- * PartialListingCollectionTest
+ * GroupResourceTest
  *
  * PHP version 7.2
  *
@@ -27,15 +27,15 @@ namespace Aryeo\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PartialListingCollectionTest Class Doc Comment
+ * GroupResourceTest Class Doc Comment
  *
  * @category    Class
- * @description A collection of partial listings.
+ * @description A group.
  * @package     Aryeo
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class PartialListingCollectionTest extends TestCase
+class GroupResourceTest extends TestCase
 {
 
     /**
@@ -67,9 +67,18 @@ class PartialListingCollectionTest extends TestCase
     }
 
     /**
-     * Test "PartialListingCollection"
+     * Test "GroupResource"
      */
-    public function testPartialListingCollection()
+    public function testGroupResource()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "status"
+     */
+    public function testPropertyStatus()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
@@ -79,24 +88,6 @@ class PartialListingCollectionTest extends TestCase
      * Test attribute "data"
      */
     public function testPropertyData()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "meta"
-     */
-    public function testPropertyMeta()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "links"
-     */
-    public function testPropertyLinks()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

@@ -1,6 +1,6 @@
 <?php
 /**
- * PropertyWebsitesTest
+ * ListingLotTest
  *
  * PHP version 7.2
  *
@@ -27,15 +27,15 @@ namespace Aryeo\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PropertyWebsitesTest Class Doc Comment
+ * ListingLotTest Class Doc Comment
  *
  * @category    Class
- * @description Websites that displays information about a property.
+ * @description Parcel data of the lot of a listing. Includes nearly everything about the land that makes up the listing.
  * @package     Aryeo
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class PropertyWebsitesTest extends TestCase
+class ListingLotTest extends TestCase
 {
 
     /**
@@ -67,36 +67,27 @@ class PropertyWebsitesTest extends TestCase
     }
 
     /**
-     * Test "PropertyWebsites"
+     * Test "ListingLot"
      */
-    public function testPropertyWebsites()
+    public function testListingLot()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "branded_url"
+     * Test attribute "size_acres"
      */
-    public function testPropertyBrandedUrl()
+    public function testPropertySizeAcres()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "unbranded_url"
+     * Test attribute "open_parking_spaces"
      */
-    public function testPropertyUnbrandedUrl()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "id"
-     */
-    public function testPropertyId()
+    public function testPropertyOpenParkingSpaces()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

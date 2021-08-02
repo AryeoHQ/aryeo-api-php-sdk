@@ -85,15 +85,6 @@ class UserTest extends TestCase
     }
 
     /**
-     * Test attribute "avatar"
-     */
-    public function testPropertyAvatar()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
      * Test attribute "email"
      */
     public function testPropertyEmail()
@@ -121,18 +112,18 @@ class UserTest extends TestCase
     }
 
     /**
-     * Test attribute "timezone"
+     * Test attribute "phone"
      */
-    public function testPropertyTimezone()
+    public function testPropertyPhone()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
 
     /**
-     * Test attribute "phone"
+     * Test attribute "avatar_url"
      */
-    public function testPropertyPhone()
+    public function testPropertyAvatarUrl()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

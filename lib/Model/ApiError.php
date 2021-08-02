@@ -56,7 +56,9 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'message' => 'string'
+        'status' => 'string',
+        'message' => 'string',
+        'code' => 'int'
     ];
 
     /**
@@ -67,7 +69,9 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'message' => null
+        'status' => null,
+        'message' => null,
+        'code' => null
     ];
 
     /**
@@ -97,7 +101,9 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'message' => 'message'
+        'status' => 'status',
+        'message' => 'message',
+        'code' => 'code'
     ];
 
     /**
@@ -106,7 +112,9 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'message' => 'setMessage'
+        'status' => 'setStatus',
+        'message' => 'setMessage',
+        'code' => 'setCode'
     ];
 
     /**
@@ -115,7 +123,9 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'message' => 'getMessage'
+        'status' => 'getStatus',
+        'message' => 'getMessage',
+        'code' => 'getCode'
     ];
 
     /**
@@ -175,7 +185,9 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
+        $this->container['status'] = $data['status'] ?? null;
         $this->container['message'] = $data['message'] ?? null;
+        $this->container['code'] = $data['code'] ?? null;
     }
 
     /**
@@ -186,6 +198,17 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
+        if ((mb_strlen($this->container['status']) > 255)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be smaller than or equal to 255.";
+        }
+
+        if ((mb_strlen($this->container['status']) < 0)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be bigger than or equal to 0.";
+        }
 
         if ($this->container['message'] === null) {
             $invalidProperties[] = "'message' can't be null";
@@ -214,6 +237,37 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
+     * Gets status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->container['status'];
+    }
+
+    /**
+     * Sets status
+     *
+     * @param string $status What was the state of the request?
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        if ((mb_strlen($status) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling ApiError., must be smaller than or equal to 255.');
+        }
+        if ((mb_strlen($status) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling ApiError., must be bigger than or equal to 0.');
+        }
+
+        $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
      * Gets message
      *
      * @return string
@@ -240,6 +294,30 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Gets code
+     *
+     * @return int|null
+     */
+    public function getCode()
+    {
+        return $this->container['code'];
+    }
+
+    /**
+     * Sets code
+     *
+     * @param int|null $code A numeric code corresponding to the error.
+     *
+     * @return self
+     */
+    public function setCode($code)
+    {
+        $this->container['code'] = $code;
 
         return $this;
     }

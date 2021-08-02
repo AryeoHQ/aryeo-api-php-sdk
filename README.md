@@ -42,10 +42,10 @@ $config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('API_KE
 
 $apiInstance = new Aryeo\Api\ListingsApi(null, $config);
 
-$id = "UUID";
+$uuid = "UUID";
 
 try {
-    $result = $apiInstance->getListingsId($id);
+    $result = $apiInstance->getListingsId($uuid);
     echo $result["data"]["address"]["address_line_1"], "\n";
 } catch (Exception $e) {
     echo 'Exception when calling ListingsApi->getListingsId: ', $e->getMessage(), PHP_EOL;
@@ -59,28 +59,29 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ListingsApi* | [**getListings**](docs/Api/ListingsApi.md#getlistings) | **GET** /listings | Get the listings available to a group.
-*ListingsApi* | [**getListingsId**](docs/Api/ListingsApi.md#getlistingsid) | **GET** /listings/{id} | Get information about a listing.
-*MarketingMaterialsApi* | [**putMarketingMaterialsTemplatesUuidPublish**](docs/Api/MarketingMaterialsApi.md#putmarketingmaterialstemplatesuuidpublish) | **PUT** /marketing-materials/templates/{uuid}/publish | Publish a marketing material template.
-*MarketingMaterialsApi* | [**putMarketingMaterialsUuidPublish**](docs/Api/MarketingMaterialsApi.md#putmarketingmaterialsuuidpublish) | **PUT** /marketing-materials/{uuid}/publish | Publish a marketing material.
+*ListingsApi* | [**getListingsId**](docs/Api/ListingsApi.md#getlistingsid) | **GET** /listings/{listing_id} | Get information about a listing.
 *OrdersApi* | [**getOrders**](docs/Api/OrdersApi.md#getorders) | **GET** /orders | Get orders available to a group.
 *OrdersApi* | [**postOrders**](docs/Api/OrdersApi.md#postorders) | **POST** /orders | Create an order.
 *VendorsApi* | [**getVendors**](docs/Api/VendorsApi.md#getvendors) | **GET** /vendors | Get vendors available to a group.
-*VendorsApi* | [**getVendorsSearch**](docs/Api/VendorsApi.md#getvendorssearch) | **GET** /vendors/search | Get vendors that can be added to the group&#39;s vendor list.
+*VendorsApi* | [**getVendorsId**](docs/Api/VendorsApi.md#getvendorsid) | **GET** /vendors/{vendor_id} | Get vendors available to a group.
 
 ## Models
 
+- [Address](docs/Model/Address.md)
 - [ApiError](docs/Model/ApiError.md)
-- [Currency](docs/Model/Currency.md)
+- [ApiFail](docs/Model/ApiFail.md)
 - [FloorPlan](docs/Model/FloorPlan.md)
 - [Group](docs/Model/Group.md)
-- [GroupAgentProperties](docs/Model/GroupAgentProperties.md)
 - [GroupCollection](docs/Model/GroupCollection.md)
+- [GroupResource](docs/Model/GroupResource.md)
 - [Image](docs/Model/Image.md)
 - [InteractiveContent](docs/Model/InteractiveContent.md)
 - [Listing](docs/Model/Listing.md)
+- [ListingBuilding](docs/Model/ListingBuilding.md)
+- [ListingCollection](docs/Model/ListingCollection.md)
+- [ListingLot](docs/Model/ListingLot.md)
+- [ListingPrice](docs/Model/ListingPrice.md)
 - [ListingResource](docs/Model/ListingResource.md)
-- [MarketingMaterialPublishPayload](docs/Model/MarketingMaterialPublishPayload.md)
-- [MarketingMaterialTemplatePublishPayload](docs/Model/MarketingMaterialTemplatePublishPayload.md)
 - [Order](docs/Model/Order.md)
 - [OrderCollection](docs/Model/OrderCollection.md)
 - [OrderForm](docs/Model/OrderForm.md)
@@ -88,22 +89,16 @@ Class | Method | HTTP request | Description
 - [OrderResource](docs/Model/OrderResource.md)
 - [PaginationLinks](docs/Model/PaginationLinks.md)
 - [PaginationMeta](docs/Model/PaginationMeta.md)
-- [PartialAddress](docs/Model/PartialAddress.md)
-- [PartialGroup](docs/Model/PartialGroup.md)
-- [PartialListing](docs/Model/PartialListing.md)
-- [PartialListingCollection](docs/Model/PartialListingCollection.md)
-- [ProductItem](docs/Model/ProductItem.md)
-- [PropertyDetails](docs/Model/PropertyDetails.md)
-- [PropertyWebsites](docs/Model/PropertyWebsites.md)
+- [PropertyWebsite](docs/Model/PropertyWebsite.md)
 - [SocialProfiles](docs/Model/SocialProfiles.md)
 - [User](docs/Model/User.md)
 - [Video](docs/Model/Video.md)
 
 ## Authorization
 
-### JWT
+### Token
 
-- **Type**: Bearer authentication (JWT)
+- **Type**: Bearer authentication
 
 ## Tests
 

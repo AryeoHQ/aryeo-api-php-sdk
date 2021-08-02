@@ -1,6 +1,6 @@
 <?php
 /**
- * PartialListingCollection
+ * GroupResource
  *
  * PHP version 7.2
  *
@@ -28,10 +28,10 @@ use \ArrayAccess;
 use \Aryeo\ObjectSerializer;
 
 /**
- * PartialListingCollection Class Doc Comment
+ * GroupResource Class Doc Comment
  *
  * @category Class
- * @description A collection of partial listings.
+ * @description A group.
  * @package  Aryeo
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -39,7 +39,7 @@ use \Aryeo\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class PartialListingCollection implements ModelInterface, ArrayAccess, \JsonSerializable
+class GroupResource implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class PartialListingCollection implements ModelInterface, ArrayAccess, \JsonSeri
       *
       * @var string
       */
-    protected static $openAPIModelName = 'PartialListingCollection';
+    protected static $openAPIModelName = 'GroupResource';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,9 +56,8 @@ class PartialListingCollection implements ModelInterface, ArrayAccess, \JsonSeri
       * @var string[]
       */
     protected static $openAPITypes = [
-        'data' => '\Aryeo\Model\PartialListing[]',
-        'meta' => '\Aryeo\Model\PaginationMeta',
-        'links' => '\Aryeo\Model\PaginationLinks'
+        'status' => 'string',
+        'data' => '\Aryeo\Model\Group'
     ];
 
     /**
@@ -69,9 +68,8 @@ class PartialListingCollection implements ModelInterface, ArrayAccess, \JsonSeri
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'data' => null,
-        'meta' => null,
-        'links' => null
+        'status' => null,
+        'data' => null
     ];
 
     /**
@@ -101,9 +99,8 @@ class PartialListingCollection implements ModelInterface, ArrayAccess, \JsonSeri
      * @var string[]
      */
     protected static $attributeMap = [
-        'data' => 'data',
-        'meta' => 'meta',
-        'links' => 'links'
+        'status' => 'status',
+        'data' => 'data'
     ];
 
     /**
@@ -112,9 +109,8 @@ class PartialListingCollection implements ModelInterface, ArrayAccess, \JsonSeri
      * @var string[]
      */
     protected static $setters = [
-        'data' => 'setData',
-        'meta' => 'setMeta',
-        'links' => 'setLinks'
+        'status' => 'setStatus',
+        'data' => 'setData'
     ];
 
     /**
@@ -123,9 +119,8 @@ class PartialListingCollection implements ModelInterface, ArrayAccess, \JsonSeri
      * @var string[]
      */
     protected static $getters = [
-        'data' => 'getData',
-        'meta' => 'getMeta',
-        'links' => 'getLinks'
+        'status' => 'getStatus',
+        'data' => 'getData'
     ];
 
     /**
@@ -185,9 +180,8 @@ class PartialListingCollection implements ModelInterface, ArrayAccess, \JsonSeri
      */
     public function __construct(array $data = null)
     {
+        $this->container['status'] = $data['status'] ?? null;
         $this->container['data'] = $data['data'] ?? null;
-        $this->container['meta'] = $data['meta'] ?? null;
-        $this->container['links'] = $data['links'] ?? null;
     }
 
     /**
@@ -198,6 +192,17 @@ class PartialListingCollection implements ModelInterface, ArrayAccess, \JsonSeri
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
+        if ((mb_strlen($this->container['status']) > 255)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be smaller than or equal to 255.";
+        }
+
+        if ((mb_strlen($this->container['status']) < 0)) {
+            $invalidProperties[] = "invalid value for 'status', the character length must be bigger than or equal to 0.";
+        }
 
         return $invalidProperties;
     }
@@ -215,9 +220,40 @@ class PartialListingCollection implements ModelInterface, ArrayAccess, \JsonSeri
 
 
     /**
+     * Gets status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->container['status'];
+    }
+
+    /**
+     * Sets status
+     *
+     * @param string $status What was the state of the request?
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        if ((mb_strlen($status) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling GroupResource., must be smaller than or equal to 255.');
+        }
+        if ((mb_strlen($status) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $status when calling GroupResource., must be bigger than or equal to 0.');
+        }
+
+        $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
      * Gets data
      *
-     * @return \Aryeo\Model\PartialListing[]|null
+     * @return \Aryeo\Model\Group|null
      */
     public function getData()
     {
@@ -227,61 +263,13 @@ class PartialListingCollection implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets data
      *
-     * @param \Aryeo\Model\PartialListing[]|null $data data
+     * @param \Aryeo\Model\Group|null $data data
      *
      * @return self
      */
     public function setData($data)
     {
         $this->container['data'] = $data;
-
-        return $this;
-    }
-
-    /**
-     * Gets meta
-     *
-     * @return \Aryeo\Model\PaginationMeta|null
-     */
-    public function getMeta()
-    {
-        return $this->container['meta'];
-    }
-
-    /**
-     * Sets meta
-     *
-     * @param \Aryeo\Model\PaginationMeta|null $meta meta
-     *
-     * @return self
-     */
-    public function setMeta($meta)
-    {
-        $this->container['meta'] = $meta;
-
-        return $this;
-    }
-
-    /**
-     * Gets links
-     *
-     * @return \Aryeo\Model\PaginationLinks|null
-     */
-    public function getLinks()
-    {
-        return $this->container['links'];
-    }
-
-    /**
-     * Sets links
-     *
-     * @param \Aryeo\Model\PaginationLinks|null $links links
-     *
-     * @return self
-     */
-    public function setLinks($links)
-    {
-        $this->container['links'] = $links;
 
         return $this;
     }

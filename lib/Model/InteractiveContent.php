@@ -179,11 +179,11 @@ class InteractiveContent implements ModelInterface, ArrayAccess, \JsonSerializab
         return self::$openAPIModelName;
     }
 
-    const DISPLAY_TYPE_BRANDED = 'branded';
-    const DISPLAY_TYPE_UNBRANDED = 'unbranded';
-    const DISPLAY_TYPE_BOTH = 'both';
-    const CONTENT_TYPE_MATTERPORT = 'matterport';
-    const CONTENT_TYPE_OTHER = 'other';
+    const DISPLAY_TYPE_BRANDED = 'BRANDED';
+    const DISPLAY_TYPE_UNBRANDED = 'UNBRANDED';
+    const DISPLAY_TYPE_BOTH = 'BOTH';
+    const CONTENT_TYPE_MATTERPORT = 'MATTERPORT';
+    const CONTENT_TYPE_OTHER = 'OTHER';
 
     /**
      * Gets allowable values of the enum

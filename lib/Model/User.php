@@ -57,12 +57,11 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => 'string',
-        'avatar' => 'string',
         'email' => 'string',
         'first_name' => 'string',
         'last_name' => 'string',
-        'timezone' => 'string',
         'phone' => 'string',
+        'avatar_url' => 'string',
         'relationship' => 'string'
     ];
 
@@ -75,12 +74,11 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'id' => 'uuid',
-        'avatar' => 'uri',
         'email' => 'email',
         'first_name' => null,
         'last_name' => null,
-        'timezone' => null,
         'phone' => null,
+        'avatar_url' => 'uri',
         'relationship' => null
     ];
 
@@ -112,12 +110,11 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
-        'avatar' => 'avatar',
         'email' => 'email',
         'first_name' => 'first_name',
         'last_name' => 'last_name',
-        'timezone' => 'timezone',
         'phone' => 'phone',
+        'avatar_url' => 'avatar_url',
         'relationship' => 'relationship'
     ];
 
@@ -128,12 +125,11 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
-        'avatar' => 'setAvatar',
         'email' => 'setEmail',
         'first_name' => 'setFirstName',
         'last_name' => 'setLastName',
-        'timezone' => 'setTimezone',
         'phone' => 'setPhone',
+        'avatar_url' => 'setAvatarUrl',
         'relationship' => 'setRelationship'
     ];
 
@@ -144,12 +140,11 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
-        'avatar' => 'getAvatar',
         'email' => 'getEmail',
         'first_name' => 'getFirstName',
         'last_name' => 'getLastName',
-        'timezone' => 'getTimezone',
         'phone' => 'getPhone',
+        'avatar_url' => 'getAvatarUrl',
         'relationship' => 'getRelationship'
     ];
 
@@ -211,12 +206,11 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->container['id'] = $data['id'] ?? null;
-        $this->container['avatar'] = $data['avatar'] ?? null;
         $this->container['email'] = $data['email'] ?? null;
         $this->container['first_name'] = $data['first_name'] ?? null;
         $this->container['last_name'] = $data['last_name'] ?? null;
-        $this->container['timezone'] = $data['timezone'] ?? null;
         $this->container['phone'] = $data['phone'] ?? null;
+        $this->container['avatar_url'] = $data['avatar_url'] ?? null;
         $this->container['relationship'] = $data['relationship'] ?? null;
     }
 
@@ -238,14 +232,6 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if ((mb_strlen($this->container['id']) < 0)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
-        }
-
-        if (!is_null($this->container['avatar']) && (mb_strlen($this->container['avatar']) > 255)) {
-            $invalidProperties[] = "invalid value for 'avatar', the character length must be smaller than or equal to 255.";
-        }
-
-        if (!is_null($this->container['avatar']) && (mb_strlen($this->container['avatar']) < 0)) {
-            $invalidProperties[] = "invalid value for 'avatar', the character length must be bigger than or equal to 0.";
         }
 
         if ($this->container['email'] === null) {
@@ -275,20 +261,20 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'last_name', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['timezone']) && (mb_strlen($this->container['timezone']) > 255)) {
-            $invalidProperties[] = "invalid value for 'timezone', the character length must be smaller than or equal to 255.";
-        }
-
-        if (!is_null($this->container['timezone']) && (mb_strlen($this->container['timezone']) < 0)) {
-            $invalidProperties[] = "invalid value for 'timezone', the character length must be bigger than or equal to 0.";
-        }
-
         if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 255)) {
             $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 255.";
         }
 
         if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 0)) {
             $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['avatar_url']) && (mb_strlen($this->container['avatar_url']) > 255)) {
+            $invalidProperties[] = "invalid value for 'avatar_url', the character length must be smaller than or equal to 255.";
+        }
+
+        if (!is_null($this->container['avatar_url']) && (mb_strlen($this->container['avatar_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'avatar_url', the character length must be bigger than or equal to 0.";
         }
 
         if (!is_null($this->container['relationship']) && (mb_strlen($this->container['relationship']) > 255)) {
@@ -327,7 +313,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string $id UUID of the user.
+     * @param string $id ID of the user.
      *
      * @return self
      */
@@ -346,37 +332,6 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets avatar
-     *
-     * @return string|null
-     */
-    public function getAvatar()
-    {
-        return $this->container['avatar'];
-    }
-
-    /**
-     * Sets avatar
-     *
-     * @param string|null $avatar Avatar.
-     *
-     * @return self
-     */
-    public function setAvatar($avatar)
-    {
-        if (!is_null($avatar) && (mb_strlen($avatar) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $avatar when calling User., must be smaller than or equal to 255.');
-        }
-        if (!is_null($avatar) && (mb_strlen($avatar) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $avatar when calling User., must be bigger than or equal to 0.');
-        }
-
-        $this->container['avatar'] = $avatar;
-
-        return $this;
-    }
-
-    /**
      * Gets email
      *
      * @return string
@@ -389,7 +344,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets email
      *
-     * @param string $email Email.
+     * @param string $email Email address of the user.
      *
      * @return self
      */
@@ -420,7 +375,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets first_name
      *
-     * @param string|null $first_name First name.
+     * @param string|null $first_name First name of the user.
      *
      * @return self
      */
@@ -451,7 +406,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets last_name
      *
-     * @param string|null $last_name Last name.
+     * @param string|null $last_name Last name of the user.
      *
      * @return self
      */
@@ -470,37 +425,6 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets timezone
-     *
-     * @return string|null
-     */
-    public function getTimezone()
-    {
-        return $this->container['timezone'];
-    }
-
-    /**
-     * Sets timezone
-     *
-     * @param string|null $timezone Timezone.
-     *
-     * @return self
-     */
-    public function setTimezone($timezone)
-    {
-        if (!is_null($timezone) && (mb_strlen($timezone) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $timezone when calling User., must be smaller than or equal to 255.');
-        }
-        if (!is_null($timezone) && (mb_strlen($timezone) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $timezone when calling User., must be bigger than or equal to 0.');
-        }
-
-        $this->container['timezone'] = $timezone;
-
-        return $this;
-    }
-
-    /**
      * Gets phone
      *
      * @return string|null
@@ -513,7 +437,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets phone
      *
-     * @param string|null $phone Phone number.
+     * @param string|null $phone A phone number represented in whichever standards specified by the user, typically ###-###-#### (separated by hyphens).
      *
      * @return self
      */
@@ -532,6 +456,37 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets avatar_url
+     *
+     * @return string|null
+     */
+    public function getAvatarUrl()
+    {
+        return $this->container['avatar_url'];
+    }
+
+    /**
+     * Sets avatar_url
+     *
+     * @param string|null $avatar_url The avatar image URL of a user.
+     *
+     * @return self
+     */
+    public function setAvatarUrl($avatar_url)
+    {
+        if (!is_null($avatar_url) && (mb_strlen($avatar_url) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $avatar_url when calling User., must be smaller than or equal to 255.');
+        }
+        if (!is_null($avatar_url) && (mb_strlen($avatar_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $avatar_url when calling User., must be bigger than or equal to 0.');
+        }
+
+        $this->container['avatar_url'] = $avatar_url;
+
+        return $this;
+    }
+
+    /**
      * Gets relationship
      *
      * @return string|null
@@ -544,7 +499,7 @@ class User implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets relationship
      *
-     * @param string|null $relationship Describes user's relationship (access level) to a specified group.
+     * @param string|null $relationship Describes user's relationship (access level) to a specified group. Only returned if this resource is returned as a sub-resource of a group.
      *
      * @return self
      */

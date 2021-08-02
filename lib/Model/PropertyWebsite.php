@@ -1,6 +1,6 @@
 <?php
 /**
- * GroupAgentProperties
+ * PropertyWebsite
  *
  * PHP version 7.2
  *
@@ -28,10 +28,10 @@ use \ArrayAccess;
 use \Aryeo\ObjectSerializer;
 
 /**
- * GroupAgentProperties Class Doc Comment
+ * PropertyWebsite Class Doc Comment
  *
  * @category Class
- * @description A subset of group properties relevant to agents.
+ * @description Website (in branded and unbranded versions) that displays information about a property.
  * @package  Aryeo
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -39,7 +39,7 @@ use \Aryeo\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class GroupAgentProperties implements ModelInterface, ArrayAccess, \JsonSerializable
+class PropertyWebsite implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class GroupAgentProperties implements ModelInterface, ArrayAccess, \JsonSerializ
       *
       * @var string
       */
-    protected static $openAPIModelName = 'GroupAgentProperties';
+    protected static $openAPIModelName = 'PropertyWebsite';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,9 +56,9 @@ class GroupAgentProperties implements ModelInterface, ArrayAccess, \JsonSerializ
       * @var string[]
       */
     protected static $openAPITypes = [
-        'brokerage_name' => 'string',
-        'agent_license_number' => 'string',
-        'agent_avatar' => 'string'
+        'id' => 'string',
+        'branded_url' => 'string',
+        'unbranded_url' => 'string'
     ];
 
     /**
@@ -69,9 +69,9 @@ class GroupAgentProperties implements ModelInterface, ArrayAccess, \JsonSerializ
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'brokerage_name' => null,
-        'agent_license_number' => null,
-        'agent_avatar' => 'uri'
+        'id' => 'uuid',
+        'branded_url' => 'uri',
+        'unbranded_url' => 'uri'
     ];
 
     /**
@@ -101,9 +101,9 @@ class GroupAgentProperties implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $attributeMap = [
-        'brokerage_name' => 'brokerage_name',
-        'agent_license_number' => 'agent_license_number',
-        'agent_avatar' => 'agent_avatar'
+        'id' => 'id',
+        'branded_url' => 'branded_url',
+        'unbranded_url' => 'unbranded_url'
     ];
 
     /**
@@ -112,9 +112,9 @@ class GroupAgentProperties implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $setters = [
-        'brokerage_name' => 'setBrokerageName',
-        'agent_license_number' => 'setAgentLicenseNumber',
-        'agent_avatar' => 'setAgentAvatar'
+        'id' => 'setId',
+        'branded_url' => 'setBrandedUrl',
+        'unbranded_url' => 'setUnbrandedUrl'
     ];
 
     /**
@@ -123,9 +123,9 @@ class GroupAgentProperties implements ModelInterface, ArrayAccess, \JsonSerializ
      * @var string[]
      */
     protected static $getters = [
-        'brokerage_name' => 'getBrokerageName',
-        'agent_license_number' => 'getAgentLicenseNumber',
-        'agent_avatar' => 'getAgentAvatar'
+        'id' => 'getId',
+        'branded_url' => 'getBrandedUrl',
+        'unbranded_url' => 'getUnbrandedUrl'
     ];
 
     /**
@@ -185,9 +185,9 @@ class GroupAgentProperties implements ModelInterface, ArrayAccess, \JsonSerializ
      */
     public function __construct(array $data = null)
     {
-        $this->container['brokerage_name'] = $data['brokerage_name'] ?? null;
-        $this->container['agent_license_number'] = $data['agent_license_number'] ?? null;
-        $this->container['agent_avatar'] = $data['agent_avatar'] ?? null;
+        $this->container['id'] = $data['id'] ?? null;
+        $this->container['branded_url'] = $data['branded_url'] ?? null;
+        $this->container['unbranded_url'] = $data['unbranded_url'] ?? null;
     }
 
     /**
@@ -199,28 +199,37 @@ class GroupAgentProperties implements ModelInterface, ArrayAccess, \JsonSerializ
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['brokerage_name']) && (mb_strlen($this->container['brokerage_name']) > 255)) {
-            $invalidProperties[] = "invalid value for 'brokerage_name', the character length must be smaller than or equal to 255.";
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ((mb_strlen($this->container['id']) > 255)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['brokerage_name']) && (mb_strlen($this->container['brokerage_name']) < 0)) {
-            $invalidProperties[] = "invalid value for 'brokerage_name', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['id']) < 0)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['agent_license_number']) && (mb_strlen($this->container['agent_license_number']) > 255)) {
-            $invalidProperties[] = "invalid value for 'agent_license_number', the character length must be smaller than or equal to 255.";
+        if ($this->container['branded_url'] === null) {
+            $invalidProperties[] = "'branded_url' can't be null";
+        }
+        if ((mb_strlen($this->container['branded_url']) > 65535)) {
+            $invalidProperties[] = "invalid value for 'branded_url', the character length must be smaller than or equal to 65535.";
         }
 
-        if (!is_null($this->container['agent_license_number']) && (mb_strlen($this->container['agent_license_number']) < 0)) {
-            $invalidProperties[] = "invalid value for 'agent_license_number', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['branded_url']) < 1)) {
+            $invalidProperties[] = "invalid value for 'branded_url', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['agent_avatar']) && (mb_strlen($this->container['agent_avatar']) > 255)) {
-            $invalidProperties[] = "invalid value for 'agent_avatar', the character length must be smaller than or equal to 255.";
+        if ($this->container['unbranded_url'] === null) {
+            $invalidProperties[] = "'unbranded_url' can't be null";
+        }
+        if ((mb_strlen($this->container['unbranded_url']) > 65535)) {
+            $invalidProperties[] = "invalid value for 'unbranded_url', the character length must be smaller than or equal to 65535.";
         }
 
-        if (!is_null($this->container['agent_avatar']) && (mb_strlen($this->container['agent_avatar']) < 0)) {
-            $invalidProperties[] = "invalid value for 'agent_avatar', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['unbranded_url']) < 1)) {
+            $invalidProperties[] = "invalid value for 'unbranded_url', the character length must be bigger than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -239,94 +248,94 @@ class GroupAgentProperties implements ModelInterface, ArrayAccess, \JsonSerializ
 
 
     /**
-     * Gets brokerage_name
+     * Gets id
      *
-     * @return string|null
+     * @return string
      */
-    public function getBrokerageName()
+    public function getId()
     {
-        return $this->container['brokerage_name'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets brokerage_name
+     * Sets id
      *
-     * @param string|null $brokerage_name Name of brokerage.
+     * @param string $id ID of the website.
      *
      * @return self
      */
-    public function setBrokerageName($brokerage_name)
+    public function setId($id)
     {
-        if (!is_null($brokerage_name) && (mb_strlen($brokerage_name) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $brokerage_name when calling GroupAgentProperties., must be smaller than or equal to 255.');
+        if ((mb_strlen($id) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling PropertyWebsite., must be smaller than or equal to 255.');
         }
-        if (!is_null($brokerage_name) && (mb_strlen($brokerage_name) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $brokerage_name when calling GroupAgentProperties., must be bigger than or equal to 0.');
+        if ((mb_strlen($id) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling PropertyWebsite., must be bigger than or equal to 0.');
         }
 
-        $this->container['brokerage_name'] = $brokerage_name;
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets agent_license_number
+     * Gets branded_url
      *
-     * @return string|null
+     * @return string
      */
-    public function getAgentLicenseNumber()
+    public function getBrandedUrl()
     {
-        return $this->container['agent_license_number'];
+        return $this->container['branded_url'];
     }
 
     /**
-     * Sets agent_license_number
+     * Sets branded_url
      *
-     * @param string|null $agent_license_number Agent's license number.
+     * @param string $branded_url URL for branded version of website.
      *
      * @return self
      */
-    public function setAgentLicenseNumber($agent_license_number)
+    public function setBrandedUrl($branded_url)
     {
-        if (!is_null($agent_license_number) && (mb_strlen($agent_license_number) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $agent_license_number when calling GroupAgentProperties., must be smaller than or equal to 255.');
+        if ((mb_strlen($branded_url) > 65535)) {
+            throw new \InvalidArgumentException('invalid length for $branded_url when calling PropertyWebsite., must be smaller than or equal to 65535.');
         }
-        if (!is_null($agent_license_number) && (mb_strlen($agent_license_number) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $agent_license_number when calling GroupAgentProperties., must be bigger than or equal to 0.');
+        if ((mb_strlen($branded_url) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $branded_url when calling PropertyWebsite., must be bigger than or equal to 1.');
         }
 
-        $this->container['agent_license_number'] = $agent_license_number;
+        $this->container['branded_url'] = $branded_url;
 
         return $this;
     }
 
     /**
-     * Gets agent_avatar
+     * Gets unbranded_url
      *
-     * @return string|null
+     * @return string
      */
-    public function getAgentAvatar()
+    public function getUnbrandedUrl()
     {
-        return $this->container['agent_avatar'];
+        return $this->container['unbranded_url'];
     }
 
     /**
-     * Sets agent_avatar
+     * Sets unbranded_url
      *
-     * @param string|null $agent_avatar Agent's profile image URL.
+     * @param string $unbranded_url URL for unbranded version of website.
      *
      * @return self
      */
-    public function setAgentAvatar($agent_avatar)
+    public function setUnbrandedUrl($unbranded_url)
     {
-        if (!is_null($agent_avatar) && (mb_strlen($agent_avatar) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $agent_avatar when calling GroupAgentProperties., must be smaller than or equal to 255.');
+        if ((mb_strlen($unbranded_url) > 65535)) {
+            throw new \InvalidArgumentException('invalid length for $unbranded_url when calling PropertyWebsite., must be smaller than or equal to 65535.');
         }
-        if (!is_null($agent_avatar) && (mb_strlen($agent_avatar) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $agent_avatar when calling GroupAgentProperties., must be bigger than or equal to 0.');
+        if ((mb_strlen($unbranded_url) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $unbranded_url when calling PropertyWebsite., must be bigger than or equal to 1.');
         }
 
-        $this->container['agent_avatar'] = $agent_avatar;
+        $this->container['unbranded_url'] = $unbranded_url;
 
         return $this;
     }

@@ -1,10 +1,11 @@
-# # PartialListingCollection
+# # ListingCollection
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | [**\Aryeo\Model\PartialListing[]**](PartialListing.md) |  | [optional]
+**status** | **string** | What was the state of the request? |
+**data** | [**\Aryeo\Model\Listing[]**](Listing.md) |  | [optional]
 **meta** | [**\Aryeo\Model\PaginationMeta**](PaginationMeta.md) |  | [optional]
 **links** | [**\Aryeo\Model\PaginationLinks**](PaginationLinks.md) |  | [optional]
 

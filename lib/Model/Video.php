@@ -56,14 +56,14 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'id' => 'int',
+        'id' => 'string',
         'title' => 'string',
+        'duration' => 'int',
         'display_type' => 'string',
         'source_type' => 'string',
         'thumbnail_url' => 'string',
         'playback_url' => 'string',
         'download_url' => 'string',
-        'seconds' => 'int',
         'share_url' => 'string'
     ];
 
@@ -75,14 +75,14 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'id' => null,
+        'id' => 'uuid',
         'title' => null,
+        'duration' => null,
         'display_type' => null,
         'source_type' => null,
         'thumbnail_url' => 'uri',
         'playback_url' => 'uri',
         'download_url' => 'uri',
-        'seconds' => null,
         'share_url' => 'uri'
     ];
 
@@ -115,12 +115,12 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'id' => 'id',
         'title' => 'title',
+        'duration' => 'duration',
         'display_type' => 'display_type',
         'source_type' => 'source_type',
         'thumbnail_url' => 'thumbnail_url',
         'playback_url' => 'playback_url',
         'download_url' => 'download_url',
-        'seconds' => 'seconds',
         'share_url' => 'share_url'
     ];
 
@@ -132,12 +132,12 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'id' => 'setId',
         'title' => 'setTitle',
+        'duration' => 'setDuration',
         'display_type' => 'setDisplayType',
         'source_type' => 'setSourceType',
         'thumbnail_url' => 'setThumbnailUrl',
         'playback_url' => 'setPlaybackUrl',
         'download_url' => 'setDownloadUrl',
-        'seconds' => 'setSeconds',
         'share_url' => 'setShareUrl'
     ];
 
@@ -149,12 +149,12 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'id' => 'getId',
         'title' => 'getTitle',
+        'duration' => 'getDuration',
         'display_type' => 'getDisplayType',
         'source_type' => 'getSourceType',
         'thumbnail_url' => 'getThumbnailUrl',
         'playback_url' => 'getPlaybackUrl',
         'download_url' => 'getDownloadUrl',
-        'seconds' => 'getSeconds',
         'share_url' => 'getShareUrl'
     ];
 
@@ -199,15 +199,15 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    const DISPLAY_TYPE_BRANDED = 'branded';
-    const DISPLAY_TYPE_UNBRANDED = 'unbranded';
-    const DISPLAY_TYPE_BOTH = 'both';
-    const DISPLAY_TYPE_NONE = 'none';
-    const SOURCE_TYPE_YOUTUBE = 'youtube';
-    const SOURCE_TYPE_VIMEO = 'vimeo';
-    const SOURCE_TYPE_OPTIMIZED = 'optimized';
-    const SOURCE_TYPE_UPLOADED = 'uploaded';
-    const SOURCE_TYPE_LINK = 'link';
+    const DISPLAY_TYPE_BRANDED = 'BRANDED';
+    const DISPLAY_TYPE_UNBRANDED = 'UNBRANDED';
+    const DISPLAY_TYPE_BOTH = 'BOTH';
+    const DISPLAY_TYPE_NONE = 'NONE';
+    const SOURCE_TYPE_YOUTUBE = 'YOUTUBE';
+    const SOURCE_TYPE_VIMEO = 'VIMEO';
+    const SOURCE_TYPE_OPTIMIZED = 'OPTIMIZED';
+    const SOURCE_TYPE_UPLOADED = 'UPLOADED';
+    const SOURCE_TYPE_LINK = 'LINK';
 
     /**
      * Gets allowable values of the enum
@@ -257,12 +257,12 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->container['id'] = $data['id'] ?? null;
         $this->container['title'] = $data['title'] ?? null;
+        $this->container['duration'] = $data['duration'] ?? null;
         $this->container['display_type'] = $data['display_type'] ?? null;
         $this->container['source_type'] = $data['source_type'] ?? null;
         $this->container['thumbnail_url'] = $data['thumbnail_url'] ?? null;
         $this->container['playback_url'] = $data['playback_url'] ?? null;
         $this->container['download_url'] = $data['download_url'] ?? null;
-        $this->container['seconds'] = $data['seconds'] ?? null;
         $this->container['share_url'] = $data['share_url'] ?? null;
     }
 
@@ -278,6 +278,14 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
+        if ((mb_strlen($this->container['id']) > 255)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 255.";
+        }
+
+        if ((mb_strlen($this->container['id']) < 0)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        }
+
         if (!is_null($this->container['title']) && (mb_strlen($this->container['title']) > 255)) {
             $invalidProperties[] = "invalid value for 'title', the character length must be smaller than or equal to 255.";
         }
@@ -382,7 +390,7 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -392,12 +400,19 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param int $id ID of the video.
+     * @param string $id ID of the video.
      *
      * @return self
      */
     public function setId($id)
     {
+        if ((mb_strlen($id) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling Video., must be smaller than or equal to 255.');
+        }
+        if ((mb_strlen($id) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling Video., must be bigger than or equal to 0.');
+        }
+
         $this->container['id'] = $id;
 
         return $this;
@@ -430,6 +445,30 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['title'] = $title;
+
+        return $this;
+    }
+
+    /**
+     * Gets duration
+     *
+     * @return int|null
+     */
+    public function getDuration()
+    {
+        return $this->container['duration'];
+    }
+
+    /**
+     * Sets duration
+     *
+     * @param int|null $duration The video's runtime in seconds.
+     *
+     * @return self
+     */
+    public function setDuration($duration)
+    {
+        $this->container['duration'] = $duration;
 
         return $this;
     }
@@ -529,7 +568,7 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets thumbnail_url
      *
-     * @param string $thumbnail_url Thumbnail URL for the video.
+     * @param string $thumbnail_url A thumbnail image URL for the video.
      *
      * @return self
      */
@@ -560,7 +599,7 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets playback_url
      *
-     * @param string $playback_url A URL linking to the video.
+     * @param string $playback_url A URL linking to playback stream of the video.
      *
      * @return self
      */
@@ -610,30 +649,6 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets seconds
-     *
-     * @return int|null
-     */
-    public function getSeconds()
-    {
-        return $this->container['seconds'];
-    }
-
-    /**
-     * Sets seconds
-     *
-     * @param int|null $seconds The video's runtime in seconds.
-     *
-     * @return self
-     */
-    public function setSeconds($seconds)
-    {
-        $this->container['seconds'] = $seconds;
-
-        return $this;
-    }
-
-    /**
      * Gets share_url
      *
      * @return string|null
@@ -646,7 +661,7 @@ class Video implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets share_url
      *
-     * @param string|null $share_url Aryeo iFrame player URL
+     * @param string|null $share_url A URL linking to a public viewing optimized webpage the video.
      *
      * @return self
      */

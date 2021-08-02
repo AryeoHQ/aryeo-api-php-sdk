@@ -76,6 +76,15 @@ class OrderCollectionTest extends TestCase
     }
 
     /**
+     * Test attribute "status"
+     */
+    public function testPropertyStatus()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "data"
      */
     public function testPropertyData()
