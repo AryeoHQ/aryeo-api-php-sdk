@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** | ID of the video. |
+**id** | **string** | ID of the video. UUID Version 4. |
 **title** | **string** | The title of the video given by the uploading user. | [optional]
 **duration** | **int** | The video&#39;s runtime in seconds. | [optional]
 **display_type** | **string** | The display type determines if the video is branded or unbranded (can also be none or both). This affects whether the video is displayed on branded or unbranded marketing materials such as the property website. |

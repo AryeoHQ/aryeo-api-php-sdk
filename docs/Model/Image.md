@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** | ID of the image. |
+**id** | **string** | ID of the image. UUID Version 4. |
 **thumbnail_url** | **string** | A URL for a thumbnail-sized version of the image. |
 **large_url** | **string** | A URL for a large version of the image. |
 **original_url** | **string** | A URL for the original, full-resolution version of the image. Useful for downloading. |

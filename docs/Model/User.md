@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** | ID of the user. |
+**id** | **string** | ID of the user. UUID Version 4. |
 **email** | **string** | Email address of the user. |
 **first_name** | **string** | First name of the user. | [optional]
 **last_name** | **string** | Last name of the user. | [optional]

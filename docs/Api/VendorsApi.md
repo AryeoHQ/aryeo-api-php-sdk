@@ -95,7 +95,7 @@ $apiInstance = new Aryeo\Api\VendorsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$vendor_id = 00000000-0000-0000-0000-000000000000; // string | ID of the group that is associated as a vendor.
+$vendor_id = 00000000-0000-4000-8000-000000000000; // string | The ID of the group that is associated as a vendor. UUID Version 4.
 $include = default_order_form; // string | Comma separated list of optional data to include in the response.
 
 try {
@@ -110,7 +110,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **vendor_id** | [**string**](../Model/.md)| ID of the group that is associated as a vendor. |
+ **vendor_id** | [**string**](../Model/.md)| The ID of the group that is associated as a vendor. UUID Version 4. |
  **include** | **string**| Comma separated list of optional data to include in the response. | [optional]
 
 ### Return type

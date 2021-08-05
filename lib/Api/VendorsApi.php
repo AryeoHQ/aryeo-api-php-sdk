@@ -447,7 +447,7 @@ class VendorsApi
      *
      * Get vendors available to a group.
      *
-     * @param  string $vendor_id ID of the group that is associated as a vendor. (required)
+     * @param  string $vendor_id The ID of the group that is associated as a vendor. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
@@ -465,7 +465,7 @@ class VendorsApi
      *
      * Get vendors available to a group.
      *
-     * @param  string $vendor_id ID of the group that is associated as a vendor. (required)
+     * @param  string $vendor_id The ID of the group that is associated as a vendor. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
@@ -612,7 +612,7 @@ class VendorsApi
      *
      * Get vendors available to a group.
      *
-     * @param  string $vendor_id ID of the group that is associated as a vendor. (required)
+     * @param  string $vendor_id The ID of the group that is associated as a vendor. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
@@ -633,7 +633,7 @@ class VendorsApi
      *
      * Get vendors available to a group.
      *
-     * @param  string $vendor_id ID of the group that is associated as a vendor. (required)
+     * @param  string $vendor_id The ID of the group that is associated as a vendor. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
@@ -680,7 +680,7 @@ class VendorsApi
     /**
      * Create request for operation 'getVendorsId'
      *
-     * @param  string $vendor_id ID of the group that is associated as a vendor. (required)
+     * @param  string $vendor_id The ID of the group that is associated as a vendor. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
@@ -694,11 +694,11 @@ class VendorsApi
                 'Missing the required parameter $vendor_id when calling getVendorsId'
             );
         }
-        if (strlen($vendor_id) > 255) {
-            throw new \InvalidArgumentException('invalid length for "$vendor_id" when calling VendorsApi.getVendorsId, must be smaller than or equal to 255.');
+        if (strlen($vendor_id) > 36) {
+            throw new \InvalidArgumentException('invalid length for "$vendor_id" when calling VendorsApi.getVendorsId, must be smaller than or equal to 36.');
         }
-        if (strlen($vendor_id) < 0) {
-            throw new \InvalidArgumentException('invalid length for "$vendor_id" when calling VendorsApi.getVendorsId, must be bigger than or equal to 0.');
+        if (strlen($vendor_id) < 36) {
+            throw new \InvalidArgumentException('invalid length for "$vendor_id" when calling VendorsApi.getVendorsId, must be bigger than or equal to 36.');
         }
 
         if ($include !== null && strlen($include) > 255) {

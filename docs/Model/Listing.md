@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** | ID of the listing. |
+**id** | **string** | ID of the listing. UUID Version 4. |
 **address** | [**\Aryeo\Model\Address**](Address.md) |  |
 **mls_number** | **string** | The identifier for a listing on its local MLS. | [optional]
 **type** | **string** | General type of the listing, primarily categorizing its use case. Examples include residential and commercial. | [optional]

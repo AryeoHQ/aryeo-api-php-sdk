@@ -759,7 +759,7 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $listing_id The ID of a listing. (required)
+     * @param  string $listing_id The ID of a listing. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
@@ -777,7 +777,7 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $listing_id The ID of a listing. (required)
+     * @param  string $listing_id The ID of a listing. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
@@ -924,7 +924,7 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $listing_id The ID of a listing. (required)
+     * @param  string $listing_id The ID of a listing. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
@@ -945,7 +945,7 @@ class ListingsApi
      *
      * Get information about a listing.
      *
-     * @param  string $listing_id The ID of a listing. (required)
+     * @param  string $listing_id The ID of a listing. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
@@ -992,7 +992,7 @@ class ListingsApi
     /**
      * Create request for operation 'getListingsId'
      *
-     * @param  string $listing_id The ID of a listing. (required)
+     * @param  string $listing_id The ID of a listing. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \InvalidArgumentException
@@ -1006,11 +1006,11 @@ class ListingsApi
                 'Missing the required parameter $listing_id when calling getListingsId'
             );
         }
-        if (strlen($listing_id) > 255) {
-            throw new \InvalidArgumentException('invalid length for "$listing_id" when calling ListingsApi.getListingsId, must be smaller than or equal to 255.');
+        if (strlen($listing_id) > 36) {
+            throw new \InvalidArgumentException('invalid length for "$listing_id" when calling ListingsApi.getListingsId, must be smaller than or equal to 36.');
         }
-        if (strlen($listing_id) < 0) {
-            throw new \InvalidArgumentException('invalid length for "$listing_id" when calling ListingsApi.getListingsId, must be bigger than or equal to 0.');
+        if (strlen($listing_id) < 36) {
+            throw new \InvalidArgumentException('invalid length for "$listing_id" when calling ListingsApi.getListingsId, must be bigger than or equal to 36.');
         }
 
         if ($include !== null && strlen($include) > 255) {

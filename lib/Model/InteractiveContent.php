@@ -246,12 +246,12 @@ class InteractiveContent implements ModelInterface, ArrayAccess, \JsonSerializab
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ((mb_strlen($this->container['id']) > 255)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 255.";
+        if ((mb_strlen($this->container['id']) > 36)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 36.";
         }
 
-        if ((mb_strlen($this->container['id']) < 0)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['id']) < 36)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 36.";
         }
 
         if ($this->container['display_type'] === null) {
@@ -341,17 +341,17 @@ class InteractiveContent implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets id
      *
-     * @param string $id ID of the content.
+     * @param string $id ID of the content. UUID Version 4.
      *
      * @return self
      */
     public function setId($id)
     {
-        if ((mb_strlen($id) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling InteractiveContent., must be smaller than or equal to 255.');
+        if ((mb_strlen($id) > 36)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling InteractiveContent., must be smaller than or equal to 36.');
         }
-        if ((mb_strlen($id) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling InteractiveContent., must be bigger than or equal to 0.');
+        if ((mb_strlen($id) < 36)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling InteractiveContent., must be bigger than or equal to 36.');
         }
 
         $this->container['id'] = $id;

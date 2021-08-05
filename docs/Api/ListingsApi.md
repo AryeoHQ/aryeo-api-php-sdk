@@ -127,7 +127,7 @@ $apiInstance = new Aryeo\Api\ListingsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$listing_id = 00000000-0000-0000-0000-000000000000; // string | The ID of a listing.
+$listing_id = 00000000-0000-4000-8000-000000000000; // string | The ID of a listing. UUID Version 4.
 $include = images,videos,orders; // string | Comma separated list of optional data to include in the response.
 
 try {
@@ -142,7 +142,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listing_id** | [**string**](../Model/.md)| The ID of a listing. |
+ **listing_id** | [**string**](../Model/.md)| The ID of a listing. UUID Version 4. |
  **include** | **string**| Comma separated list of optional data to include in the response. | [optional]
 
 ### Return type

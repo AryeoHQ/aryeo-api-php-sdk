@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** | ID of the address. |
+**id** | **string** | ID of the address. UUID Version 4. |
 **latitude** | **float** | The geographic latitude of some reference point of the location, specified in degrees and decimal parts. Positive numbers must not include the plus symbol. |
 **longitude** | **float** | The geographic longitude of some reference point of the location, specified in degrees and decimal parts. Positive numbers must not include the plus symbol. |
 **street_number** | **string** | The street number portion of a location&#39;s address. In some areas, the street number may contain non-numeric characters. This field can also contain extensions and modifiers to the street number, such as \&quot;1/2\&quot; or \&quot;-B\&quot;. | [optional]

@@ -220,12 +220,12 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ((mb_strlen($this->container['id']) > 255)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 255.";
+        if ((mb_strlen($this->container['id']) > 36)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 36.";
         }
 
-        if ((mb_strlen($this->container['id']) < 0)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['id']) < 36)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 36.";
         }
 
         if ($this->container['original_url'] === null) {
@@ -301,17 +301,17 @@ class FloorPlan implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string $id ID of the floor plan.
+     * @param string $id ID of the floor plan. UUID Version 4.
      *
      * @return self
      */
     public function setId($id)
     {
-        if ((mb_strlen($id) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling FloorPlan., must be smaller than or equal to 255.');
+        if ((mb_strlen($id) > 36)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling FloorPlan., must be smaller than or equal to 36.');
         }
-        if ((mb_strlen($id) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling FloorPlan., must be bigger than or equal to 0.');
+        if ((mb_strlen($id) < 36)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling FloorPlan., must be bigger than or equal to 36.');
         }
 
         $this->container['id'] = $id;

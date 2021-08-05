@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** | ID of the floor plan. |
+**id** | **string** | ID of the floor plan. UUID Version 4. |
 **original_url** | **string** | A URL for the original, full-resolution version of the floor plan. Useful for downloading. |
 **large_url** | **string** | A URL for a large version of the floor plan. |
 **thumbnail_url** | **string** | A URL for a thumbnail-sized version of the floor plan. |

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **string** | ID of the content. |
+**id** | **string** | ID of the content. UUID Version 4. |
 **display_type** | **string** | Is the content branded, unbranded, or both? |
 **content_type** | **string** | The type of interactive content. |
 **url** | **string** | URL for the content. |
