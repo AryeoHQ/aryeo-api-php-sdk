@@ -1,7 +1,7 @@
 <?php
 /**
  * ListingsApi
- * PHP version 7.2
+ * PHP version 7.3
  *
  * @category Class
  * @package  Aryeo
@@ -113,7 +113,7 @@ class ListingsApi
     /**
      * Operation getListings
      *
-     * Get the listings available to a group.
+     * List all listings.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      * @param  string $filter_search Return listings that have fields matching this term. (optional)
@@ -135,7 +135,7 @@ class ListingsApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\ListingCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\ListingCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
     public function getListings($include = null, $filter_search = null, $filter_address = null, $filter_list_agent = null, $filter_status = null, $filter_active = null, $filter_price_gte = null, $filter_price_lte = null, $filter_square_feet_gte = null, $filter_square_feet_lte = null, $filter_bedrooms_gte = null, $filter_bedrooms_lte = null, $filter_bathrooms_gte = null, $filter_bathrooms_lte = null, $sort = null, $per_page = null, $page = null)
     {
@@ -146,7 +146,7 @@ class ListingsApi
     /**
      * Operation getListingsWithHttpInfo
      *
-     * Get the listings available to a group.
+     * List all listings.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      * @param  string $filter_search Return listings that have fields matching this term. (optional)
@@ -168,7 +168,7 @@ class ListingsApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\ListingCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\ListingCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
     public function getListingsWithHttpInfo($include = null, $filter_search = null, $filter_address = null, $filter_list_agent = null, $filter_status = null, $filter_active = null, $filter_price_gte = null, $filter_price_lte = null, $filter_square_feet_gte = null, $filter_square_feet_lte = null, $filter_bedrooms_gte = null, $filter_bedrooms_lte = null, $filter_bathrooms_gte = null, $filter_bathrooms_lte = null, $sort = null, $per_page = null, $page = null)
     {
@@ -212,6 +212,18 @@ class ListingsApi
 
                     return [
                         ObjectSerializer::deserialize($content, '\Aryeo\Model\ListingCollection', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -276,6 +288,14 @@ class ListingsApi
                     );
                     $e->setResponseObject($data);
                     break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -308,7 +328,7 @@ class ListingsApi
     /**
      * Operation getListingsAsync
      *
-     * Get the listings available to a group.
+     * List all listings.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      * @param  string $filter_search Return listings that have fields matching this term. (optional)
@@ -344,7 +364,7 @@ class ListingsApi
     /**
      * Operation getListingsAsyncWithHttpInfo
      *
-     * Get the listings available to a group.
+     * List all listings.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      * @param  string $filter_search Return listings that have fields matching this term. (optional)
@@ -757,14 +777,14 @@ class ListingsApi
     /**
      * Operation getListingsId
      *
-     * Get information about a listing.
+     * Retrieve a listing.
      *
      * @param  string $listing_id The ID of a listing. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\ListingResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\ListingResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
     public function getListingsId($listing_id, $include = null)
     {
@@ -775,14 +795,14 @@ class ListingsApi
     /**
      * Operation getListingsIdWithHttpInfo
      *
-     * Get information about a listing.
+     * Retrieve a listing.
      *
      * @param  string $listing_id The ID of a listing. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\ListingResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\ListingResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
     public function getListingsIdWithHttpInfo($listing_id, $include = null)
     {
@@ -826,6 +846,18 @@ class ListingsApi
 
                     return [
                         ObjectSerializer::deserialize($content, '\Aryeo\Model\ListingResource', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -890,6 +922,14 @@ class ListingsApi
                     );
                     $e->setResponseObject($data);
                     break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -922,7 +962,7 @@ class ListingsApi
     /**
      * Operation getListingsIdAsync
      *
-     * Get information about a listing.
+     * Retrieve a listing.
      *
      * @param  string $listing_id The ID of a listing. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
@@ -943,7 +983,7 @@ class ListingsApi
     /**
      * Operation getListingsIdAsyncWithHttpInfo
      *
-     * Get information about a listing.
+     * Retrieve a listing.
      *
      * @param  string $listing_id The ID of a listing. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)

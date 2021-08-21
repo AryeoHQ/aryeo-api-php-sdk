@@ -4,8 +4,8 @@ All URIs are relative to https://api.aryeo.com/v1.
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getListings()**](ListingsApi.md#getListings) | **GET** /listings | Get the listings available to a group.
-[**getListingsId()**](ListingsApi.md#getListingsId) | **GET** /listings/{listing_id} | Get information about a listing.
+[**getListings()**](ListingsApi.md#getListings) | **GET** /listings | List all listings.
+[**getListingsId()**](ListingsApi.md#getListingsId) | **GET** /listings/{listing_id} | Retrieve a listing.
 
 
 ## `getListings()`
@@ -14,9 +14,9 @@ Method | HTTP request | Description
 getListings($include, $filter_search, $filter_address, $filter_list_agent, $filter_status, $filter_active, $filter_price_gte, $filter_price_lte, $filter_square_feet_gte, $filter_square_feet_lte, $filter_bedrooms_gte, $filter_bedrooms_lte, $filter_bathrooms_gte, $filter_bathrooms_lte, $sort, $per_page, $page): \Aryeo\Model\ListingCollection
 ```
 
-Get the listings available to a group.
+List all listings.
 
-Get the listings available to a group.
+Lists all listings available to a group.
 
 ### Example
 
@@ -106,9 +106,9 @@ Name | Type | Description  | Notes
 getListingsId($listing_id, $include): \Aryeo\Model\ListingResource
 ```
 
-Get information about a listing.
+Retrieve a listing.
 
-Get information about a listing.
+Retrieves the details of a listing with the given ID.
 
 ### Example
 

@@ -2,7 +2,7 @@
 /**
  * OrderPostPayload
  *
- * PHP version 7.2
+ * PHP version 7.3
  *
  * @category Class
  * @package  Aryeo
@@ -57,7 +57,8 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'fulfillment_status' => 'string',
-        'payment_status' => 'string'
+        'payment_status' => 'string',
+        'place_id' => 'string'
     ];
 
     /**
@@ -69,7 +70,8 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'fulfillment_status' => null,
-        'payment_status' => null
+        'payment_status' => null,
+        'place_id' => null
     ];
 
     /**
@@ -100,7 +102,8 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'fulfillment_status' => 'fulfillment_status',
-        'payment_status' => 'payment_status'
+        'payment_status' => 'payment_status',
+        'place_id' => 'place_id'
     ];
 
     /**
@@ -110,7 +113,8 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'fulfillment_status' => 'setFulfillmentStatus',
-        'payment_status' => 'setPaymentStatus'
+        'payment_status' => 'setPaymentStatus',
+        'place_id' => 'setPlaceId'
     ];
 
     /**
@@ -120,7 +124,8 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'fulfillment_status' => 'getFulfillmentStatus',
-        'payment_status' => 'getPaymentStatus'
+        'payment_status' => 'getPaymentStatus',
+        'place_id' => 'getPlaceId'
     ];
 
     /**
@@ -212,6 +217,7 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->container['fulfillment_status'] = $data['fulfillment_status'] ?? null;
         $this->container['payment_status'] = $data['payment_status'] ?? null;
+        $this->container['place_id'] = $data['place_id'] ?? null;
     }
 
     /**
@@ -255,6 +261,14 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if (!is_null($this->container['payment_status']) && (mb_strlen($this->container['payment_status']) < 0)) {
             $invalidProperties[] = "invalid value for 'payment_status', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['place_id']) && (mb_strlen($this->container['place_id']) > 255)) {
+            $invalidProperties[] = "invalid value for 'place_id', the character length must be smaller than or equal to 255.";
+        }
+
+        if (!is_null($this->container['place_id']) && (mb_strlen($this->container['place_id']) < 0)) {
+            $invalidProperties[] = "invalid value for 'place_id', the character length must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -350,6 +364,37 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['payment_status'] = $payment_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets place_id
+     *
+     * @return string|null
+     */
+    public function getPlaceId()
+    {
+        return $this->container['place_id'];
+    }
+
+    /**
+     * Sets place_id
+     *
+     * @param string|null $place_id Google Places ID of the address to attach to the order.
+     *
+     * @return self
+     */
+    public function setPlaceId($place_id)
+    {
+        if (!is_null($place_id) && (mb_strlen($place_id) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $place_id when calling OrderPostPayload., must be smaller than or equal to 255.');
+        }
+        if (!is_null($place_id) && (mb_strlen($place_id) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $place_id when calling OrderPostPayload., must be bigger than or equal to 0.');
+        }
+
+        $this->container['place_id'] = $place_id;
 
         return $this;
     }

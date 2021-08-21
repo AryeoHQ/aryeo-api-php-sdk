@@ -10,8 +10,11 @@ Name | Type | Description | Notes
 **fulfillment_status** | **string** | The fulfillment status of the order. |
 **payment_status** | **string** | The payment status of the order. |
 **currency** | **string** | The three-letter ISO 4217 currency code for the currency in which this order was or will be transacted. Must be a supported currency of Aryeo. | [optional]
-**total_amount** | **int** | A positive integer in cents representing the total order amount that was or will be charged. | [optional]
+**total_amount** | **int** | A positive integer in the smallest currency unit (that is, 100 cents for $1.00) representing the total order amount that was or will be charged. This accounts for order items and taxes. | [optional]
 **payment_url** | **string** | A URL of a publicly-accessible webpage to pay for the order. | [optional]
-**status_url** | **string** | A URL of a publicly-accessible webpage to see the order&#39;s status. | [optional]
+**status_url** | **string** | A URL of a publicly-accessible webpage to see the order&#39;s status. |
+**address** | [**\Aryeo\Model\Address**](Address.md) |  | [optional]
+**customer** | [**\Aryeo\Model\Group**](Group.md) |  | [optional]
+**items** | [**\Aryeo\Model\OrderItem[]**](OrderItem.md) | items | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

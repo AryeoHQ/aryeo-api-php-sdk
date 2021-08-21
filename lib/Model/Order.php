@@ -2,7 +2,7 @@
 /**
  * Order
  *
- * PHP version 7.2
+ * PHP version 7.3
  *
  * @category Class
  * @package  Aryeo
@@ -64,7 +64,10 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'currency' => 'string',
         'total_amount' => 'int',
         'payment_url' => 'string',
-        'status_url' => 'string'
+        'status_url' => 'string',
+        'address' => '\Aryeo\Model\Address',
+        'customer' => '\Aryeo\Model\Group',
+        'items' => '\Aryeo\Model\OrderItem[]'
     ];
 
     /**
@@ -83,7 +86,10 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'currency' => null,
         'total_amount' => null,
         'payment_url' => null,
-        'status_url' => null
+        'status_url' => null,
+        'address' => null,
+        'customer' => null,
+        'items' => null
     ];
 
     /**
@@ -121,7 +127,10 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'currency' => 'currency',
         'total_amount' => 'total_amount',
         'payment_url' => 'payment_url',
-        'status_url' => 'status_url'
+        'status_url' => 'status_url',
+        'address' => 'address',
+        'customer' => 'customer',
+        'items' => 'items'
     ];
 
     /**
@@ -138,7 +147,10 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'currency' => 'setCurrency',
         'total_amount' => 'setTotalAmount',
         'payment_url' => 'setPaymentUrl',
-        'status_url' => 'setStatusUrl'
+        'status_url' => 'setStatusUrl',
+        'address' => 'setAddress',
+        'customer' => 'setCustomer',
+        'items' => 'setItems'
     ];
 
     /**
@@ -155,7 +167,10 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'currency' => 'getCurrency',
         'total_amount' => 'getTotalAmount',
         'payment_url' => 'getPaymentUrl',
-        'status_url' => 'getStatusUrl'
+        'status_url' => 'getStatusUrl',
+        'address' => 'getAddress',
+        'customer' => 'getCustomer',
+        'items' => 'getItems'
     ];
 
     /**
@@ -281,6 +296,9 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['total_amount'] = $data['total_amount'] ?? null;
         $this->container['payment_url'] = $data['payment_url'] ?? null;
         $this->container['status_url'] = $data['status_url'] ?? null;
+        $this->container['address'] = $data['address'] ?? null;
+        $this->container['customer'] = $data['customer'] ?? null;
+        $this->container['items'] = $data['items'] ?? null;
     }
 
     /**
@@ -386,11 +404,14 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'payment_url', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['status_url']) && (mb_strlen($this->container['status_url']) > 65535)) {
+        if ($this->container['status_url'] === null) {
+            $invalidProperties[] = "'status_url' can't be null";
+        }
+        if ((mb_strlen($this->container['status_url']) > 65535)) {
             $invalidProperties[] = "invalid value for 'status_url', the character length must be smaller than or equal to 65535.";
         }
 
-        if (!is_null($this->container['status_url']) && (mb_strlen($this->container['status_url']) < 0)) {
+        if ((mb_strlen($this->container['status_url']) < 0)) {
             $invalidProperties[] = "invalid value for 'status_url', the character length must be bigger than or equal to 0.";
         }
 
@@ -631,7 +652,7 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets total_amount
      *
-     * @param int|null $total_amount A positive integer in cents representing the total order amount that was or will be charged.
+     * @param int|null $total_amount A positive integer in the smallest currency unit (that is, 100 cents for $1.00) representing the total order amount that was or will be charged. This accounts for order items and taxes.
      *
      * @return self
      */
@@ -681,7 +702,7 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets status_url
      *
-     * @return string|null
+     * @return string
      */
     public function getStatusUrl()
     {
@@ -691,20 +712,92 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status_url
      *
-     * @param string|null $status_url A URL of a publicly-accessible webpage to see the order's status.
+     * @param string $status_url A URL of a publicly-accessible webpage to see the order's status.
      *
      * @return self
      */
     public function setStatusUrl($status_url)
     {
-        if (!is_null($status_url) && (mb_strlen($status_url) > 65535)) {
+        if ((mb_strlen($status_url) > 65535)) {
             throw new \InvalidArgumentException('invalid length for $status_url when calling Order., must be smaller than or equal to 65535.');
         }
-        if (!is_null($status_url) && (mb_strlen($status_url) < 0)) {
+        if ((mb_strlen($status_url) < 0)) {
             throw new \InvalidArgumentException('invalid length for $status_url when calling Order., must be bigger than or equal to 0.');
         }
 
         $this->container['status_url'] = $status_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets address
+     *
+     * @return \Aryeo\Model\Address|null
+     */
+    public function getAddress()
+    {
+        return $this->container['address'];
+    }
+
+    /**
+     * Sets address
+     *
+     * @param \Aryeo\Model\Address|null $address address
+     *
+     * @return self
+     */
+    public function setAddress($address)
+    {
+        $this->container['address'] = $address;
+
+        return $this;
+    }
+
+    /**
+     * Gets customer
+     *
+     * @return \Aryeo\Model\Group|null
+     */
+    public function getCustomer()
+    {
+        return $this->container['customer'];
+    }
+
+    /**
+     * Sets customer
+     *
+     * @param \Aryeo\Model\Group|null $customer customer
+     *
+     * @return self
+     */
+    public function setCustomer($customer)
+    {
+        $this->container['customer'] = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Gets items
+     *
+     * @return \Aryeo\Model\OrderItem[]|null
+     */
+    public function getItems()
+    {
+        return $this->container['items'];
+    }
+
+    /**
+     * Sets items
+     *
+     * @param \Aryeo\Model\OrderItem[]|null $items items
+     *
+     * @return self
+     */
+    public function setItems($items)
+    {
+        $this->container['items'] = $items;
 
         return $this;
     }

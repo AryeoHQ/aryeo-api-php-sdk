@@ -1,7 +1,7 @@
 <?php
 /**
  * OrdersApiTest
- * PHP version 7.2
+ * PHP version 7.3
  *
  * @category Class
  * @package  Aryeo
@@ -70,7 +70,7 @@ class OrdersApiTest extends TestCase
     /**
      * Test case for getOrders
      *
-     * Get orders available to a group..
+     * List all orders..
      *
      */
     public function testGetOrders()

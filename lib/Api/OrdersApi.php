@@ -1,7 +1,7 @@
 <?php
 /**
  * OrdersApi
- * PHP version 7.2
+ * PHP version 7.3
  *
  * @category Class
  * @package  Aryeo
@@ -113,7 +113,7 @@ class OrdersApi
     /**
      * Operation getOrders
      *
-     * Get orders available to a group.
+     * List all orders.
      *
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
@@ -121,7 +121,7 @@ class OrdersApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
     public function getOrders($sort = null, $per_page = null, $page = null)
     {
@@ -132,7 +132,7 @@ class OrdersApi
     /**
      * Operation getOrdersWithHttpInfo
      *
-     * Get orders available to a group.
+     * List all orders.
      *
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
@@ -140,7 +140,7 @@ class OrdersApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
     public function getOrdersWithHttpInfo($sort = null, $per_page = null, $page = null)
     {
@@ -184,6 +184,18 @@ class OrdersApi
 
                     return [
                         ObjectSerializer::deserialize($content, '\Aryeo\Model\OrderCollection', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -248,6 +260,14 @@ class OrdersApi
                     );
                     $e->setResponseObject($data);
                     break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -280,7 +300,7 @@ class OrdersApi
     /**
      * Operation getOrdersAsync
      *
-     * Get orders available to a group.
+     * List all orders.
      *
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
@@ -302,7 +322,7 @@ class OrdersApi
     /**
      * Operation getOrdersAsyncWithHttpInfo
      *
-     * Get orders available to a group.
+     * List all orders.
      *
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
@@ -497,7 +517,7 @@ class OrdersApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
     public function postOrders($order_post_payload = null)
     {
@@ -514,7 +534,7 @@ class OrdersApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
     public function postOrdersWithHttpInfo($order_post_payload = null)
     {
@@ -558,6 +578,18 @@ class OrdersApi
 
                     return [
                         ObjectSerializer::deserialize($content, '\Aryeo\Model\OrderResource', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -630,6 +662,14 @@ class OrdersApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Aryeo\Model\OrderResource',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

@@ -1,7 +1,7 @@
 <?php
 /**
  * VendorsApiTest
- * PHP version 7.2
+ * PHP version 7.3
  *
  * @category Class
  * @package  Aryeo
@@ -70,7 +70,7 @@ class VendorsApiTest extends TestCase
     /**
      * Test case for getVendors
      *
-     * Get vendors available to a group..
+     * List all vendors..
      *
      */
     public function testGetVendors()
@@ -82,7 +82,7 @@ class VendorsApiTest extends TestCase
     /**
      * Test case for getVendorsId
      *
-     * Get vendors available to a group..
+     * Retrieve a vendor..
      *
      */
     public function testGetVendorsId()

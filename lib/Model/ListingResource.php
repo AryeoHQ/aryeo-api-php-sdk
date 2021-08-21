@@ -2,7 +2,7 @@
 /**
  * ListingResource
  *
- * PHP version 7.2
+ * PHP version 7.3
  *
  * @category Class
  * @package  Aryeo

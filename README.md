@@ -58,18 +58,27 @@ All URIs are relative to *https://api.aryeo.com/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ListingsApi* | [**getListings**](docs/Api/ListingsApi.md#getlistings) | **GET** /listings | Get the listings available to a group.
-*ListingsApi* | [**getListingsId**](docs/Api/ListingsApi.md#getlistingsid) | **GET** /listings/{listing_id} | Get information about a listing.
-*OrdersApi* | [**getOrders**](docs/Api/OrdersApi.md#getorders) | **GET** /orders | Get orders available to a group.
+*AppointmentsApi* | [**getAppointments**](docs/Api/AppointmentsApi.md#getappointments) | **GET** /appointments | List all appointments.
+*AppointmentsApi* | [**getUnconfirmedAppointments**](docs/Api/AppointmentsApi.md#getunconfirmedappointments) | **GET** /unconfirmed-appointments | List all unconfirmed appointments.
+*AppointmentsApi* | [**putAppointmentsAppointmentIdCancel**](docs/Api/AppointmentsApi.md#putappointmentsappointmentidcancel) | **PUT** /appointments/{appointment_id}/cancel | Cancel an appointment.
+*AppointmentsApi* | [**putAppointmentsAppointmentIdReschedule**](docs/Api/AppointmentsApi.md#putappointmentsappointmentidreschedule) | **PUT** /appointments/{appointment_id}/reschedule | Reschedule an appointment.
+*ListingsApi* | [**getListings**](docs/Api/ListingsApi.md#getlistings) | **GET** /listings | List all listings.
+*ListingsApi* | [**getListingsId**](docs/Api/ListingsApi.md#getlistingsid) | **GET** /listings/{listing_id} | Retrieve a listing.
+*OrdersApi* | [**getOrders**](docs/Api/OrdersApi.md#getorders) | **GET** /orders | List all orders.
 *OrdersApi* | [**postOrders**](docs/Api/OrdersApi.md#postorders) | **POST** /orders | Create an order.
-*VendorsApi* | [**getVendors**](docs/Api/VendorsApi.md#getvendors) | **GET** /vendors | Get vendors available to a group.
-*VendorsApi* | [**getVendorsId**](docs/Api/VendorsApi.md#getvendorsid) | **GET** /vendors/{vendor_id} | Get vendors available to a group.
+*VendorsApi* | [**getVendors**](docs/Api/VendorsApi.md#getvendors) | **GET** /vendors | List all vendors.
+*VendorsApi* | [**getVendorsId**](docs/Api/VendorsApi.md#getvendorsid) | **GET** /vendors/{vendor_id} | Retrieve a vendor.
 
 ## Models
 
 - [Address](docs/Model/Address.md)
 - [ApiError](docs/Model/ApiError.md)
 - [ApiFail](docs/Model/ApiFail.md)
+- [Appointment](docs/Model/Appointment.md)
+- [AppointmentCancelPutPayload](docs/Model/AppointmentCancelPutPayload.md)
+- [AppointmentCollection](docs/Model/AppointmentCollection.md)
+- [AppointmentReschedulePutPayload](docs/Model/AppointmentReschedulePutPayload.md)
+- [AppointmentResource](docs/Model/AppointmentResource.md)
 - [FloorPlan](docs/Model/FloorPlan.md)
 - [Group](docs/Model/Group.md)
 - [GroupCollection](docs/Model/GroupCollection.md)
@@ -85,12 +94,15 @@ Class | Method | HTTP request | Description
 - [Order](docs/Model/Order.md)
 - [OrderCollection](docs/Model/OrderCollection.md)
 - [OrderForm](docs/Model/OrderForm.md)
+- [OrderItem](docs/Model/OrderItem.md)
 - [OrderPostPayload](docs/Model/OrderPostPayload.md)
 - [OrderResource](docs/Model/OrderResource.md)
 - [PaginationLinks](docs/Model/PaginationLinks.md)
 - [PaginationMeta](docs/Model/PaginationMeta.md)
 - [PropertyWebsite](docs/Model/PropertyWebsite.md)
 - [SocialProfiles](docs/Model/SocialProfiles.md)
+- [UnconfirmedAppointment](docs/Model/UnconfirmedAppointment.md)
+- [UnconfirmedAppointmentCollection](docs/Model/UnconfirmedAppointmentCollection.md)
 - [User](docs/Model/User.md)
 - [Video](docs/Model/Video.md)
 

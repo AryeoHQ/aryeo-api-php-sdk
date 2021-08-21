@@ -1,7 +1,7 @@
 <?php
 /**
  * VendorsApi
- * PHP version 7.2
+ * PHP version 7.3
  *
  * @category Class
  * @package  Aryeo
@@ -113,13 +113,13 @@ class VendorsApi
     /**
      * Operation getVendors
      *
-     * Get vendors available to a group.
+     * List all vendors.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\GroupCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\GroupCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
     public function getVendors($include = null)
     {
@@ -130,13 +130,13 @@ class VendorsApi
     /**
      * Operation getVendorsWithHttpInfo
      *
-     * Get vendors available to a group.
+     * List all vendors.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\GroupCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\GroupCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
     public function getVendorsWithHttpInfo($include = null)
     {
@@ -180,6 +180,18 @@ class VendorsApi
 
                     return [
                         ObjectSerializer::deserialize($content, '\Aryeo\Model\GroupCollection', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -244,6 +256,14 @@ class VendorsApi
                     );
                     $e->setResponseObject($data);
                     break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -276,7 +296,7 @@ class VendorsApi
     /**
      * Operation getVendorsAsync
      *
-     * Get vendors available to a group.
+     * List all vendors.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
@@ -296,7 +316,7 @@ class VendorsApi
     /**
      * Operation getVendorsAsyncWithHttpInfo
      *
-     * Get vendors available to a group.
+     * List all vendors.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
@@ -445,14 +465,14 @@ class VendorsApi
     /**
      * Operation getVendorsId
      *
-     * Get vendors available to a group.
+     * Retrieve a vendor.
      *
      * @param  string $vendor_id The ID of the group that is associated as a vendor. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\GroupResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\GroupResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
      */
     public function getVendorsId($vendor_id, $include = null)
     {
@@ -463,14 +483,14 @@ class VendorsApi
     /**
      * Operation getVendorsIdWithHttpInfo
      *
-     * Get vendors available to a group.
+     * Retrieve a vendor.
      *
      * @param  string $vendor_id The ID of the group that is associated as a vendor. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\GroupResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\GroupResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
      */
     public function getVendorsIdWithHttpInfo($vendor_id, $include = null)
     {
@@ -514,6 +534,18 @@ class VendorsApi
 
                     return [
                         ObjectSerializer::deserialize($content, '\Aryeo\Model\GroupResource', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -578,6 +610,14 @@ class VendorsApi
                     );
                     $e->setResponseObject($data);
                     break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -610,7 +650,7 @@ class VendorsApi
     /**
      * Operation getVendorsIdAsync
      *
-     * Get vendors available to a group.
+     * Retrieve a vendor.
      *
      * @param  string $vendor_id The ID of the group that is associated as a vendor. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
@@ -631,7 +671,7 @@ class VendorsApi
     /**
      * Operation getVendorsIdAsyncWithHttpInfo
      *
-     * Get vendors available to a group.
+     * Retrieve a vendor.
      *
      * @param  string $vendor_id The ID of the group that is associated as a vendor. UUID Version 4. (required)
      * @param  string $include Comma separated list of optional data to include in the response. (optional)

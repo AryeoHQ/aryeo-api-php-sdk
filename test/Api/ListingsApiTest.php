@@ -1,7 +1,7 @@
 <?php
 /**
  * ListingsApiTest
- * PHP version 7.2
+ * PHP version 7.3
  *
  * @category Class
  * @package  Aryeo
@@ -70,7 +70,7 @@ class ListingsApiTest extends TestCase
     /**
      * Test case for getListings
      *
-     * Get the listings available to a group..
+     * List all listings..
      *
      */
     public function testGetListings()
@@ -82,7 +82,7 @@ class ListingsApiTest extends TestCase
     /**
      * Test case for getListingsId
      *
-     * Get information about a listing..
+     * Retrieve a listing..
      *
      */
     public function testGetListingsId()

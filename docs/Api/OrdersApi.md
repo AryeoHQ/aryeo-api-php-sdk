@@ -4,7 +4,7 @@ All URIs are relative to https://api.aryeo.com/v1.
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getOrders()**](OrdersApi.md#getOrders) | **GET** /orders | Get orders available to a group.
+[**getOrders()**](OrdersApi.md#getOrders) | **GET** /orders | List all orders.
 [**postOrders()**](OrdersApi.md#postOrders) | **POST** /orders | Create an order.
 
 
@@ -14,9 +14,9 @@ Method | HTTP request | Description
 getOrders($sort, $per_page, $page): \Aryeo\Model\OrderCollection
 ```
 
-Get orders available to a group.
+List all orders.
 
-Get orders of a group.
+Lists all orders of a group.
 
 ### Example
 

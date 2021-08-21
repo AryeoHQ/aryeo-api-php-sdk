@@ -2,7 +2,7 @@
 /**
  * OrderPostPayloadTest
  *
- * PHP version 7.2
+ * PHP version 7.3
  *
  * @category Class
  * @package  Aryeo
@@ -88,6 +88,15 @@ class OrderPostPayloadTest extends TestCase
      * Test attribute "payment_status"
      */
     public function testPropertyPaymentStatus()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "place_id"
+     */
+    public function testPropertyPlaceId()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
