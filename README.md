@@ -65,6 +65,7 @@ Class | Method | HTTP request | Description
 *ListingsApi* | [**getListings**](docs/Api/ListingsApi.md#getlistings) | **GET** /listings | List all listings.
 *ListingsApi* | [**getListingsId**](docs/Api/ListingsApi.md#getlistingsid) | **GET** /listings/{listing_id} | Retrieve a listing.
 *OrdersApi* | [**getOrders**](docs/Api/OrdersApi.md#getorders) | **GET** /orders | List all orders.
+*OrdersApi* | [**getProducts**](docs/Api/OrdersApi.md#getproducts) | **GET** /products | Get products available to a group.
 *OrdersApi* | [**postOrders**](docs/Api/OrdersApi.md#postorders) | **POST** /orders | Create an order.
 *VendorsApi* | [**getVendors**](docs/Api/VendorsApi.md#getvendors) | **GET** /vendors | List all vendors.
 *VendorsApi* | [**getVendorsId**](docs/Api/VendorsApi.md#getvendorsid) | **GET** /vendors/{vendor_id} | Retrieve a vendor.
@@ -99,6 +100,10 @@ Class | Method | HTTP request | Description
 - [OrderResource](docs/Model/OrderResource.md)
 - [PaginationLinks](docs/Model/PaginationLinks.md)
 - [PaginationMeta](docs/Model/PaginationMeta.md)
+- [Product](docs/Model/Product.md)
+- [ProductCategory](docs/Model/ProductCategory.md)
+- [ProductCollection](docs/Model/ProductCollection.md)
+- [ProductVariant](docs/Model/ProductVariant.md)
 - [PropertyWebsite](docs/Model/PropertyWebsite.md)
 - [SocialProfiles](docs/Model/SocialProfiles.md)
 - [UnconfirmedAppointment](docs/Model/UnconfirmedAppointment.md)

@@ -509,6 +509,432 @@ class OrdersApi
     }
 
     /**
+     * Operation getProducts
+     *
+     * Get products available to a group.
+     *
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
+     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
+     * @param  string $page The requested page. Defaults to 1. (optional)
+     * @param  string $filter_search Return products that have fields matching this term. (optional)
+     * @param  string $filter_category_ids Return products in the given categories. (optional)
+     * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
+     *
+     * @throws \Aryeo\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Aryeo\Model\ProductCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     */
+    public function getProducts($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
+    {
+        list($response) = $this->getProductsWithHttpInfo($sort, $per_page, $page, $filter_search, $filter_category_ids, $filter_type);
+        return $response;
+    }
+
+    /**
+     * Operation getProductsWithHttpInfo
+     *
+     * Get products available to a group.
+     *
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
+     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
+     * @param  string $page The requested page. Defaults to 1. (optional)
+     * @param  string $filter_search Return products that have fields matching this term. (optional)
+     * @param  string $filter_category_ids Return products in the given categories. (optional)
+     * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
+     *
+     * @throws \Aryeo\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Aryeo\Model\ProductCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getProductsWithHttpInfo($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
+    {
+        $request = $this->getProductsRequest($sort, $per_page, $page, $filter_search, $filter_category_ids, $filter_type);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\Aryeo\Model\ProductCollection' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ProductCollection', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 422:
+                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\Aryeo\Model\ProductCollection';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ProductCollection',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiFail',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getProductsAsync
+     *
+     * Get products available to a group.
+     *
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
+     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
+     * @param  string $page The requested page. Defaults to 1. (optional)
+     * @param  string $filter_search Return products that have fields matching this term. (optional)
+     * @param  string $filter_category_ids Return products in the given categories. (optional)
+     * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getProductsAsync($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
+    {
+        return $this->getProductsAsyncWithHttpInfo($sort, $per_page, $page, $filter_search, $filter_category_ids, $filter_type)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getProductsAsyncWithHttpInfo
+     *
+     * Get products available to a group.
+     *
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
+     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
+     * @param  string $page The requested page. Defaults to 1. (optional)
+     * @param  string $filter_search Return products that have fields matching this term. (optional)
+     * @param  string $filter_category_ids Return products in the given categories. (optional)
+     * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getProductsAsyncWithHttpInfo($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
+    {
+        $returnType = '\Aryeo\Model\ProductCollection';
+        $request = $this->getProductsRequest($sort, $per_page, $page, $filter_search, $filter_category_ids, $filter_type);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getProducts'
+     *
+     * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
+     * @param  string $per_page The number of items per page. Defaults to 25. (optional)
+     * @param  string $page The requested page. Defaults to 1. (optional)
+     * @param  string $filter_search Return products that have fields matching this term. (optional)
+     * @param  string $filter_category_ids Return products in the given categories. (optional)
+     * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getProductsRequest($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
+    {
+        if ($sort !== null && strlen($sort) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$sort" when calling OrdersApi.getProducts, must be smaller than or equal to 100.');
+        }
+        if ($sort !== null && strlen($sort) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$sort" when calling OrdersApi.getProducts, must be bigger than or equal to 1.');
+        }
+
+        if ($per_page !== null && strlen($per_page) > 5) {
+            throw new \InvalidArgumentException('invalid length for "$per_page" when calling OrdersApi.getProducts, must be smaller than or equal to 5.');
+        }
+        if ($per_page !== null && strlen($per_page) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$per_page" when calling OrdersApi.getProducts, must be bigger than or equal to 1.');
+        }
+
+        if ($page !== null && strlen($page) > 5) {
+            throw new \InvalidArgumentException('invalid length for "$page" when calling OrdersApi.getProducts, must be smaller than or equal to 5.');
+        }
+        if ($page !== null && strlen($page) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$page" when calling OrdersApi.getProducts, must be bigger than or equal to 1.');
+        }
+
+
+        $resourcePath = '/products';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($sort !== null) {
+            if('form' === 'form' && is_array($sort)) {
+                foreach($sort as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['sort'] = $sort;
+            }
+        }
+        // query params
+        if ($per_page !== null) {
+            if('form' === 'form' && is_array($per_page)) {
+                foreach($per_page as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['per_page'] = $per_page;
+            }
+        }
+        // query params
+        if ($page !== null) {
+            if('form' === 'form' && is_array($page)) {
+                foreach($page as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['page'] = $page;
+            }
+        }
+        // query params
+        if ($filter_search !== null) {
+            if('form' === 'form' && is_array($filter_search)) {
+                foreach($filter_search as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[search]'] = $filter_search;
+            }
+        }
+        // query params
+        if ($filter_category_ids !== null) {
+            if('form' === 'form' && is_array($filter_category_ids)) {
+                foreach($filter_category_ids as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[category_ids]'] = $filter_category_ids;
+            }
+        }
+        // query params
+        if ($filter_type !== null) {
+            if('form' === 'form' && is_array($filter_type)) {
+                foreach($filter_type as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[type]'] = $filter_type;
+            }
+        }
+
+
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if ($this->config->getAccessToken() !== null) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation postOrders
      *
      * Create an order.
