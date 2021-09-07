@@ -1,6 +1,6 @@
 <?php
 /**
- * ApiError
+ * ApiError403
  *
  * PHP version 7.3
  *
@@ -28,10 +28,10 @@ use \ArrayAccess;
 use \Aryeo\ObjectSerializer;
 
 /**
- * ApiError Class Doc Comment
+ * ApiError403 Class Doc Comment
  *
  * @category Class
- * @description A generic error returned by the API.
+ * @description A forbidden error returned by the API.
  * @package  Aryeo
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -39,7 +39,7 @@ use \Aryeo\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
+class ApiError403 implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ApiError';
+    protected static $openAPIModelName = 'ApiError403';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -256,10 +256,10 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setStatus($status)
     {
         if ((mb_strlen($status) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $status when calling ApiError., must be smaller than or equal to 255.');
+            throw new \InvalidArgumentException('invalid length for $status when calling ApiError403., must be smaller than or equal to 255.');
         }
         if ((mb_strlen($status) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $status when calling ApiError., must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid length for $status when calling ApiError403., must be bigger than or equal to 0.');
         }
 
         $this->container['status'] = $status;
@@ -287,10 +287,10 @@ class ApiError implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setMessage($message)
     {
         if ((mb_strlen($message) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $message when calling ApiError., must be smaller than or equal to 255.');
+            throw new \InvalidArgumentException('invalid length for $message when calling ApiError403., must be smaller than or equal to 255.');
         }
         if ((mb_strlen($message) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $message when calling ApiError., must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid length for $message when calling ApiError403., must be bigger than or equal to 0.');
         }
 
         $this->container['message'] = $message;

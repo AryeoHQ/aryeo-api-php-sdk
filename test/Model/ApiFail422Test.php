@@ -1,6 +1,6 @@
 <?php
 /**
- * ApiFailTest
+ * ApiFail422Test
  *
  * PHP version 7.3
  *
@@ -27,15 +27,15 @@ namespace Aryeo\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * ApiFailTest Class Doc Comment
+ * ApiFail422Test Class Doc Comment
  *
  * @category    Class
- * @description A generic failure returned by the API.
+ * @description A processing or validation failure returned by the API.
  * @package     Aryeo
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class ApiFailTest extends TestCase
+class ApiFail422Test extends TestCase
 {
 
     /**
@@ -67,9 +67,9 @@ class ApiFailTest extends TestCase
     }
 
     /**
-     * Test "ApiFail"
+     * Test "ApiFail422"
      */
-    public function testApiFail()
+    public function testApiFail422()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

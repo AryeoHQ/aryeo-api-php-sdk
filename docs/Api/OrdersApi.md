@@ -103,9 +103,9 @@ $apiInstance = new Aryeo\Api\OrdersApi(
 $sort = -created_at; // string | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `title`.
 $per_page = 25; // string | The number of items per page. Defaults to 25.
 $page = 2; // string | The requested page. Defaults to 1.
-$filter_search = 'filter_search_example'; // string | Return products that have fields matching this term.
-$filter_category_ids = 'filter_category_ids_example'; // string | Return products in the given categories.
-$filter_type = 'filter_type_example'; // string | Return products matching the given type. Allowed values are: MAIN, ADDON.
+$filter_search = Photography; // string | Return products that have fields matching this term.
+$filter_category_ids = ["00000000-0000-4000-8000-000000000000"]; // array | Return products in the given categories.
+$filter_type = MAIN; // string | Return products matching the given type. Allowed values are: MAIN, ADDON.
 
 try {
     $result = $apiInstance->getProducts($sort, $per_page, $page, $filter_search, $filter_category_ids, $filter_type);
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
  **per_page** | **string**| The number of items per page. Defaults to 25. | [optional]
  **page** | **string**| The requested page. Defaults to 1. | [optional]
  **filter_search** | **string**| Return products that have fields matching this term. | [optional]
- **filter_category_ids** | **string**| Return products in the given categories. | [optional]
+ **filter_category_ids** | [**array**](../Model/.md)| Return products in the given categories. | [optional]
  **filter_type** | **string**| Return products matching the given type. Allowed values are: MAIN, ADDON. | [optional]
 
 ### Return type

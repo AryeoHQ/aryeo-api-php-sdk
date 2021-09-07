@@ -126,7 +126,7 @@ class AppointmentsApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\AppointmentCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\AppointmentCollection|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500
      */
     public function getAppointments($include = null, $filter_tense = null, $filter_start_at_gte = null, $filter_start_at_lte = null, $filter_user_ids = null, $sort = null, $per_page = null, $page = null)
     {
@@ -150,7 +150,7 @@ class AppointmentsApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\AppointmentCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\AppointmentCollection|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAppointmentsWithHttpInfo($include = null, $filter_tense = null, $filter_start_at_gte = null, $filter_start_at_lte = null, $filter_user_ids = null, $sort = null, $per_page = null, $page = null)
     {
@@ -198,50 +198,50 @@ class AppointmentsApi
                         $response->getHeaders()
                     ];
                 case 403:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError403' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError403', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 404:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError404' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError404', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail422' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail422', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 500:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError500' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError500', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -273,7 +273,7 @@ class AppointmentsApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError403',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -281,7 +281,7 @@ class AppointmentsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError404',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -289,7 +289,7 @@ class AppointmentsApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiFail',
+                        '\Aryeo\Model\ApiFail422',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -297,7 +297,7 @@ class AppointmentsApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError500',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -636,7 +636,7 @@ class AppointmentsApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\UnconfirmedAppointmentCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\UnconfirmedAppointmentCollection|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500
      */
     public function getUnconfirmedAppointments($include = null, $filter_user_ids = null, $sort = null, $per_page = null, $page = null)
     {
@@ -657,7 +657,7 @@ class AppointmentsApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\UnconfirmedAppointmentCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\UnconfirmedAppointmentCollection|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500, HTTP status code, HTTP response headers (array of strings)
      */
     public function getUnconfirmedAppointmentsWithHttpInfo($include = null, $filter_user_ids = null, $sort = null, $per_page = null, $page = null)
     {
@@ -705,50 +705,50 @@ class AppointmentsApi
                         $response->getHeaders()
                     ];
                 case 403:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError403' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError403', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 404:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError404' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError404', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail422' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail422', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 500:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError500' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError500', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -780,7 +780,7 @@ class AppointmentsApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError403',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -788,7 +788,7 @@ class AppointmentsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError404',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -796,7 +796,7 @@ class AppointmentsApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiFail',
+                        '\Aryeo\Model\ApiFail422',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -804,7 +804,7 @@ class AppointmentsApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError500',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1077,7 +1077,7 @@ class AppointmentsApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\AppointmentResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\AppointmentResource|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiError409|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500
      */
     public function putAppointmentsAppointmentIdCancel($appointment_id, $appointment_cancel_put_payload = null)
     {
@@ -1095,7 +1095,7 @@ class AppointmentsApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\AppointmentResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\AppointmentResource|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiError409|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500, HTTP status code, HTTP response headers (array of strings)
      */
     public function putAppointmentsAppointmentIdCancelWithHttpInfo($appointment_id, $appointment_cancel_put_payload = null)
     {
@@ -1143,62 +1143,62 @@ class AppointmentsApi
                         $response->getHeaders()
                     ];
                 case 403:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError403' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError403', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 404:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError404' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError404', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 409:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError409' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError409', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail422' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail422', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 500:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError500' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError500', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -1230,7 +1230,7 @@ class AppointmentsApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError403',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1238,7 +1238,7 @@ class AppointmentsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError404',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1246,7 +1246,7 @@ class AppointmentsApi
                 case 409:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError409',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1254,7 +1254,7 @@ class AppointmentsApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiFail',
+                        '\Aryeo\Model\ApiFail422',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1262,7 +1262,7 @@ class AppointmentsApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError500',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1388,11 +1388,11 @@ class AppointmentsApi
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json', 'application/xml']
+                ['application/json']
             );
         } else {
             $headers = $this->headerSelector->selectHeaders(
-                ['application/json', 'application/xml'],
+                ['application/json'],
                 ['application/json']
             );
         }
@@ -1463,7 +1463,7 @@ class AppointmentsApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\AppointmentResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\AppointmentResource|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiError409|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500
      */
     public function putAppointmentsAppointmentIdReschedule($appointment_id, $appointment_reschedule_put_payload = null)
     {
@@ -1481,7 +1481,7 @@ class AppointmentsApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\AppointmentResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\AppointmentResource|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiError409|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500, HTTP status code, HTTP response headers (array of strings)
      */
     public function putAppointmentsAppointmentIdRescheduleWithHttpInfo($appointment_id, $appointment_reschedule_put_payload = null)
     {
@@ -1529,62 +1529,62 @@ class AppointmentsApi
                         $response->getHeaders()
                     ];
                 case 403:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError403' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError403', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 404:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError404' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError404', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 409:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError409' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError409', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail422' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail422', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 500:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError500' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError500', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -1616,7 +1616,7 @@ class AppointmentsApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError403',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1624,7 +1624,7 @@ class AppointmentsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError404',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1632,7 +1632,7 @@ class AppointmentsApi
                 case 409:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError409',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1640,7 +1640,7 @@ class AppointmentsApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiFail',
+                        '\Aryeo\Model\ApiFail422',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1648,7 +1648,7 @@ class AppointmentsApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError500',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

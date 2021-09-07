@@ -64,7 +64,8 @@ class Appointment implements ModelInterface, ArrayAccess, \JsonSerializable
         'end_at' => '\DateTime',
         'duration' => 'int',
         'order' => '\Aryeo\Model\Order',
-        'users' => '\Aryeo\Model\User[]'
+        'users' => '\Aryeo\Model\User[]',
+        'items' => '\Aryeo\Model\OrderItem[]'
     ];
 
     /**
@@ -83,7 +84,8 @@ class Appointment implements ModelInterface, ArrayAccess, \JsonSerializable
         'end_at' => 'date-time',
         'duration' => null,
         'order' => null,
-        'users' => null
+        'users' => null,
+        'items' => null
     ];
 
     /**
@@ -121,7 +123,8 @@ class Appointment implements ModelInterface, ArrayAccess, \JsonSerializable
         'end_at' => 'end_at',
         'duration' => 'duration',
         'order' => 'order',
-        'users' => 'users'
+        'users' => 'users',
+        'items' => 'items'
     ];
 
     /**
@@ -138,7 +141,8 @@ class Appointment implements ModelInterface, ArrayAccess, \JsonSerializable
         'end_at' => 'setEndAt',
         'duration' => 'setDuration',
         'order' => 'setOrder',
-        'users' => 'setUsers'
+        'users' => 'setUsers',
+        'items' => 'setItems'
     ];
 
     /**
@@ -155,7 +159,8 @@ class Appointment implements ModelInterface, ArrayAccess, \JsonSerializable
         'end_at' => 'getEndAt',
         'duration' => 'getDuration',
         'order' => 'getOrder',
-        'users' => 'getUsers'
+        'users' => 'getUsers',
+        'items' => 'getItems'
     ];
 
     /**
@@ -243,6 +248,7 @@ class Appointment implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['duration'] = $data['duration'] ?? null;
         $this->container['order'] = $data['order'] ?? null;
         $this->container['users'] = $data['users'] ?? null;
+        $this->container['items'] = $data['items'] ?? null;
     }
 
     /**
@@ -593,6 +599,30 @@ class Appointment implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setUsers($users)
     {
         $this->container['users'] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Gets items
+     *
+     * @return \Aryeo\Model\OrderItem[]|null
+     */
+    public function getItems()
+    {
+        return $this->container['items'];
+    }
+
+    /**
+     * Sets items
+     *
+     * @param \Aryeo\Model\OrderItem[]|null $items Items attached to the appointment.
+     *
+     * @return self
+     */
+    public function setItems($items)
+    {
+        $this->container['items'] = $items;
 
         return $this;
     }

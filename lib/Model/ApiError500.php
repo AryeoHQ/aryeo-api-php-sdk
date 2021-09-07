@@ -1,6 +1,6 @@
 <?php
 /**
- * ApiFail
+ * ApiError500
  *
  * PHP version 7.3
  *
@@ -28,10 +28,10 @@ use \ArrayAccess;
 use \Aryeo\ObjectSerializer;
 
 /**
- * ApiFail Class Doc Comment
+ * ApiError500 Class Doc Comment
  *
  * @category Class
- * @description A generic failure returned by the API.
+ * @description An internal server error returned by the API.
  * @package  Aryeo
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -39,7 +39,7 @@ use \Aryeo\ObjectSerializer;
  * @template TKey int|null
  * @template TValue mixed|null
  */
-class ApiFail implements ModelInterface, ArrayAccess, \JsonSerializable
+class ApiError500 implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -48,7 +48,7 @@ class ApiFail implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ApiFail';
+    protected static $openAPIModelName = 'ApiError500';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -56,7 +56,9 @@ class ApiFail implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'status' => 'string'
+        'status' => 'string',
+        'message' => 'string',
+        'code' => 'int'
     ];
 
     /**
@@ -67,7 +69,9 @@ class ApiFail implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'status' => null
+        'status' => null,
+        'message' => null,
+        'code' => null
     ];
 
     /**
@@ -97,7 +101,9 @@ class ApiFail implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'status' => 'status'
+        'status' => 'status',
+        'message' => 'message',
+        'code' => 'code'
     ];
 
     /**
@@ -106,7 +112,9 @@ class ApiFail implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'status' => 'setStatus'
+        'status' => 'setStatus',
+        'message' => 'setMessage',
+        'code' => 'setCode'
     ];
 
     /**
@@ -115,7 +123,9 @@ class ApiFail implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'status' => 'getStatus'
+        'status' => 'getStatus',
+        'message' => 'getMessage',
+        'code' => 'getCode'
     ];
 
     /**
@@ -176,6 +186,8 @@ class ApiFail implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->container['status'] = $data['status'] ?? null;
+        $this->container['message'] = $data['message'] ?? null;
+        $this->container['code'] = $data['code'] ?? null;
     }
 
     /**
@@ -196,6 +208,17 @@ class ApiFail implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if ((mb_strlen($this->container['status']) < 0)) {
             $invalidProperties[] = "invalid value for 'status', the character length must be bigger than or equal to 0.";
+        }
+
+        if ($this->container['message'] === null) {
+            $invalidProperties[] = "'message' can't be null";
+        }
+        if ((mb_strlen($this->container['message']) > 255)) {
+            $invalidProperties[] = "invalid value for 'message', the character length must be smaller than or equal to 255.";
+        }
+
+        if ((mb_strlen($this->container['message']) < 0)) {
+            $invalidProperties[] = "invalid value for 'message', the character length must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -233,13 +256,68 @@ class ApiFail implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setStatus($status)
     {
         if ((mb_strlen($status) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $status when calling ApiFail., must be smaller than or equal to 255.');
+            throw new \InvalidArgumentException('invalid length for $status when calling ApiError500., must be smaller than or equal to 255.');
         }
         if ((mb_strlen($status) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $status when calling ApiFail., must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid length for $status when calling ApiError500., must be bigger than or equal to 0.');
         }
 
         $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets message
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->container['message'];
+    }
+
+    /**
+     * Sets message
+     *
+     * @param string $message The error message.
+     *
+     * @return self
+     */
+    public function setMessage($message)
+    {
+        if ((mb_strlen($message) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $message when calling ApiError500., must be smaller than or equal to 255.');
+        }
+        if ((mb_strlen($message) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $message when calling ApiError500., must be bigger than or equal to 0.');
+        }
+
+        $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Gets code
+     *
+     * @return int|null
+     */
+    public function getCode()
+    {
+        return $this->container['code'];
+    }
+
+    /**
+     * Sets code
+     *
+     * @param int|null $code A numeric code corresponding to the error.
+     *
+     * @return self
+     */
+    public function setCode($code)
+    {
+        $this->container['code'] = $code;
 
         return $this;
     }

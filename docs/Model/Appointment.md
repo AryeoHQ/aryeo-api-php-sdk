@@ -13,5 +13,6 @@ Name | Type | Description | Notes
 **duration** | **int** | The length of the appointment in minutes. | [optional]
 **order** | [**\Aryeo\Model\Order**](Order.md) |  | [optional]
 **users** | [**\Aryeo\Model\User[]**](User.md) | Users attached to the appointment. | [optional]
+**items** | [**\Aryeo\Model\OrderItem[]**](OrderItem.md) | Items attached to the appointment. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

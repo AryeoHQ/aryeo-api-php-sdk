@@ -1,6 +1,6 @@
 <?php
 /**
- * ApiErrorTest
+ * ApiError404Test
  *
  * PHP version 7.3
  *
@@ -27,15 +27,15 @@ namespace Aryeo\Test\Model;
 use PHPUnit\Framework\TestCase;
 
 /**
- * ApiErrorTest Class Doc Comment
+ * ApiError404Test Class Doc Comment
  *
  * @category    Class
- * @description A generic error returned by the API.
+ * @description A not found error returned by the API.
  * @package     Aryeo
  * @author      OpenAPI Generator team
  * @link        https://openapi-generator.tech
  */
-class ApiErrorTest extends TestCase
+class ApiError404Test extends TestCase
 {
 
     /**
@@ -67,9 +67,9 @@ class ApiErrorTest extends TestCase
     }
 
     /**
-     * Test "ApiError"
+     * Test "ApiError404"
      */
-    public function testApiError()
+    public function testApiError404()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

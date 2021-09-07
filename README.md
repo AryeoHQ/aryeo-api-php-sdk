@@ -73,8 +73,11 @@ Class | Method | HTTP request | Description
 ## Models
 
 - [Address](docs/Model/Address.md)
-- [ApiError](docs/Model/ApiError.md)
-- [ApiFail](docs/Model/ApiFail.md)
+- [ApiError403](docs/Model/ApiError403.md)
+- [ApiError404](docs/Model/ApiError404.md)
+- [ApiError409](docs/Model/ApiError409.md)
+- [ApiError500](docs/Model/ApiError500.md)
+- [ApiFail422](docs/Model/ApiFail422.md)
 - [Appointment](docs/Model/Appointment.md)
 - [AppointmentCancelPutPayload](docs/Model/AppointmentCancelPutPayload.md)
 - [AppointmentCollection](docs/Model/AppointmentCollection.md)

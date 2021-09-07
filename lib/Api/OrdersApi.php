@@ -121,7 +121,7 @@ class OrdersApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500
      */
     public function getOrders($sort = null, $per_page = null, $page = null)
     {
@@ -140,7 +140,7 @@ class OrdersApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\OrderCollection|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500, HTTP status code, HTTP response headers (array of strings)
      */
     public function getOrdersWithHttpInfo($sort = null, $per_page = null, $page = null)
     {
@@ -188,50 +188,50 @@ class OrdersApi
                         $response->getHeaders()
                     ];
                 case 403:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError403' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError403', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 404:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError404' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError404', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail422' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail422', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 500:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError500' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError500', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -263,7 +263,7 @@ class OrdersApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError403',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -271,7 +271,7 @@ class OrdersApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError404',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -279,7 +279,7 @@ class OrdersApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiFail',
+                        '\Aryeo\Model\ApiFail422',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -287,7 +287,7 @@ class OrdersApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError500',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -517,12 +517,12 @@ class OrdersApi
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
-     * @param  string $filter_category_ids Return products in the given categories. (optional)
+     * @param  array $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\ProductCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\ProductCollection|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500
      */
     public function getProducts($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
     {
@@ -539,12 +539,12 @@ class OrdersApi
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
-     * @param  string $filter_category_ids Return products in the given categories. (optional)
+     * @param  array $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\ProductCollection|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\ProductCollection|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProductsWithHttpInfo($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
     {
@@ -592,38 +592,38 @@ class OrdersApi
                         $response->getHeaders()
                     ];
                 case 404:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError404' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError404', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail422' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail422', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 500:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError500' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError500', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -655,7 +655,7 @@ class OrdersApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError404',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -663,7 +663,7 @@ class OrdersApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiFail',
+                        '\Aryeo\Model\ApiFail422',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -671,7 +671,7 @@ class OrdersApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError500',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -690,7 +690,7 @@ class OrdersApi
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
-     * @param  string $filter_category_ids Return products in the given categories. (optional)
+     * @param  array $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \InvalidArgumentException
@@ -715,7 +715,7 @@ class OrdersApi
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
-     * @param  string $filter_category_ids Return products in the given categories. (optional)
+     * @param  array $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \InvalidArgumentException
@@ -766,7 +766,7 @@ class OrdersApi
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
-     * @param  string $filter_category_ids Return products in the given categories. (optional)
+     * @param  array $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \InvalidArgumentException
@@ -793,6 +793,27 @@ class OrdersApi
         }
         if ($page !== null && strlen($page) < 1) {
             throw new \InvalidArgumentException('invalid length for "$page" when calling OrdersApi.getProducts, must be bigger than or equal to 1.');
+        }
+
+        if ($filter_search !== null && strlen($filter_search) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$filter_search" when calling OrdersApi.getProducts, must be smaller than or equal to 255.');
+        }
+        if ($filter_search !== null && strlen($filter_search) < 0) {
+            throw new \InvalidArgumentException('invalid length for "$filter_search" when calling OrdersApi.getProducts, must be bigger than or equal to 0.');
+        }
+
+        if ($filter_category_ids !== null && strlen($filter_category_ids) > 36) {
+            throw new \InvalidArgumentException('invalid length for "$filter_category_ids" when calling OrdersApi.getProducts, must be smaller than or equal to 36.');
+        }
+        if ($filter_category_ids !== null && strlen($filter_category_ids) < 36) {
+            throw new \InvalidArgumentException('invalid length for "$filter_category_ids" when calling OrdersApi.getProducts, must be bigger than or equal to 36.');
+        }
+
+        if ($filter_type !== null && strlen($filter_type) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$filter_type" when calling OrdersApi.getProducts, must be smaller than or equal to 255.');
+        }
+        if ($filter_type !== null && strlen($filter_type) < 0) {
+            throw new \InvalidArgumentException('invalid length for "$filter_type" when calling OrdersApi.getProducts, must be bigger than or equal to 0.');
         }
 
 
@@ -943,7 +964,7 @@ class OrdersApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError
+     * @return \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiError409|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500
      */
     public function postOrders($order_post_payload = null)
     {
@@ -960,7 +981,7 @@ class OrdersApi
      *
      * @throws \Aryeo\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiError|\Aryeo\Model\ApiFail|\Aryeo\Model\ApiError, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiError409|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500, HTTP status code, HTTP response headers (array of strings)
      */
     public function postOrdersWithHttpInfo($order_post_payload = null)
     {
@@ -1008,62 +1029,62 @@ class OrdersApi
                         $response->getHeaders()
                     ];
                 case 403:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError403' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError403', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 404:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError404' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError404', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 409:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError409' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError409', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 422:
-                    if ('\Aryeo\Model\ApiFail' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiFail422' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail422', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
                 case 500:
-                    if ('\Aryeo\Model\ApiError' === '\SplFileObject') {
+                    if ('\Aryeo\Model\ApiError500' === '\SplFileObject') {
                         $content = $response->getBody(); //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
                     }
 
                     return [
-                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError', []),
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError500', []),
                         $response->getStatusCode(),
                         $response->getHeaders()
                     ];
@@ -1095,7 +1116,7 @@ class OrdersApi
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError403',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1103,7 +1124,7 @@ class OrdersApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError404',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1111,7 +1132,7 @@ class OrdersApi
                 case 409:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError409',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1119,7 +1140,7 @@ class OrdersApi
                 case 422:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiFail',
+                        '\Aryeo\Model\ApiFail422',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1127,7 +1148,7 @@ class OrdersApi
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Aryeo\Model\ApiError',
+                        '\Aryeo\Model\ApiError500',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
