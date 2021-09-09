@@ -92,6 +92,18 @@ class AppointmentsApiTest extends TestCase
     }
 
     /**
+     * Test case for getUnconfirmedAppointmentsId
+     *
+     * Retrieve an unconfirmed appointment..
+     *
+     */
+    public function testGetUnconfirmedAppointmentsId()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for putAppointmentsAppointmentIdCancel
      *
      * Cancel an appointment..

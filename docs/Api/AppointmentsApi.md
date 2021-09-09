@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getAppointments()**](AppointmentsApi.md#getAppointments) | **GET** /appointments | List all appointments.
 [**getUnconfirmedAppointments()**](AppointmentsApi.md#getUnconfirmedAppointments) | **GET** /unconfirmed-appointments | List all unconfirmed appointments.
+[**getUnconfirmedAppointmentsId()**](AppointmentsApi.md#getUnconfirmedAppointmentsId) | **GET** /unconfirmed-appointments/{unconfirmed_appointment_id} | Retrieve an unconfirmed appointment.
 [**putAppointmentsAppointmentIdCancel()**](AppointmentsApi.md#putAppointmentsAppointmentIdCancel) | **PUT** /appointments/{appointment_id}/cancel | Cancel an appointment.
 [**putAppointmentsAppointmentIdReschedule()**](AppointmentsApi.md#putAppointmentsAppointmentIdReschedule) | **PUT** /appointments/{appointment_id}/reschedule | Reschedule an appointment.
 
@@ -138,6 +139,68 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\Aryeo\Model\UnconfirmedAppointmentCollection**](../Model/UnconfirmedAppointmentCollection.md)
+
+### Authorization
+
+[Token](../../README.md#Token)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getUnconfirmedAppointmentsId()`
+
+```php
+getUnconfirmedAppointmentsId($unconfirmed_appointment_id, $include): \Aryeo\Model\UnconfirmedAppointmentResource
+```
+
+Retrieve an unconfirmed appointment.
+
+Retrieves the details of an unconfirmed appointment with the given ID.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: Token
+$config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Aryeo\Api\AppointmentsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$unconfirmed_appointment_id = 00000000-0000-0000-0000-000000000000; // string | The ID of an appointment.
+$include = order,users; // string | Comma separated list of optional data to include in the response.
+
+try {
+    $result = $apiInstance->getUnconfirmedAppointmentsId($unconfirmed_appointment_id, $include);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AppointmentsApi->getUnconfirmedAppointmentsId: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **unconfirmed_appointment_id** | [**string**](../Model/.md)| The ID of an appointment. |
+ **include** | **string**| Comma separated list of optional data to include in the response. | [optional]
+
+### Return type
+
+[**\Aryeo\Model\UnconfirmedAppointmentResource**](../Model/UnconfirmedAppointmentResource.md)
 
 ### Authorization
 
