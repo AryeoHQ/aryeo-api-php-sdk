@@ -5,6 +5,7 @@ All URIs are relative to https://api.aryeo.com/v1.
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getOrders()**](OrdersApi.md#getOrders) | **GET** /orders | List all orders.
+[**getOrdersId()**](OrdersApi.md#getOrdersId) | **GET** /orders/{order_id} | Retrieve an order.
 [**getProducts()**](OrdersApi.md#getProducts) | **GET** /products | Get products available to a group.
 [**postOrders()**](OrdersApi.md#postOrders) | **POST** /orders | Create an order.
 
@@ -59,6 +60,68 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\Aryeo\Model\OrderCollection**](../Model/OrderCollection.md)
+
+### Authorization
+
+[Token](../../README.md#Token)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getOrdersId()`
+
+```php
+getOrdersId($order_id, $include): \Aryeo\Model\OrderResource
+```
+
+Retrieve an order.
+
+Retrieves the details of an order with the given ID.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: Token
+$config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Aryeo\Api\OrdersApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$order_id = 00000000-0000-4000-8000-000000000000; // string | The ID of an order. UUID Version 4.
+$include = items,appointments,unconfirmed_appointments; // string | Comma separated list of optional data to include in the response.
+
+try {
+    $result = $apiInstance->getOrdersId($order_id, $include);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OrdersApi->getOrdersId: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **order_id** | [**string**](../Model/.md)| The ID of an order. UUID Version 4. |
+ **include** | **string**| Comma separated list of optional data to include in the response. | [optional]
+
+### Return type
+
+[**\Aryeo\Model\OrderResource**](../Model/OrderResource.md)
 
 ### Authorization
 

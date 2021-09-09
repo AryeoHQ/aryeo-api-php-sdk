@@ -509,6 +509,384 @@ class OrdersApi
     }
 
     /**
+     * Operation getOrdersId
+     *
+     * Retrieve an order.
+     *
+     * @param  string $order_id The ID of an order. UUID Version 4. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
+     *
+     * @throws \Aryeo\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500
+     */
+    public function getOrdersId($order_id, $include = null)
+    {
+        list($response) = $this->getOrdersIdWithHttpInfo($order_id, $include);
+        return $response;
+    }
+
+    /**
+     * Operation getOrdersIdWithHttpInfo
+     *
+     * Retrieve an order.
+     *
+     * @param  string $order_id The ID of an order. UUID Version 4. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
+     *
+     * @throws \Aryeo\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Aryeo\Model\OrderResource|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getOrdersIdWithHttpInfo($order_id, $include = null)
+    {
+        $request = $this->getOrdersIdRequest($order_id, $include);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\Aryeo\Model\OrderResource' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\OrderResource', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\Aryeo\Model\ApiError403' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError403', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\Aryeo\Model\ApiError404' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError404', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 422:
+                    if ('\Aryeo\Model\ApiFail422' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail422', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\Aryeo\Model\ApiError500' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError500', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\Aryeo\Model\OrderResource';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\OrderResource',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError403',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError404',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiFail422',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError500',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getOrdersIdAsync
+     *
+     * Retrieve an order.
+     *
+     * @param  string $order_id The ID of an order. UUID Version 4. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getOrdersIdAsync($order_id, $include = null)
+    {
+        return $this->getOrdersIdAsyncWithHttpInfo($order_id, $include)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getOrdersIdAsyncWithHttpInfo
+     *
+     * Retrieve an order.
+     *
+     * @param  string $order_id The ID of an order. UUID Version 4. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getOrdersIdAsyncWithHttpInfo($order_id, $include = null)
+    {
+        $returnType = '\Aryeo\Model\OrderResource';
+        $request = $this->getOrdersIdRequest($order_id, $include);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getOrdersId'
+     *
+     * @param  string $order_id The ID of an order. UUID Version 4. (required)
+     * @param  string $include Comma separated list of optional data to include in the response. (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getOrdersIdRequest($order_id, $include = null)
+    {
+        // verify the required parameter 'order_id' is set
+        if ($order_id === null || (is_array($order_id) && count($order_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $order_id when calling getOrdersId'
+            );
+        }
+        if (strlen($order_id) > 36) {
+            throw new \InvalidArgumentException('invalid length for "$order_id" when calling OrdersApi.getOrdersId, must be smaller than or equal to 36.');
+        }
+        if (strlen($order_id) < 36) {
+            throw new \InvalidArgumentException('invalid length for "$order_id" when calling OrdersApi.getOrdersId, must be bigger than or equal to 36.');
+        }
+
+        if ($include !== null && strlen($include) > 255) {
+            throw new \InvalidArgumentException('invalid length for "$include" when calling OrdersApi.getOrdersId, must be smaller than or equal to 255.');
+        }
+        if ($include !== null && strlen($include) < 0) {
+            throw new \InvalidArgumentException('invalid length for "$include" when calling OrdersApi.getOrdersId, must be bigger than or equal to 0.');
+        }
+
+
+        $resourcePath = '/orders/{order_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($include !== null) {
+            if('form' === 'form' && is_array($include)) {
+                foreach($include as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['include'] = $include;
+            }
+        }
+
+
+        // path params
+        if ($order_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'order_id' . '}',
+                ObjectSerializer::toPathValue($order_id),
+                $resourcePath
+            );
+        }
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if ($this->config->getAccessToken() !== null) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getProducts
      *
      * Get products available to a group.

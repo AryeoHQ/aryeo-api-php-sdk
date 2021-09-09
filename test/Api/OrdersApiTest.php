@@ -80,6 +80,18 @@ class OrdersApiTest extends TestCase
     }
 
     /**
+     * Test case for getOrdersId
+     *
+     * Retrieve an order..
+     *
+     */
+    public function testGetOrdersId()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for getProducts
      *
      * Get products available to a group..
