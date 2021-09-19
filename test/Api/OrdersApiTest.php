@@ -94,7 +94,7 @@ class OrdersApiTest extends TestCase
     /**
      * Test case for getProducts
      *
-     * Get products available to a group..
+     * List all products..
      *
      */
     public function testGetProducts()

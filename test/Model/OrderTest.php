@@ -175,9 +175,36 @@ class OrderTest extends TestCase
     }
 
     /**
+     * Test attribute "listing"
+     */
+    public function testPropertyListing()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "items"
      */
     public function testPropertyItems()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "appointments"
+     */
+    public function testPropertyAppointments()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "unconfirmed_appointments"
+     */
+    public function testPropertyUnconfirmedAppointments()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

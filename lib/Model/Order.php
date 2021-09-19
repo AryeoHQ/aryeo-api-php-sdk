@@ -67,7 +67,10 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'status_url' => 'string',
         'address' => '\Aryeo\Model\Address',
         'customer' => '\Aryeo\Model\Group',
-        'items' => '\Aryeo\Model\OrderItem[]'
+        'listing' => '\Aryeo\Model\Listing',
+        'items' => '\Aryeo\Model\OrderItem[]',
+        'appointments' => '\Aryeo\Model\Appointment[]',
+        'unconfirmed_appointments' => '\Aryeo\Model\UnconfirmedAppointment[]'
     ];
 
     /**
@@ -89,7 +92,10 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'status_url' => null,
         'address' => null,
         'customer' => null,
-        'items' => null
+        'listing' => null,
+        'items' => null,
+        'appointments' => null,
+        'unconfirmed_appointments' => null
     ];
 
     /**
@@ -130,7 +136,10 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'status_url' => 'status_url',
         'address' => 'address',
         'customer' => 'customer',
-        'items' => 'items'
+        'listing' => 'listing',
+        'items' => 'items',
+        'appointments' => 'appointments',
+        'unconfirmed_appointments' => 'unconfirmed_appointments'
     ];
 
     /**
@@ -150,7 +159,10 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'status_url' => 'setStatusUrl',
         'address' => 'setAddress',
         'customer' => 'setCustomer',
-        'items' => 'setItems'
+        'listing' => 'setListing',
+        'items' => 'setItems',
+        'appointments' => 'setAppointments',
+        'unconfirmed_appointments' => 'setUnconfirmedAppointments'
     ];
 
     /**
@@ -170,7 +182,10 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'status_url' => 'getStatusUrl',
         'address' => 'getAddress',
         'customer' => 'getCustomer',
-        'items' => 'getItems'
+        'listing' => 'getListing',
+        'items' => 'getItems',
+        'appointments' => 'getAppointments',
+        'unconfirmed_appointments' => 'getUnconfirmedAppointments'
     ];
 
     /**
@@ -298,7 +313,10 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['status_url'] = $data['status_url'] ?? null;
         $this->container['address'] = $data['address'] ?? null;
         $this->container['customer'] = $data['customer'] ?? null;
+        $this->container['listing'] = $data['listing'] ?? null;
         $this->container['items'] = $data['items'] ?? null;
+        $this->container['appointments'] = $data['appointments'] ?? null;
+        $this->container['unconfirmed_appointments'] = $data['unconfirmed_appointments'] ?? null;
     }
 
     /**
@@ -779,6 +797,30 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets listing
+     *
+     * @return \Aryeo\Model\Listing|null
+     */
+    public function getListing()
+    {
+        return $this->container['listing'];
+    }
+
+    /**
+     * Sets listing
+     *
+     * @param \Aryeo\Model\Listing|null $listing listing
+     *
+     * @return self
+     */
+    public function setListing($listing)
+    {
+        $this->container['listing'] = $listing;
+
+        return $this;
+    }
+
+    /**
      * Gets items
      *
      * @return \Aryeo\Model\OrderItem[]|null
@@ -798,6 +840,54 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setItems($items)
     {
         $this->container['items'] = $items;
+
+        return $this;
+    }
+
+    /**
+     * Gets appointments
+     *
+     * @return \Aryeo\Model\Appointment[]|null
+     */
+    public function getAppointments()
+    {
+        return $this->container['appointments'];
+    }
+
+    /**
+     * Sets appointments
+     *
+     * @param \Aryeo\Model\Appointment[]|null $appointments appointments
+     *
+     * @return self
+     */
+    public function setAppointments($appointments)
+    {
+        $this->container['appointments'] = $appointments;
+
+        return $this;
+    }
+
+    /**
+     * Gets unconfirmed_appointments
+     *
+     * @return \Aryeo\Model\UnconfirmedAppointment[]|null
+     */
+    public function getUnconfirmedAppointments()
+    {
+        return $this->container['unconfirmed_appointments'];
+    }
+
+    /**
+     * Sets unconfirmed_appointments
+     *
+     * @param \Aryeo\Model\UnconfirmedAppointment[]|null $unconfirmed_appointments unconfirmed_appointments
+     *
+     * @return self
+     */
+    public function setUnconfirmedAppointments($unconfirmed_appointments)
+    {
+        $this->container['unconfirmed_appointments'] = $unconfirmed_appointments;
 
         return $this;
     }

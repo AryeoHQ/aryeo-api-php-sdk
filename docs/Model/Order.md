@@ -15,6 +15,9 @@ Name | Type | Description | Notes
 **status_url** | **string** | A URL of a publicly-accessible webpage to see the order&#39;s status. |
 **address** | [**\Aryeo\Model\Address**](Address.md) |  | [optional]
 **customer** | [**\Aryeo\Model\Group**](Group.md) |  | [optional]
+**listing** | [**\Aryeo\Model\Listing**](Listing.md) |  | [optional]
 **items** | [**\Aryeo\Model\OrderItem[]**](OrderItem.md) | items | [optional]
+**appointments** | [**\Aryeo\Model\Appointment[]**](Appointment.md) |  | [optional]
+**unconfirmed_appointments** | [**\Aryeo\Model\UnconfirmedAppointment[]**](UnconfirmedAppointment.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

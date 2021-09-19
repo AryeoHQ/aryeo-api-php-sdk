@@ -42,7 +42,7 @@ $include = order,users; // string | Comma separated list of optional data to inc
 $filter_tense = UPCOMING; // string | Return appointments that are upcoming or in the past.
 $filter_start_at_gte = 2021-01-01T13:00Z; // \DateTime | Return appointments where the start_at field is greater than or equal to this value. Effectively, appointments that start after this date.
 $filter_start_at_lte = 2021-01-02T13:00Z; // \DateTime | Return appointments where the start_at field is less than or equal to this value. Effectively, appointments that start before this date.
-$filter_user_ids = ["00000000-0000-4000-8000-000000000000"]; // array | The IDs of users whose appointments will be retrieved. UUID Version 4.
+$filter_user_ids = array('filter_user_ids_example'); // string[] | The IDs of users whose appointments will be retrieved. UUID Version 4.
 $sort = -created_at; // string | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `-start_at`.
 $per_page = 25; // string | The number of items per page. Defaults to 25.
 $page = 2; // string | The requested page. Defaults to 1.
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
  **filter_tense** | **string**| Return appointments that are upcoming or in the past. | [optional]
  **filter_start_at_gte** | **\DateTime**| Return appointments where the start_at field is greater than or equal to this value. Effectively, appointments that start after this date. | [optional]
  **filter_start_at_lte** | **\DateTime**| Return appointments where the start_at field is less than or equal to this value. Effectively, appointments that start before this date. | [optional]
- **filter_user_ids** | [**array**](../Model/.md)| The IDs of users whose appointments will be retrieved. UUID Version 4. | [optional]
+ **filter_user_ids** | [**string[]**](../Model/string.md)| The IDs of users whose appointments will be retrieved. UUID Version 4. | [optional]
  **sort** | **string**| Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. | [optional]
  **per_page** | **string**| The number of items per page. Defaults to 25. | [optional]
  **page** | **string**| The requested page. Defaults to 1. | [optional]
@@ -113,7 +113,7 @@ $apiInstance = new Aryeo\Api\AppointmentsApi(
     $config
 );
 $include = order,users; // string | Comma separated list of optional data to include in the response.
-$filter_user_ids = ["00000000-0000-4000-8000-000000000000"]; // array | The IDs of users whose appointments will be retrieved. UUID Version 4.
+$filter_user_ids = array('filter_user_ids_example'); // string[] | The IDs of users whose appointments will be retrieved. UUID Version 4.
 $sort = -created_at; // string | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `-start_at`.
 $per_page = 25; // string | The number of items per page. Defaults to 25.
 $page = 2; // string | The requested page. Defaults to 1.
@@ -131,7 +131,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **include** | **string**| Comma separated list of optional data to include in the response. | [optional]
- **filter_user_ids** | [**array**](../Model/.md)| The IDs of users whose appointments will be retrieved. UUID Version 4. | [optional]
+ **filter_user_ids** | [**string[]**](../Model/string.md)| The IDs of users whose appointments will be retrieved. UUID Version 4. | [optional]
  **sort** | **string**| Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. | [optional]
  **per_page** | **string**| The number of items per page. Defaults to 25. | [optional]
  **page** | **string**| The requested page. Defaults to 1. | [optional]

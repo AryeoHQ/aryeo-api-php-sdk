@@ -889,13 +889,13 @@ class OrdersApi
     /**
      * Operation getProducts
      *
-     * Get products available to a group.
+     * List all products.
      *
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
-     * @param  array $filter_category_ids Return products in the given categories. (optional)
+     * @param  string[] $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
@@ -911,13 +911,13 @@ class OrdersApi
     /**
      * Operation getProductsWithHttpInfo
      *
-     * Get products available to a group.
+     * List all products.
      *
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
-     * @param  array $filter_category_ids Return products in the given categories. (optional)
+     * @param  string[] $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \Aryeo\ApiException on non-2xx response
@@ -1062,13 +1062,13 @@ class OrdersApi
     /**
      * Operation getProductsAsync
      *
-     * Get products available to a group.
+     * List all products.
      *
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
-     * @param  array $filter_category_ids Return products in the given categories. (optional)
+     * @param  string[] $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \InvalidArgumentException
@@ -1087,13 +1087,13 @@ class OrdersApi
     /**
      * Operation getProductsAsyncWithHttpInfo
      *
-     * Get products available to a group.
+     * List all products.
      *
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
-     * @param  array $filter_category_ids Return products in the given categories. (optional)
+     * @param  string[] $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \InvalidArgumentException
@@ -1144,7 +1144,7 @@ class OrdersApi
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
-     * @param  array $filter_category_ids Return products in the given categories. (optional)
+     * @param  string[] $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \InvalidArgumentException
@@ -1178,13 +1178,6 @@ class OrdersApi
         }
         if ($filter_search !== null && strlen($filter_search) < 0) {
             throw new \InvalidArgumentException('invalid length for "$filter_search" when calling OrdersApi.getProducts, must be bigger than or equal to 0.');
-        }
-
-        if ($filter_category_ids !== null && strlen($filter_category_ids) > 36) {
-            throw new \InvalidArgumentException('invalid length for "$filter_category_ids" when calling OrdersApi.getProducts, must be smaller than or equal to 36.');
-        }
-        if ($filter_category_ids !== null && strlen($filter_category_ids) < 36) {
-            throw new \InvalidArgumentException('invalid length for "$filter_category_ids" when calling OrdersApi.getProducts, must be bigger than or equal to 36.');
         }
 
         if ($filter_type !== null && strlen($filter_type) > 255) {

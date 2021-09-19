@@ -119,7 +119,7 @@ class AppointmentsApi
      * @param  string $filter_tense Return appointments that are upcoming or in the past. (optional)
      * @param  \DateTime $filter_start_at_gte Return appointments where the start_at field is greater than or equal to this value. Effectively, appointments that start after this date. (optional)
      * @param  \DateTime $filter_start_at_lte Return appointments where the start_at field is less than or equal to this value. Effectively, appointments that start before this date. (optional)
-     * @param  array $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
@@ -143,7 +143,7 @@ class AppointmentsApi
      * @param  string $filter_tense Return appointments that are upcoming or in the past. (optional)
      * @param  \DateTime $filter_start_at_gte Return appointments where the start_at field is greater than or equal to this value. Effectively, appointments that start after this date. (optional)
      * @param  \DateTime $filter_start_at_lte Return appointments where the start_at field is less than or equal to this value. Effectively, appointments that start before this date. (optional)
-     * @param  array $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
@@ -316,7 +316,7 @@ class AppointmentsApi
      * @param  string $filter_tense Return appointments that are upcoming or in the past. (optional)
      * @param  \DateTime $filter_start_at_gte Return appointments where the start_at field is greater than or equal to this value. Effectively, appointments that start after this date. (optional)
      * @param  \DateTime $filter_start_at_lte Return appointments where the start_at field is less than or equal to this value. Effectively, appointments that start before this date. (optional)
-     * @param  array $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
@@ -343,7 +343,7 @@ class AppointmentsApi
      * @param  string $filter_tense Return appointments that are upcoming or in the past. (optional)
      * @param  \DateTime $filter_start_at_gte Return appointments where the start_at field is greater than or equal to this value. Effectively, appointments that start after this date. (optional)
      * @param  \DateTime $filter_start_at_lte Return appointments where the start_at field is less than or equal to this value. Effectively, appointments that start before this date. (optional)
-     * @param  array $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
@@ -396,7 +396,7 @@ class AppointmentsApi
      * @param  string $filter_tense Return appointments that are upcoming or in the past. (optional)
      * @param  \DateTime $filter_start_at_gte Return appointments where the start_at field is greater than or equal to this value. Effectively, appointments that start after this date. (optional)
      * @param  \DateTime $filter_start_at_lte Return appointments where the start_at field is less than or equal to this value. Effectively, appointments that start before this date. (optional)
-     * @param  array $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
@@ -432,13 +432,6 @@ class AppointmentsApi
         }
         if ($filter_start_at_lte !== null && strlen($filter_start_at_lte) < 1) {
             throw new \InvalidArgumentException('invalid length for "$filter_start_at_lte" when calling AppointmentsApi.getAppointments, must be bigger than or equal to 1.');
-        }
-
-        if ($filter_user_ids !== null && strlen($filter_user_ids) > 36) {
-            throw new \InvalidArgumentException('invalid length for "$filter_user_ids" when calling AppointmentsApi.getAppointments, must be smaller than or equal to 36.');
-        }
-        if ($filter_user_ids !== null && strlen($filter_user_ids) < 36) {
-            throw new \InvalidArgumentException('invalid length for "$filter_user_ids" when calling AppointmentsApi.getAppointments, must be bigger than or equal to 36.');
         }
 
         if ($sort !== null && strlen($sort) > 100) {
@@ -629,7 +622,7 @@ class AppointmentsApi
      * List all unconfirmed appointments.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
-     * @param  array $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
@@ -650,7 +643,7 @@ class AppointmentsApi
      * List all unconfirmed appointments.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
-     * @param  array $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
@@ -820,7 +813,7 @@ class AppointmentsApi
      * List all unconfirmed appointments.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
-     * @param  array $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
@@ -844,7 +837,7 @@ class AppointmentsApi
      * List all unconfirmed appointments.
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
-     * @param  array $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
@@ -894,7 +887,7 @@ class AppointmentsApi
      * Create request for operation 'getUnconfirmedAppointments'
      *
      * @param  string $include Comma separated list of optional data to include in the response. (optional)
-     * @param  array $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
      * @param  string $sort Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. (optional)
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
@@ -909,13 +902,6 @@ class AppointmentsApi
         }
         if ($include !== null && strlen($include) < 0) {
             throw new \InvalidArgumentException('invalid length for "$include" when calling AppointmentsApi.getUnconfirmedAppointments, must be bigger than or equal to 0.');
-        }
-
-        if ($filter_user_ids !== null && strlen($filter_user_ids) > 36) {
-            throw new \InvalidArgumentException('invalid length for "$filter_user_ids" when calling AppointmentsApi.getUnconfirmedAppointments, must be smaller than or equal to 36.');
-        }
-        if ($filter_user_ids !== null && strlen($filter_user_ids) < 36) {
-            throw new \InvalidArgumentException('invalid length for "$filter_user_ids" when calling AppointmentsApi.getUnconfirmedAppointments, must be bigger than or equal to 36.');
         }
 
         if ($sort !== null && strlen($sort) > 100) {
