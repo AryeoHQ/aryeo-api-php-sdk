@@ -76,6 +76,15 @@ class GroupTest extends TestCase
     }
 
     /**
+     * Test attribute "object"
+     */
+    public function testPropertyObject()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "id"
      */
     public function testPropertyId()

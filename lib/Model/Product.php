@@ -59,6 +59,7 @@ class Product implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'string',
         'title' => 'string',
         'description' => 'string',
+        'active' => 'bool',
         'type' => 'string',
         'variants' => '\Aryeo\Model\ProductVariant[]',
         'categories' => '\Aryeo\Model\ProductCategory[]'
@@ -75,6 +76,7 @@ class Product implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'uuid',
         'title' => null,
         'description' => null,
+        'active' => null,
         'type' => null,
         'variants' => null,
         'categories' => null
@@ -110,6 +112,7 @@ class Product implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'id',
         'title' => 'title',
         'description' => 'description',
+        'active' => 'active',
         'type' => 'type',
         'variants' => 'variants',
         'categories' => 'categories'
@@ -124,6 +127,7 @@ class Product implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'setId',
         'title' => 'setTitle',
         'description' => 'setDescription',
+        'active' => 'setActive',
         'type' => 'setType',
         'variants' => 'setVariants',
         'categories' => 'setCategories'
@@ -138,6 +142,7 @@ class Product implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => 'getId',
         'title' => 'getTitle',
         'description' => 'getDescription',
+        'active' => 'getActive',
         'type' => 'getType',
         'variants' => 'getVariants',
         'categories' => 'getCategories'
@@ -218,6 +223,7 @@ class Product implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['id'] = $data['id'] ?? null;
         $this->container['title'] = $data['title'] ?? null;
         $this->container['description'] = $data['description'] ?? null;
+        $this->container['active'] = $data['active'] ?? null;
         $this->container['type'] = $data['type'] ?? null;
         $this->container['variants'] = $data['variants'] ?? null;
         $this->container['categories'] = $data['categories'] ?? null;
@@ -386,6 +392,30 @@ class Product implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['description'] = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets active
+     *
+     * @return bool|null
+     */
+    public function getActive()
+    {
+        return $this->container['active'];
+    }
+
+    /**
+     * Sets active
+     *
+     * @param bool|null $active The active status of a product.
+     *
+     * @return self
+     */
+    public function setActive($active)
+    {
+        $this->container['active'] = $active;
 
         return $this;
     }

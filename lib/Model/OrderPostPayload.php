@@ -57,8 +57,10 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'fulfillment_status' => 'string',
+        'internal_notes' => 'string',
         'payment_status' => 'string',
-        'place_id' => 'string'
+        'address_id' => 'string',
+        'customer_id' => 'string'
     ];
 
     /**
@@ -70,8 +72,10 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'fulfillment_status' => null,
+        'internal_notes' => null,
         'payment_status' => null,
-        'place_id' => null
+        'address_id' => 'uuid',
+        'customer_id' => 'uuid'
     ];
 
     /**
@@ -102,8 +106,10 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'fulfillment_status' => 'fulfillment_status',
+        'internal_notes' => 'internal_notes',
         'payment_status' => 'payment_status',
-        'place_id' => 'place_id'
+        'address_id' => 'address_id',
+        'customer_id' => 'customer_id'
     ];
 
     /**
@@ -113,8 +119,10 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'fulfillment_status' => 'setFulfillmentStatus',
+        'internal_notes' => 'setInternalNotes',
         'payment_status' => 'setPaymentStatus',
-        'place_id' => 'setPlaceId'
+        'address_id' => 'setAddressId',
+        'customer_id' => 'setCustomerId'
     ];
 
     /**
@@ -124,8 +132,10 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'fulfillment_status' => 'getFulfillmentStatus',
+        'internal_notes' => 'getInternalNotes',
         'payment_status' => 'getPaymentStatus',
-        'place_id' => 'getPlaceId'
+        'address_id' => 'getAddressId',
+        'customer_id' => 'getCustomerId'
     ];
 
     /**
@@ -216,8 +226,10 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(array $data = null)
     {
         $this->container['fulfillment_status'] = $data['fulfillment_status'] ?? null;
+        $this->container['internal_notes'] = $data['internal_notes'] ?? null;
         $this->container['payment_status'] = $data['payment_status'] ?? null;
-        $this->container['place_id'] = $data['place_id'] ?? null;
+        $this->container['address_id'] = $data['address_id'] ?? null;
+        $this->container['customer_id'] = $data['customer_id'] ?? null;
     }
 
     /**
@@ -246,6 +258,14 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'fulfillment_status', the character length must be bigger than or equal to 0.";
         }
 
+        if (!is_null($this->container['internal_notes']) && (mb_strlen($this->container['internal_notes']) > 2550)) {
+            $invalidProperties[] = "invalid value for 'internal_notes', the character length must be smaller than or equal to 2550.";
+        }
+
+        if (!is_null($this->container['internal_notes']) && (mb_strlen($this->container['internal_notes']) < 0)) {
+            $invalidProperties[] = "invalid value for 'internal_notes', the character length must be bigger than or equal to 0.";
+        }
+
         $allowedValues = $this->getPaymentStatusAllowableValues();
         if (!is_null($this->container['payment_status']) && !in_array($this->container['payment_status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -263,12 +283,20 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'payment_status', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['place_id']) && (mb_strlen($this->container['place_id']) > 255)) {
-            $invalidProperties[] = "invalid value for 'place_id', the character length must be smaller than or equal to 255.";
+        if (!is_null($this->container['address_id']) && (mb_strlen($this->container['address_id']) > 36)) {
+            $invalidProperties[] = "invalid value for 'address_id', the character length must be smaller than or equal to 36.";
         }
 
-        if (!is_null($this->container['place_id']) && (mb_strlen($this->container['place_id']) < 0)) {
-            $invalidProperties[] = "invalid value for 'place_id', the character length must be bigger than or equal to 0.";
+        if (!is_null($this->container['address_id']) && (mb_strlen($this->container['address_id']) < 36)) {
+            $invalidProperties[] = "invalid value for 'address_id', the character length must be bigger than or equal to 36.";
+        }
+
+        if (!is_null($this->container['customer_id']) && (mb_strlen($this->container['customer_id']) > 36)) {
+            $invalidProperties[] = "invalid value for 'customer_id', the character length must be smaller than or equal to 36.";
+        }
+
+        if (!is_null($this->container['customer_id']) && (mb_strlen($this->container['customer_id']) < 36)) {
+            $invalidProperties[] = "invalid value for 'customer_id', the character length must be bigger than or equal to 36.";
         }
 
         return $invalidProperties;
@@ -328,6 +356,37 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets internal_notes
+     *
+     * @return string|null
+     */
+    public function getInternalNotes()
+    {
+        return $this->container['internal_notes'];
+    }
+
+    /**
+     * Sets internal_notes
+     *
+     * @param string|null $internal_notes Internal notes that will be attached to the order. Viewable only by the team.
+     *
+     * @return self
+     */
+    public function setInternalNotes($internal_notes)
+    {
+        if (!is_null($internal_notes) && (mb_strlen($internal_notes) > 2550)) {
+            throw new \InvalidArgumentException('invalid length for $internal_notes when calling OrderPostPayload., must be smaller than or equal to 2550.');
+        }
+        if (!is_null($internal_notes) && (mb_strlen($internal_notes) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $internal_notes when calling OrderPostPayload., must be bigger than or equal to 0.');
+        }
+
+        $this->container['internal_notes'] = $internal_notes;
+
+        return $this;
+    }
+
+    /**
      * Gets payment_status
      *
      * @return string|null
@@ -369,32 +428,63 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets place_id
+     * Gets address_id
      *
      * @return string|null
      */
-    public function getPlaceId()
+    public function getAddressId()
     {
-        return $this->container['place_id'];
+        return $this->container['address_id'];
     }
 
     /**
-     * Sets place_id
+     * Sets address_id
      *
-     * @param string|null $place_id Google Places ID of the address to attach to the order.
+     * @param string|null $address_id ID of the address to associate with the order. UUID Version 4.
      *
      * @return self
      */
-    public function setPlaceId($place_id)
+    public function setAddressId($address_id)
     {
-        if (!is_null($place_id) && (mb_strlen($place_id) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $place_id when calling OrderPostPayload., must be smaller than or equal to 255.');
+        if (!is_null($address_id) && (mb_strlen($address_id) > 36)) {
+            throw new \InvalidArgumentException('invalid length for $address_id when calling OrderPostPayload., must be smaller than or equal to 36.');
         }
-        if (!is_null($place_id) && (mb_strlen($place_id) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $place_id when calling OrderPostPayload., must be bigger than or equal to 0.');
+        if (!is_null($address_id) && (mb_strlen($address_id) < 36)) {
+            throw new \InvalidArgumentException('invalid length for $address_id when calling OrderPostPayload., must be bigger than or equal to 36.');
         }
 
-        $this->container['place_id'] = $place_id;
+        $this->container['address_id'] = $address_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets customer_id
+     *
+     * @return string|null
+     */
+    public function getCustomerId()
+    {
+        return $this->container['customer_id'];
+    }
+
+    /**
+     * Sets customer_id
+     *
+     * @param string|null $customer_id ID of the customer to associate with the order. UUID Version 4.
+     *
+     * @return self
+     */
+    public function setCustomerId($customer_id)
+    {
+        if (!is_null($customer_id) && (mb_strlen($customer_id) > 36)) {
+            throw new \InvalidArgumentException('invalid length for $customer_id when calling OrderPostPayload., must be smaller than or equal to 36.');
+        }
+        if (!is_null($customer_id) && (mb_strlen($customer_id) < 36)) {
+            throw new \InvalidArgumentException('invalid length for $customer_id when calling OrderPostPayload., must be bigger than or equal to 36.');
+        }
+
+        $this->container['customer_id'] = $customer_id;
 
         return $this;
     }

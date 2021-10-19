@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**object** | **string** | String representing the object’s type. Objects of the same type share the same schema. |
 **id** | **string** | ID of the listing. UUID Version 4. |
 **address** | [**\Aryeo\Model\Address**](Address.md) |  |
 **mls_number** | **string** | The identifier for a listing on its local MLS. | [optional]

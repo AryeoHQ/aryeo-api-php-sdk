@@ -85,6 +85,15 @@ class OrderPostPayloadTest extends TestCase
     }
 
     /**
+     * Test attribute "internal_notes"
+     */
+    public function testPropertyInternalNotes()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "payment_status"
      */
     public function testPropertyPaymentStatus()
@@ -94,9 +103,18 @@ class OrderPostPayloadTest extends TestCase
     }
 
     /**
-     * Test attribute "place_id"
+     * Test attribute "address_id"
      */
-    public function testPropertyPlaceId()
+    public function testPropertyAddressId()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "customer_id"
+     */
+    public function testPropertyCustomerId()
     {
         // TODO: implement
         $this->markTestIncomplete('Not implemented');

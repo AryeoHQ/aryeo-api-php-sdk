@@ -895,6 +895,7 @@ class OrdersApi
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
+     * @param  bool $filter_include_inactive Include inactive products (in addition to active products) when returning products. (optional)
      * @param  string[] $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
@@ -902,9 +903,9 @@ class OrdersApi
      * @throws \InvalidArgumentException
      * @return \Aryeo\Model\ProductCollection|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500
      */
-    public function getProducts($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
+    public function getProducts($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_include_inactive = null, $filter_category_ids = null, $filter_type = null)
     {
-        list($response) = $this->getProductsWithHttpInfo($sort, $per_page, $page, $filter_search, $filter_category_ids, $filter_type);
+        list($response) = $this->getProductsWithHttpInfo($sort, $per_page, $page, $filter_search, $filter_include_inactive, $filter_category_ids, $filter_type);
         return $response;
     }
 
@@ -917,6 +918,7 @@ class OrdersApi
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
+     * @param  bool $filter_include_inactive Include inactive products (in addition to active products) when returning products. (optional)
      * @param  string[] $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
@@ -924,9 +926,9 @@ class OrdersApi
      * @throws \InvalidArgumentException
      * @return array of \Aryeo\Model\ProductCollection|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getProductsWithHttpInfo($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
+    public function getProductsWithHttpInfo($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_include_inactive = null, $filter_category_ids = null, $filter_type = null)
     {
-        $request = $this->getProductsRequest($sort, $per_page, $page, $filter_search, $filter_category_ids, $filter_type);
+        $request = $this->getProductsRequest($sort, $per_page, $page, $filter_search, $filter_include_inactive, $filter_category_ids, $filter_type);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1068,15 +1070,16 @@ class OrdersApi
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
+     * @param  bool $filter_include_inactive Include inactive products (in addition to active products) when returning products. (optional)
      * @param  string[] $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getProductsAsync($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
+    public function getProductsAsync($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_include_inactive = null, $filter_category_ids = null, $filter_type = null)
     {
-        return $this->getProductsAsyncWithHttpInfo($sort, $per_page, $page, $filter_search, $filter_category_ids, $filter_type)
+        return $this->getProductsAsyncWithHttpInfo($sort, $per_page, $page, $filter_search, $filter_include_inactive, $filter_category_ids, $filter_type)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1093,16 +1096,17 @@ class OrdersApi
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
+     * @param  bool $filter_include_inactive Include inactive products (in addition to active products) when returning products. (optional)
      * @param  string[] $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getProductsAsyncWithHttpInfo($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
+    public function getProductsAsyncWithHttpInfo($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_include_inactive = null, $filter_category_ids = null, $filter_type = null)
     {
         $returnType = '\Aryeo\Model\ProductCollection';
-        $request = $this->getProductsRequest($sort, $per_page, $page, $filter_search, $filter_category_ids, $filter_type);
+        $request = $this->getProductsRequest($sort, $per_page, $page, $filter_search, $filter_include_inactive, $filter_category_ids, $filter_type);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1144,13 +1148,14 @@ class OrdersApi
      * @param  string $per_page The number of items per page. Defaults to 25. (optional)
      * @param  string $page The requested page. Defaults to 1. (optional)
      * @param  string $filter_search Return products that have fields matching this term. (optional)
+     * @param  bool $filter_include_inactive Include inactive products (in addition to active products) when returning products. (optional)
      * @param  string[] $filter_category_ids Return products in the given categories. (optional)
      * @param  string $filter_type Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getProductsRequest($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_category_ids = null, $filter_type = null)
+    public function getProductsRequest($sort = null, $per_page = null, $page = null, $filter_search = null, $filter_include_inactive = null, $filter_category_ids = null, $filter_type = null)
     {
         if ($sort !== null && strlen($sort) > 100) {
             throw new \InvalidArgumentException('invalid length for "$sort" when calling OrdersApi.getProducts, must be smaller than or equal to 100.');
@@ -1237,6 +1242,17 @@ class OrdersApi
             }
             else {
                 $queryParams['filter[search]'] = $filter_search;
+            }
+        }
+        // query params
+        if ($filter_include_inactive !== null) {
+            if('form' === 'form' && is_array($filter_include_inactive)) {
+                foreach($filter_include_inactive as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[include_inactive]'] = $filter_include_inactive;
             }
         }
         // query params

@@ -103,6 +103,15 @@ class ProductTest extends TestCase
     }
 
     /**
+     * Test attribute "active"
+     */
+    public function testPropertyActive()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "type"
      */
     public function testPropertyType()

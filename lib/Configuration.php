@@ -373,7 +373,7 @@ class Configuration
     }
 
     /**
-     * Sets the default configuration instance
+     * Sets the detault configuration instance
      *
      * @param Configuration $config An instance of the Configuration Object
      *

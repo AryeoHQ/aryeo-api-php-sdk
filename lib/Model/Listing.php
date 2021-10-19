@@ -56,6 +56,7 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'object' => 'string',
         'id' => 'string',
         'address' => '\Aryeo\Model\Address',
         'mls_number' => 'string',
@@ -86,6 +87,7 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'object' => null,
         'id' => 'uuid',
         'address' => null,
         'mls_number' => null,
@@ -135,6 +137,7 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'object' => 'object',
         'id' => 'id',
         'address' => 'address',
         'mls_number' => 'mls_number',
@@ -163,6 +166,7 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'object' => 'setObject',
         'id' => 'setId',
         'address' => 'setAddress',
         'mls_number' => 'setMlsNumber',
@@ -191,6 +195,7 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'object' => 'getObject',
         'id' => 'getId',
         'address' => 'getAddress',
         'mls_number' => 'getMlsNumber',
@@ -388,6 +393,7 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
+        $this->container['object'] = $data['object'] ?? null;
         $this->container['id'] = $data['id'] ?? null;
         $this->container['address'] = $data['address'] ?? null;
         $this->container['mls_number'] = $data['mls_number'] ?? null;
@@ -418,6 +424,17 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['object'] === null) {
+            $invalidProperties[] = "'object' can't be null";
+        }
+        if ((mb_strlen($this->container['object']) > 100)) {
+            $invalidProperties[] = "invalid value for 'object', the character length must be smaller than or equal to 100.";
+        }
+
+        if ((mb_strlen($this->container['object']) < 1)) {
+            $invalidProperties[] = "invalid value for 'object', the character length must be bigger than or equal to 1.";
+        }
 
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
@@ -534,6 +551,37 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets object
+     *
+     * @return string
+     */
+    public function getObject()
+    {
+        return $this->container['object'];
+    }
+
+    /**
+     * Sets object
+     *
+     * @param string $object String representing the object’s type. Objects of the same type share the same schema.
+     *
+     * @return self
+     */
+    public function setObject($object)
+    {
+        if ((mb_strlen($object) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $object when calling Listing., must be smaller than or equal to 100.');
+        }
+        if ((mb_strlen($object) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $object when calling Listing., must be bigger than or equal to 1.');
+        }
+
+        $this->container['object'] = $object;
+
+        return $this;
+    }
 
     /**
      * Gets id

@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 ## `getProducts()`
 
 ```php
-getProducts($sort, $per_page, $page, $filter_search, $filter_category_ids, $filter_type): \Aryeo\Model\ProductCollection
+getProducts($sort, $per_page, $page, $filter_search, $filter_include_inactive, $filter_category_ids, $filter_type): \Aryeo\Model\ProductCollection
 ```
 
 List all products.
@@ -167,11 +167,12 @@ $sort = -created_at; // string | Comma separated list of fields used for sorting
 $per_page = 25; // string | The number of items per page. Defaults to 25.
 $page = 2; // string | The requested page. Defaults to 1.
 $filter_search = Photography; // string | Return products that have fields matching this term.
+$filter_include_inactive = true; // bool | Include inactive products (in addition to active products) when returning products.
 $filter_category_ids = array('filter_category_ids_example'); // string[] | Return products in the given categories.
 $filter_type = MAIN; // string | Return products matching the given type. Allowed values are: MAIN, ADDON.
 
 try {
-    $result = $apiInstance->getProducts($sort, $per_page, $page, $filter_search, $filter_category_ids, $filter_type);
+    $result = $apiInstance->getProducts($sort, $per_page, $page, $filter_search, $filter_include_inactive, $filter_category_ids, $filter_type);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OrdersApi->getProducts: ', $e->getMessage(), PHP_EOL;
@@ -186,6 +187,7 @@ Name | Type | Description  | Notes
  **per_page** | **string**| The number of items per page. Defaults to 25. | [optional]
  **page** | **string**| The requested page. Defaults to 1. | [optional]
  **filter_search** | **string**| Return products that have fields matching this term. | [optional]
+ **filter_include_inactive** | **bool**| Include inactive products (in addition to active products) when returning products. | [optional]
  **filter_category_ids** | [**string[]**](../Model/string.md)| Return products in the given categories. | [optional]
  **filter_type** | **string**| Return products matching the given type. Allowed values are: MAIN, ADDON. | [optional]
 

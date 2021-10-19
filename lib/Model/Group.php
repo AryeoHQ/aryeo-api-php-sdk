@@ -56,6 +56,7 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'object' => 'string',
         'id' => 'string',
         'type' => 'string',
         'name' => 'string',
@@ -82,6 +83,7 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'object' => null,
         'id' => 'uuid',
         'type' => null,
         'name' => null,
@@ -127,6 +129,7 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'object' => 'object',
         'id' => 'id',
         'type' => 'type',
         'name' => 'name',
@@ -151,6 +154,7 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'object' => 'setObject',
         'id' => 'setId',
         'type' => 'setType',
         'name' => 'setName',
@@ -175,6 +179,7 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'object' => 'getObject',
         'id' => 'getId',
         'type' => 'getType',
         'name' => 'getName',
@@ -267,6 +272,7 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(array $data = null)
     {
+        $this->container['object'] = $data['object'] ?? null;
         $this->container['id'] = $data['id'] ?? null;
         $this->container['type'] = $data['type'] ?? null;
         $this->container['name'] = $data['name'] ?? null;
@@ -293,6 +299,14 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['object']) && (mb_strlen($this->container['object']) > 100)) {
+            $invalidProperties[] = "invalid value for 'object', the character length must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['object']) && (mb_strlen($this->container['object']) < 1)) {
+            $invalidProperties[] = "invalid value for 'object', the character length must be bigger than or equal to 1.";
+        }
 
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
@@ -409,6 +423,37 @@ class Group implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets object
+     *
+     * @return string|null
+     */
+    public function getObject()
+    {
+        return $this->container['object'];
+    }
+
+    /**
+     * Sets object
+     *
+     * @param string|null $object String representing the object’s type. Objects of the same type share the same schema.
+     *
+     * @return self
+     */
+    public function setObject($object)
+    {
+        if (!is_null($object) && (mb_strlen($object) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $object when calling Group., must be smaller than or equal to 100.');
+        }
+        if (!is_null($object) && (mb_strlen($object) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $object when calling Group., must be bigger than or equal to 1.');
+        }
+
+        $this->container['object'] = $object;
+
+        return $this;
+    }
 
     /**
      * Gets id
