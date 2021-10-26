@@ -60,7 +60,8 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         'internal_notes' => 'string',
         'payment_status' => 'string',
         'address_id' => 'string',
-        'customer_id' => 'string'
+        'customer_id' => 'string',
+        'notify' => 'bool'
     ];
 
     /**
@@ -75,7 +76,8 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         'internal_notes' => null,
         'payment_status' => null,
         'address_id' => 'uuid',
-        'customer_id' => 'uuid'
+        'customer_id' => 'uuid',
+        'notify' => null
     ];
 
     /**
@@ -109,7 +111,8 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         'internal_notes' => 'internal_notes',
         'payment_status' => 'payment_status',
         'address_id' => 'address_id',
-        'customer_id' => 'customer_id'
+        'customer_id' => 'customer_id',
+        'notify' => 'notify'
     ];
 
     /**
@@ -122,7 +125,8 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         'internal_notes' => 'setInternalNotes',
         'payment_status' => 'setPaymentStatus',
         'address_id' => 'setAddressId',
-        'customer_id' => 'setCustomerId'
+        'customer_id' => 'setCustomerId',
+        'notify' => 'setNotify'
     ];
 
     /**
@@ -135,7 +139,8 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         'internal_notes' => 'getInternalNotes',
         'payment_status' => 'getPaymentStatus',
         'address_id' => 'getAddressId',
-        'customer_id' => 'getCustomerId'
+        'customer_id' => 'getCustomerId',
+        'notify' => 'getNotify'
     ];
 
     /**
@@ -230,6 +235,7 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['payment_status'] = $data['payment_status'] ?? null;
         $this->container['address_id'] = $data['address_id'] ?? null;
         $this->container['customer_id'] = $data['customer_id'] ?? null;
+        $this->container['notify'] = $data['notify'] ?? null;
     }
 
     /**
@@ -485,6 +491,30 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['customer_id'] = $customer_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets notify
+     *
+     * @return bool|null
+     */
+    public function getNotify()
+    {
+        return $this->container['notify'];
+    }
+
+    /**
+     * Sets notify
+     *
+     * @param bool|null $notify Indicates if the customer and creator notifications should be sent when creating the order. Requires an address and customer to be set in order for the notifications to be sent.
+     *
+     * @return self
+     */
+    public function setNotify($notify)
+    {
+        $this->container['notify'] = $notify;
 
         return $this;
     }

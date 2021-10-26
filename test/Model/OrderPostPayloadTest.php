@@ -119,4 +119,13 @@ class OrderPostPayloadTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "notify"
+     */
+    public function testPropertyNotify()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }
