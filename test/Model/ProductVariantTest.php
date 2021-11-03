@@ -101,4 +101,13 @@ class ProductVariantTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "duration"
+     */
+    public function testPropertyDuration()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }

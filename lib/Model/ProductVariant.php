@@ -58,7 +58,8 @@ class ProductVariant implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'id' => 'string',
         'title' => 'string',
-        'price' => 'int'
+        'price' => 'int',
+        'duration' => 'int'
     ];
 
     /**
@@ -71,7 +72,8 @@ class ProductVariant implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'id' => 'uuid',
         'title' => null,
-        'price' => null
+        'price' => null,
+        'duration' => null
     ];
 
     /**
@@ -103,7 +105,8 @@ class ProductVariant implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'id' => 'id',
         'title' => 'title',
-        'price' => 'price'
+        'price' => 'price',
+        'duration' => 'duration'
     ];
 
     /**
@@ -114,7 +117,8 @@ class ProductVariant implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'id' => 'setId',
         'title' => 'setTitle',
-        'price' => 'setPrice'
+        'price' => 'setPrice',
+        'duration' => 'setDuration'
     ];
 
     /**
@@ -125,7 +129,8 @@ class ProductVariant implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'id' => 'getId',
         'title' => 'getTitle',
-        'price' => 'getPrice'
+        'price' => 'getPrice',
+        'duration' => 'getDuration'
     ];
 
     /**
@@ -188,6 +193,7 @@ class ProductVariant implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['id'] = $data['id'] ?? null;
         $this->container['title'] = $data['title'] ?? null;
         $this->container['price'] = $data['price'] ?? null;
+        $this->container['duration'] = $data['duration'] ?? null;
     }
 
     /**
@@ -224,6 +230,10 @@ class ProductVariant implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['price'] === null) {
             $invalidProperties[] = "'price' can't be null";
         }
+        if (!is_null($this->container['duration']) && ($this->container['duration'] < 0)) {
+            $invalidProperties[] = "invalid value for 'duration', must be bigger than or equal to 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -321,6 +331,35 @@ class ProductVariant implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setPrice($price)
     {
         $this->container['price'] = $price;
+
+        return $this;
+    }
+
+    /**
+     * Gets duration
+     *
+     * @return int|null
+     */
+    public function getDuration()
+    {
+        return $this->container['duration'];
+    }
+
+    /**
+     * Sets duration
+     *
+     * @param int|null $duration The duration of the product item, in minutes.
+     *
+     * @return self
+     */
+    public function setDuration($duration)
+    {
+
+        if (!is_null($duration) && ($duration < 0)) {
+            throw new \InvalidArgumentException('invalid value for $duration when calling ProductVariant., must be bigger than or equal to 0.');
+        }
+
+        $this->container['duration'] = $duration;
 
         return $this;
     }
