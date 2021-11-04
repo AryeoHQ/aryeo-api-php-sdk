@@ -617,6 +617,1095 @@ class AppointmentsApi
     }
 
     /**
+     * Operation getAvailableDates
+     *
+     * Fetch available days for a user or group
+     *
+     * @param  string[] $filter_user_ids The IDs of users whose availability will be retrieved. UUID Version 4. (optional)
+     * @param  string $filter_appointment_id Appointment ID used to fetch availability for an existing order (optional)
+     * @param  \DateTime $filter_start_at Returns availability after start_at (optional)
+     * @param  \DateTime $filter_end_at Returns availability before end_at (optional)
+     * @param  string[] $filter_timeframe Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     * @param  int $duration Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $interval Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     * @param  string $timezone Timezone of the client. Localizes the available days (optional)
+     * @param  int $page The requested page of results (optional)
+     * @param  int $per_page The number of results per page. Only applies when using a date range (optional)
+     *
+     * @throws \Aryeo\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Aryeo\Model\CalendarDayCollection|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500
+     */
+    public function getAvailableDates($filter_user_ids = null, $filter_appointment_id = null, $filter_start_at = null, $filter_end_at = null, $filter_timeframe = null, $duration = null, $interval = null, $timezone = null, $page = null, $per_page = null)
+    {
+        list($response) = $this->getAvailableDatesWithHttpInfo($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $timezone, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation getAvailableDatesWithHttpInfo
+     *
+     * Fetch available days for a user or group
+     *
+     * @param  string[] $filter_user_ids The IDs of users whose availability will be retrieved. UUID Version 4. (optional)
+     * @param  string $filter_appointment_id Appointment ID used to fetch availability for an existing order (optional)
+     * @param  \DateTime $filter_start_at Returns availability after start_at (optional)
+     * @param  \DateTime $filter_end_at Returns availability before end_at (optional)
+     * @param  string[] $filter_timeframe Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     * @param  int $duration Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $interval Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     * @param  string $timezone Timezone of the client. Localizes the available days (optional)
+     * @param  int $page The requested page of results (optional)
+     * @param  int $per_page The number of results per page. Only applies when using a date range (optional)
+     *
+     * @throws \Aryeo\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Aryeo\Model\CalendarDayCollection|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAvailableDatesWithHttpInfo($filter_user_ids = null, $filter_appointment_id = null, $filter_start_at = null, $filter_end_at = null, $filter_timeframe = null, $duration = null, $interval = null, $timezone = null, $page = null, $per_page = null)
+    {
+        $request = $this->getAvailableDatesRequest($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $timezone, $page, $per_page);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\Aryeo\Model\CalendarDayCollection' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\CalendarDayCollection', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\Aryeo\Model\ApiError403' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError403', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\Aryeo\Model\ApiError404' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError404', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 422:
+                    if ('\Aryeo\Model\ApiFail422' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail422', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\Aryeo\Model\ApiError500' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError500', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\Aryeo\Model\CalendarDayCollection';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\CalendarDayCollection',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError403',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError404',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiFail422',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError500',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAvailableDatesAsync
+     *
+     * Fetch available days for a user or group
+     *
+     * @param  string[] $filter_user_ids The IDs of users whose availability will be retrieved. UUID Version 4. (optional)
+     * @param  string $filter_appointment_id Appointment ID used to fetch availability for an existing order (optional)
+     * @param  \DateTime $filter_start_at Returns availability after start_at (optional)
+     * @param  \DateTime $filter_end_at Returns availability before end_at (optional)
+     * @param  string[] $filter_timeframe Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     * @param  int $duration Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $interval Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     * @param  string $timezone Timezone of the client. Localizes the available days (optional)
+     * @param  int $page The requested page of results (optional)
+     * @param  int $per_page The number of results per page. Only applies when using a date range (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAvailableDatesAsync($filter_user_ids = null, $filter_appointment_id = null, $filter_start_at = null, $filter_end_at = null, $filter_timeframe = null, $duration = null, $interval = null, $timezone = null, $page = null, $per_page = null)
+    {
+        return $this->getAvailableDatesAsyncWithHttpInfo($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $timezone, $page, $per_page)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAvailableDatesAsyncWithHttpInfo
+     *
+     * Fetch available days for a user or group
+     *
+     * @param  string[] $filter_user_ids The IDs of users whose availability will be retrieved. UUID Version 4. (optional)
+     * @param  string $filter_appointment_id Appointment ID used to fetch availability for an existing order (optional)
+     * @param  \DateTime $filter_start_at Returns availability after start_at (optional)
+     * @param  \DateTime $filter_end_at Returns availability before end_at (optional)
+     * @param  string[] $filter_timeframe Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     * @param  int $duration Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $interval Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     * @param  string $timezone Timezone of the client. Localizes the available days (optional)
+     * @param  int $page The requested page of results (optional)
+     * @param  int $per_page The number of results per page. Only applies when using a date range (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAvailableDatesAsyncWithHttpInfo($filter_user_ids = null, $filter_appointment_id = null, $filter_start_at = null, $filter_end_at = null, $filter_timeframe = null, $duration = null, $interval = null, $timezone = null, $page = null, $per_page = null)
+    {
+        $returnType = '\Aryeo\Model\CalendarDayCollection';
+        $request = $this->getAvailableDatesRequest($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $timezone, $page, $per_page);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAvailableDates'
+     *
+     * @param  string[] $filter_user_ids The IDs of users whose availability will be retrieved. UUID Version 4. (optional)
+     * @param  string $filter_appointment_id Appointment ID used to fetch availability for an existing order (optional)
+     * @param  \DateTime $filter_start_at Returns availability after start_at (optional)
+     * @param  \DateTime $filter_end_at Returns availability before end_at (optional)
+     * @param  string[] $filter_timeframe Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     * @param  int $duration Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $interval Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     * @param  string $timezone Timezone of the client. Localizes the available days (optional)
+     * @param  int $page The requested page of results (optional)
+     * @param  int $per_page The number of results per page. Only applies when using a date range (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAvailableDatesRequest($filter_user_ids = null, $filter_appointment_id = null, $filter_start_at = null, $filter_end_at = null, $filter_timeframe = null, $duration = null, $interval = null, $timezone = null, $page = null, $per_page = null)
+    {
+        if ($filter_appointment_id !== null && strlen($filter_appointment_id) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$filter_appointment_id" when calling AppointmentsApi.getAvailableDates, must be smaller than or equal to 100.');
+        }
+        if ($filter_appointment_id !== null && strlen($filter_appointment_id) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_appointment_id" when calling AppointmentsApi.getAvailableDates, must be bigger than or equal to 1.');
+        }
+
+        if ($filter_start_at !== null && strlen($filter_start_at) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$filter_start_at" when calling AppointmentsApi.getAvailableDates, must be smaller than or equal to 100.');
+        }
+        if ($filter_start_at !== null && strlen($filter_start_at) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_start_at" when calling AppointmentsApi.getAvailableDates, must be bigger than or equal to 1.');
+        }
+
+        if ($filter_end_at !== null && strlen($filter_end_at) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$filter_end_at" when calling AppointmentsApi.getAvailableDates, must be smaller than or equal to 100.');
+        }
+        if ($filter_end_at !== null && strlen($filter_end_at) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_end_at" when calling AppointmentsApi.getAvailableDates, must be bigger than or equal to 1.');
+        }
+
+        if ($filter_timeframe !== null && strlen($filter_timeframe) > 5) {
+            throw new \InvalidArgumentException('invalid length for "$filter_timeframe" when calling AppointmentsApi.getAvailableDates, must be smaller than or equal to 5.');
+        }
+        if ($filter_timeframe !== null && strlen($filter_timeframe) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_timeframe" when calling AppointmentsApi.getAvailableDates, must be bigger than or equal to 1.');
+        }
+
+        if ($duration !== null && strlen($duration) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$duration" when calling AppointmentsApi.getAvailableDates, must be smaller than or equal to 100.');
+        }
+        if ($duration !== null && strlen($duration) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$duration" when calling AppointmentsApi.getAvailableDates, must be bigger than or equal to 1.');
+        }
+        if ($duration !== null && $duration > 360) {
+            throw new \InvalidArgumentException('invalid value for "$duration" when calling AppointmentsApi.getAvailableDates, must be smaller than or equal to 360.');
+        }
+        if ($duration !== null && $duration < 1) {
+            throw new \InvalidArgumentException('invalid value for "$duration" when calling AppointmentsApi.getAvailableDates, must be bigger than or equal to 1.');
+        }
+
+        if ($interval !== null && strlen($interval) > 5) {
+            throw new \InvalidArgumentException('invalid length for "$interval" when calling AppointmentsApi.getAvailableDates, must be smaller than or equal to 5.');
+        }
+        if ($interval !== null && strlen($interval) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$interval" when calling AppointmentsApi.getAvailableDates, must be bigger than or equal to 1.');
+        }
+        if ($interval !== null && $interval > 360) {
+            throw new \InvalidArgumentException('invalid value for "$interval" when calling AppointmentsApi.getAvailableDates, must be smaller than or equal to 360.');
+        }
+        if ($interval !== null && $interval < 1) {
+            throw new \InvalidArgumentException('invalid value for "$interval" when calling AppointmentsApi.getAvailableDates, must be bigger than or equal to 1.');
+        }
+
+        if ($timezone !== null && strlen($timezone) > 5) {
+            throw new \InvalidArgumentException('invalid length for "$timezone" when calling AppointmentsApi.getAvailableDates, must be smaller than or equal to 5.');
+        }
+        if ($timezone !== null && strlen($timezone) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$timezone" when calling AppointmentsApi.getAvailableDates, must be bigger than or equal to 1.');
+        }
+
+        if ($page !== null && $page < 1) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling AppointmentsApi.getAvailableDates, must be bigger than or equal to 1.');
+        }
+
+
+        $resourcePath = '/scheduling/available-dates';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($filter_user_ids !== null) {
+            if('form' === 'form' && is_array($filter_user_ids)) {
+                foreach($filter_user_ids as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[user_ids]'] = $filter_user_ids;
+            }
+        }
+        // query params
+        if ($filter_appointment_id !== null) {
+            if('form' === 'form' && is_array($filter_appointment_id)) {
+                foreach($filter_appointment_id as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[appointment_id]'] = $filter_appointment_id;
+            }
+        }
+        // query params
+        if ($filter_start_at !== null) {
+            if('form' === 'form' && is_array($filter_start_at)) {
+                foreach($filter_start_at as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[start_at]'] = $filter_start_at;
+            }
+        }
+        // query params
+        if ($filter_end_at !== null) {
+            if('form' === 'form' && is_array($filter_end_at)) {
+                foreach($filter_end_at as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[end_at]'] = $filter_end_at;
+            }
+        }
+        // query params
+        if ($filter_timeframe !== null) {
+            if('form' === 'form' && is_array($filter_timeframe)) {
+                foreach($filter_timeframe as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[timeframe]'] = $filter_timeframe;
+            }
+        }
+        // query params
+        if ($duration !== null) {
+            if('form' === 'form' && is_array($duration)) {
+                foreach($duration as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['duration'] = $duration;
+            }
+        }
+        // query params
+        if ($interval !== null) {
+            if('form' === 'form' && is_array($interval)) {
+                foreach($interval as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['interval'] = $interval;
+            }
+        }
+        // query params
+        if ($timezone !== null) {
+            if('form' === 'form' && is_array($timezone)) {
+                foreach($timezone as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['timezone'] = $timezone;
+            }
+        }
+        // query params
+        if ($page !== null) {
+            if('form' === 'form' && is_array($page)) {
+                foreach($page as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['page'] = $page;
+            }
+        }
+        // query params
+        if ($per_page !== null) {
+            if('form' === 'form' && is_array($per_page)) {
+                foreach($per_page as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['per_page'] = $per_page;
+            }
+        }
+
+
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if ($this->config->getAccessToken() !== null) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getAvailableTimeslots
+     *
+     * Fetch available timeslots for a user or group
+     *
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string $filter_appointment_id Appointment ID used to fetch availability for an existing order (optional)
+     * @param  \DateTime $filter_start_at Returns availability after start_at (optional)
+     * @param  \DateTime $filter_end_at Returns availability before end_at (optional)
+     * @param  string[] $filter_timeframe Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     * @param  int $duration Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $interval Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $page The requested page of results (optional)
+     * @param  int $per_page The number of results per page. Only applies when using a date range (optional)
+     *
+     * @throws \Aryeo\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Aryeo\Model\TimeslotCollection|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500
+     */
+    public function getAvailableTimeslots($filter_user_ids = null, $filter_appointment_id = null, $filter_start_at = null, $filter_end_at = null, $filter_timeframe = null, $duration = null, $interval = null, $page = null, $per_page = null)
+    {
+        list($response) = $this->getAvailableTimeslotsWithHttpInfo($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $page, $per_page);
+        return $response;
+    }
+
+    /**
+     * Operation getAvailableTimeslotsWithHttpInfo
+     *
+     * Fetch available timeslots for a user or group
+     *
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string $filter_appointment_id Appointment ID used to fetch availability for an existing order (optional)
+     * @param  \DateTime $filter_start_at Returns availability after start_at (optional)
+     * @param  \DateTime $filter_end_at Returns availability before end_at (optional)
+     * @param  string[] $filter_timeframe Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     * @param  int $duration Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $interval Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $page The requested page of results (optional)
+     * @param  int $per_page The number of results per page. Only applies when using a date range (optional)
+     *
+     * @throws \Aryeo\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Aryeo\Model\TimeslotCollection|\Aryeo\Model\ApiError403|\Aryeo\Model\ApiError404|\Aryeo\Model\ApiFail422|\Aryeo\Model\ApiError500, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAvailableTimeslotsWithHttpInfo($filter_user_ids = null, $filter_appointment_id = null, $filter_start_at = null, $filter_end_at = null, $filter_timeframe = null, $duration = null, $interval = null, $page = null, $per_page = null)
+    {
+        $request = $this->getAvailableTimeslotsRequest($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $page, $per_page);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            switch($statusCode) {
+                case 200:
+                    if ('\Aryeo\Model\TimeslotCollection' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\TimeslotCollection', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 403:
+                    if ('\Aryeo\Model\ApiError403' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError403', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 404:
+                    if ('\Aryeo\Model\ApiError404' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError404', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 422:
+                    if ('\Aryeo\Model\ApiFail422' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiFail422', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                case 500:
+                    if ('\Aryeo\Model\ApiError500' === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\Aryeo\Model\ApiError500', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\Aryeo\Model\TimeslotCollection';
+            if ($returnType === '\SplFileObject') {
+                $content = $response->getBody(); //stream goes to serializer
+            } else {
+                $content = (string) $response->getBody();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\TimeslotCollection',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError403',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError404',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiFail422',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Aryeo\Model\ApiError500',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAvailableTimeslotsAsync
+     *
+     * Fetch available timeslots for a user or group
+     *
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string $filter_appointment_id Appointment ID used to fetch availability for an existing order (optional)
+     * @param  \DateTime $filter_start_at Returns availability after start_at (optional)
+     * @param  \DateTime $filter_end_at Returns availability before end_at (optional)
+     * @param  string[] $filter_timeframe Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     * @param  int $duration Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $interval Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $page The requested page of results (optional)
+     * @param  int $per_page The number of results per page. Only applies when using a date range (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAvailableTimeslotsAsync($filter_user_ids = null, $filter_appointment_id = null, $filter_start_at = null, $filter_end_at = null, $filter_timeframe = null, $duration = null, $interval = null, $page = null, $per_page = null)
+    {
+        return $this->getAvailableTimeslotsAsyncWithHttpInfo($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $page, $per_page)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAvailableTimeslotsAsyncWithHttpInfo
+     *
+     * Fetch available timeslots for a user or group
+     *
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string $filter_appointment_id Appointment ID used to fetch availability for an existing order (optional)
+     * @param  \DateTime $filter_start_at Returns availability after start_at (optional)
+     * @param  \DateTime $filter_end_at Returns availability before end_at (optional)
+     * @param  string[] $filter_timeframe Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     * @param  int $duration Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $interval Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $page The requested page of results (optional)
+     * @param  int $per_page The number of results per page. Only applies when using a date range (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAvailableTimeslotsAsyncWithHttpInfo($filter_user_ids = null, $filter_appointment_id = null, $filter_start_at = null, $filter_end_at = null, $filter_timeframe = null, $duration = null, $interval = null, $page = null, $per_page = null)
+    {
+        $returnType = '\Aryeo\Model\TimeslotCollection';
+        $request = $this->getAvailableTimeslotsRequest($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $page, $per_page);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAvailableTimeslots'
+     *
+     * @param  string[] $filter_user_ids The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     * @param  string $filter_appointment_id Appointment ID used to fetch availability for an existing order (optional)
+     * @param  \DateTime $filter_start_at Returns availability after start_at (optional)
+     * @param  \DateTime $filter_end_at Returns availability before end_at (optional)
+     * @param  string[] $filter_timeframe Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     * @param  int $duration Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $interval Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     * @param  int $page The requested page of results (optional)
+     * @param  int $per_page The number of results per page. Only applies when using a date range (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAvailableTimeslotsRequest($filter_user_ids = null, $filter_appointment_id = null, $filter_start_at = null, $filter_end_at = null, $filter_timeframe = null, $duration = null, $interval = null, $page = null, $per_page = null)
+    {
+        if ($filter_appointment_id !== null && strlen($filter_appointment_id) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$filter_appointment_id" when calling AppointmentsApi.getAvailableTimeslots, must be smaller than or equal to 100.');
+        }
+        if ($filter_appointment_id !== null && strlen($filter_appointment_id) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_appointment_id" when calling AppointmentsApi.getAvailableTimeslots, must be bigger than or equal to 1.');
+        }
+
+        if ($filter_start_at !== null && strlen($filter_start_at) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$filter_start_at" when calling AppointmentsApi.getAvailableTimeslots, must be smaller than or equal to 100.');
+        }
+        if ($filter_start_at !== null && strlen($filter_start_at) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_start_at" when calling AppointmentsApi.getAvailableTimeslots, must be bigger than or equal to 1.');
+        }
+
+        if ($filter_end_at !== null && strlen($filter_end_at) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$filter_end_at" when calling AppointmentsApi.getAvailableTimeslots, must be smaller than or equal to 100.');
+        }
+        if ($filter_end_at !== null && strlen($filter_end_at) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_end_at" when calling AppointmentsApi.getAvailableTimeslots, must be bigger than or equal to 1.');
+        }
+
+        if ($filter_timeframe !== null && strlen($filter_timeframe) > 5) {
+            throw new \InvalidArgumentException('invalid length for "$filter_timeframe" when calling AppointmentsApi.getAvailableTimeslots, must be smaller than or equal to 5.');
+        }
+        if ($filter_timeframe !== null && strlen($filter_timeframe) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$filter_timeframe" when calling AppointmentsApi.getAvailableTimeslots, must be bigger than or equal to 1.');
+        }
+
+        if ($duration !== null && strlen($duration) > 100) {
+            throw new \InvalidArgumentException('invalid length for "$duration" when calling AppointmentsApi.getAvailableTimeslots, must be smaller than or equal to 100.');
+        }
+        if ($duration !== null && strlen($duration) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$duration" when calling AppointmentsApi.getAvailableTimeslots, must be bigger than or equal to 1.');
+        }
+        if ($duration !== null && $duration > 360) {
+            throw new \InvalidArgumentException('invalid value for "$duration" when calling AppointmentsApi.getAvailableTimeslots, must be smaller than or equal to 360.');
+        }
+        if ($duration !== null && $duration < 1) {
+            throw new \InvalidArgumentException('invalid value for "$duration" when calling AppointmentsApi.getAvailableTimeslots, must be bigger than or equal to 1.');
+        }
+
+        if ($interval !== null && strlen($interval) > 5) {
+            throw new \InvalidArgumentException('invalid length for "$interval" when calling AppointmentsApi.getAvailableTimeslots, must be smaller than or equal to 5.');
+        }
+        if ($interval !== null && strlen($interval) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$interval" when calling AppointmentsApi.getAvailableTimeslots, must be bigger than or equal to 1.');
+        }
+        if ($interval !== null && $interval > 360) {
+            throw new \InvalidArgumentException('invalid value for "$interval" when calling AppointmentsApi.getAvailableTimeslots, must be smaller than or equal to 360.');
+        }
+        if ($interval !== null && $interval < 1) {
+            throw new \InvalidArgumentException('invalid value for "$interval" when calling AppointmentsApi.getAvailableTimeslots, must be bigger than or equal to 1.');
+        }
+
+        if ($page !== null && $page < 1) {
+            throw new \InvalidArgumentException('invalid value for "$page" when calling AppointmentsApi.getAvailableTimeslots, must be bigger than or equal to 1.');
+        }
+
+        if ($per_page !== null && $per_page < 1) {
+            throw new \InvalidArgumentException('invalid value for "$per_page" when calling AppointmentsApi.getAvailableTimeslots, must be bigger than or equal to 1.');
+        }
+
+
+        $resourcePath = '/scheduling/available-timeslots';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($filter_user_ids !== null) {
+            if('form' === 'form' && is_array($filter_user_ids)) {
+                foreach($filter_user_ids as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[user_ids]'] = $filter_user_ids;
+            }
+        }
+        // query params
+        if ($filter_appointment_id !== null) {
+            if('form' === 'form' && is_array($filter_appointment_id)) {
+                foreach($filter_appointment_id as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[appointment_id]'] = $filter_appointment_id;
+            }
+        }
+        // query params
+        if ($filter_start_at !== null) {
+            if('form' === 'form' && is_array($filter_start_at)) {
+                foreach($filter_start_at as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[start_at]'] = $filter_start_at;
+            }
+        }
+        // query params
+        if ($filter_end_at !== null) {
+            if('form' === 'form' && is_array($filter_end_at)) {
+                foreach($filter_end_at as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[end_at]'] = $filter_end_at;
+            }
+        }
+        // query params
+        if ($filter_timeframe !== null) {
+            if('form' === 'form' && is_array($filter_timeframe)) {
+                foreach($filter_timeframe as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['filter[timeframe]'] = $filter_timeframe;
+            }
+        }
+        // query params
+        if ($duration !== null) {
+            if('form' === 'form' && is_array($duration)) {
+                foreach($duration as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['duration'] = $duration;
+            }
+        }
+        // query params
+        if ($interval !== null) {
+            if('form' === 'form' && is_array($interval)) {
+                foreach($interval as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['interval'] = $interval;
+            }
+        }
+        // query params
+        if ($page !== null) {
+            if('form' === 'form' && is_array($page)) {
+                foreach($page as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['page'] = $page;
+            }
+        }
+        // query params
+        if ($per_page !== null) {
+            if('form' === 'form' && is_array($per_page)) {
+                foreach($per_page as $key => $value) {
+                    $queryParams[$key] = $value;
+                }
+            }
+            else {
+                $queryParams['per_page'] = $per_page;
+            }
+        }
+
+
+
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if ($this->config->getAccessToken() !== null) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getUnconfirmedAppointments
      *
      * List all unconfirmed appointments.

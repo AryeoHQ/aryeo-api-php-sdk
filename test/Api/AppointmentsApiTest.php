@@ -80,6 +80,30 @@ class AppointmentsApiTest extends TestCase
     }
 
     /**
+     * Test case for getAvailableDates
+     *
+     * Fetch available days for a user or group.
+     *
+     */
+    public function testGetAvailableDates()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test case for getAvailableTimeslots
+     *
+     * Fetch available timeslots for a user or group.
+     *
+     */
+    public function testGetAvailableTimeslots()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for getUnconfirmedAppointments
      *
      * List all unconfirmed appointments..

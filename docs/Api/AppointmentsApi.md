@@ -5,6 +5,8 @@ All URIs are relative to https://api.aryeo.com/v1.
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getAppointments()**](AppointmentsApi.md#getAppointments) | **GET** /appointments | List all appointments.
+[**getAvailableDates()**](AppointmentsApi.md#getAvailableDates) | **GET** /scheduling/available-dates | Fetch available days for a user or group
+[**getAvailableTimeslots()**](AppointmentsApi.md#getAvailableTimeslots) | **GET** /scheduling/available-timeslots | Fetch available timeslots for a user or group
 [**getUnconfirmedAppointments()**](AppointmentsApi.md#getUnconfirmedAppointments) | **GET** /unconfirmed-appointments | List all unconfirmed appointments.
 [**getUnconfirmedAppointmentsId()**](AppointmentsApi.md#getUnconfirmedAppointmentsId) | **GET** /unconfirmed-appointments/{unconfirmed_appointment_id} | Retrieve an unconfirmed appointment.
 [**putAppointmentsAppointmentIdCancel()**](AppointmentsApi.md#putAppointmentsAppointmentIdCancel) | **PUT** /appointments/{appointment_id}/cancel | Cancel an appointment.
@@ -71,6 +73,160 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**\Aryeo\Model\AppointmentCollection**](../Model/AppointmentCollection.md)
+
+### Authorization
+
+[Token](../../README.md#Token)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getAvailableDates()`
+
+```php
+getAvailableDates($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $timezone, $page, $per_page): \Aryeo\Model\CalendarDayCollection
+```
+
+Fetch available days for a user or group
+
+Fetch available calendar days for scheduling or rescheduling an appointment. Availability can be retrieved using a specific start & end date range, or using a timeframe. When using a timeframe, the page parameter can be used to flip through weeks, months, etc.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: Token
+$config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Aryeo\Api\AppointmentsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$filter_user_ids = array('filter_user_ids_example'); // string[] | The IDs of users whose availability will be retrieved. UUID Version 4.
+$filter_appointment_id = 00000000-0000-4000-8000-000000000000; // string | Appointment ID used to fetch availability for an existing order
+$filter_start_at = 2021-01-01T13:00Z; // \DateTime | Returns availability after start_at
+$filter_end_at = 2021-01-02T13:00Z; // \DateTime | Returns availability before end_at
+$filter_timeframe = MONTH; // string[] | Returns availability for a specific timeframe. Used instead of start_at & end_at
+$duration = 60; // int | Duration of the event to schedule. Required if appointment_id isn't specified
+$interval = 15; // int | Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn't specified
+$timezone = 2; // string | Timezone of the client. Localizes the available days
+$page = 1; // int | The requested page of results
+$per_page = 5; // int | The number of results per page. Only applies when using a date range
+
+try {
+    $result = $apiInstance->getAvailableDates($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $timezone, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AppointmentsApi->getAvailableDates: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filter_user_ids** | [**string[]**](../Model/string.md)| The IDs of users whose availability will be retrieved. UUID Version 4. | [optional]
+ **filter_appointment_id** | **string**| Appointment ID used to fetch availability for an existing order | [optional]
+ **filter_start_at** | **\DateTime**| Returns availability after start_at | [optional]
+ **filter_end_at** | **\DateTime**| Returns availability before end_at | [optional]
+ **filter_timeframe** | [**string[]**](../Model/string.md)| Returns availability for a specific timeframe. Used instead of start_at &amp; end_at | [optional]
+ **duration** | **int**| Duration of the event to schedule. Required if appointment_id isn&#39;t specified | [optional]
+ **interval** | **int**| Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified | [optional]
+ **timezone** | **string**| Timezone of the client. Localizes the available days | [optional]
+ **page** | **int**| The requested page of results | [optional]
+ **per_page** | **int**| The number of results per page. Only applies when using a date range | [optional]
+
+### Return type
+
+[**\Aryeo\Model\CalendarDayCollection**](../Model/CalendarDayCollection.md)
+
+### Authorization
+
+[Token](../../README.md#Token)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getAvailableTimeslots()`
+
+```php
+getAvailableTimeslots($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $page, $per_page): \Aryeo\Model\TimeslotCollection
+```
+
+Fetch available timeslots for a user or group
+
+Fetch available timeslots for scheduling or rescheduling an appointment. Timeslots can be retrieved using a specific start & end date range, or using a timeframe. When using a timeframe, the page parameter can be used to flip through days or weeks.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: Token
+$config = Aryeo\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Aryeo\Api\AppointmentsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$filter_user_ids = array('filter_user_ids_example'); // string[] | The IDs of users whose appointments will be retrieved. UUID Version 4.
+$filter_appointment_id = 00000000-0000-4000-8000-000000000000; // string | Appointment ID used to fetch availability for an existing order
+$filter_start_at = 2021-01-01T13:00Z; // \DateTime | Returns availability after start_at
+$filter_end_at = 2021-01-02T13:00Z; // \DateTime | Returns availability before end_at
+$filter_timeframe = MONTH; // string[] | Returns availability for a specific timeframe. Used instead of start_at & end_at
+$duration = 60; // int | Duration of the event to schedule. Required if appointment_id isn't specified
+$interval = 25; // int | Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn't specified
+$page = 1; // int | The requested page of results
+$per_page = 5; // int | The number of results per page. Only applies when using a date range
+
+try {
+    $result = $apiInstance->getAvailableTimeslots($filter_user_ids, $filter_appointment_id, $filter_start_at, $filter_end_at, $filter_timeframe, $duration, $interval, $page, $per_page);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AppointmentsApi->getAvailableTimeslots: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filter_user_ids** | [**string[]**](../Model/string.md)| The IDs of users whose appointments will be retrieved. UUID Version 4. | [optional]
+ **filter_appointment_id** | **string**| Appointment ID used to fetch availability for an existing order | [optional]
+ **filter_start_at** | **\DateTime**| Returns availability after start_at | [optional]
+ **filter_end_at** | **\DateTime**| Returns availability before end_at | [optional]
+ **filter_timeframe** | [**string[]**](../Model/string.md)| Returns availability for a specific timeframe. Used instead of start_at &amp; end_at | [optional]
+ **duration** | **int**| Duration of the event to schedule. Required if appointment_id isn&#39;t specified | [optional]
+ **interval** | **int**| Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified | [optional]
+ **page** | **int**| The requested page of results | [optional]
+ **per_page** | **int**| The number of results per page. Only applies when using a date range | [optional]
+
+### Return type
+
+[**\Aryeo\Model\TimeslotCollection**](../Model/TimeslotCollection.md)
 
 ### Authorization
 
