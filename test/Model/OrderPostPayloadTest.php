@@ -94,15 +94,6 @@ class OrderPostPayloadTest extends TestCase
     }
 
     /**
-     * Test attribute "payment_status"
-     */
-    public function testPropertyPaymentStatus()
-    {
-        // TODO: implement
-        $this->markTestIncomplete('Not implemented');
-    }
-
-    /**
      * Test attribute "address_id"
      */
     public function testPropertyAddressId()

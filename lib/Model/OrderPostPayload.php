@@ -58,7 +58,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'fulfillment_status' => 'string',
         'internal_notes' => 'string',
-        'payment_status' => 'string',
         'address_id' => 'string',
         'customer_id' => 'string',
         'notify' => 'bool'
@@ -74,7 +73,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'fulfillment_status' => null,
         'internal_notes' => null,
-        'payment_status' => null,
         'address_id' => 'uuid',
         'customer_id' => 'uuid',
         'notify' => null
@@ -109,7 +107,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'fulfillment_status' => 'fulfillment_status',
         'internal_notes' => 'internal_notes',
-        'payment_status' => 'payment_status',
         'address_id' => 'address_id',
         'customer_id' => 'customer_id',
         'notify' => 'notify'
@@ -123,7 +120,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'fulfillment_status' => 'setFulfillmentStatus',
         'internal_notes' => 'setInternalNotes',
-        'payment_status' => 'setPaymentStatus',
         'address_id' => 'setAddressId',
         'customer_id' => 'setCustomerId',
         'notify' => 'setNotify'
@@ -137,7 +133,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'fulfillment_status' => 'getFulfillmentStatus',
         'internal_notes' => 'getInternalNotes',
-        'payment_status' => 'getPaymentStatus',
         'address_id' => 'getAddressId',
         'customer_id' => 'getCustomerId',
         'notify' => 'getNotify'
@@ -186,8 +181,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
 
     const FULFILLMENT_STATUS_FULFILLED = 'FULFILLED';
     const FULFILLMENT_STATUS_UNFULFILLED = 'UNFULFILLED';
-    const PAYMENT_STATUS_PAID = 'PAID';
-    const PAYMENT_STATUS_UNPAID = 'UNPAID';
 
     /**
      * Gets allowable values of the enum
@@ -199,19 +192,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         return [
             self::FULFILLMENT_STATUS_FULFILLED,
             self::FULFILLMENT_STATUS_UNFULFILLED,
-        ];
-    }
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getPaymentStatusAllowableValues()
-    {
-        return [
-            self::PAYMENT_STATUS_PAID,
-            self::PAYMENT_STATUS_UNPAID,
         ];
     }
 
@@ -232,7 +212,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->container['fulfillment_status'] = $data['fulfillment_status'] ?? null;
         $this->container['internal_notes'] = $data['internal_notes'] ?? null;
-        $this->container['payment_status'] = $data['payment_status'] ?? null;
         $this->container['address_id'] = $data['address_id'] ?? null;
         $this->container['customer_id'] = $data['customer_id'] ?? null;
         $this->container['notify'] = $data['notify'] ?? null;
@@ -270,23 +249,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if (!is_null($this->container['internal_notes']) && (mb_strlen($this->container['internal_notes']) < 0)) {
             $invalidProperties[] = "invalid value for 'internal_notes', the character length must be bigger than or equal to 0.";
-        }
-
-        $allowedValues = $this->getPaymentStatusAllowableValues();
-        if (!is_null($this->container['payment_status']) && !in_array($this->container['payment_status'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'payment_status', must be one of '%s'",
-                $this->container['payment_status'],
-                implode("', '", $allowedValues)
-            );
-        }
-
-        if (!is_null($this->container['payment_status']) && (mb_strlen($this->container['payment_status']) > 255)) {
-            $invalidProperties[] = "invalid value for 'payment_status', the character length must be smaller than or equal to 255.";
-        }
-
-        if (!is_null($this->container['payment_status']) && (mb_strlen($this->container['payment_status']) < 0)) {
-            $invalidProperties[] = "invalid value for 'payment_status', the character length must be bigger than or equal to 0.";
         }
 
         if (!is_null($this->container['address_id']) && (mb_strlen($this->container['address_id']) > 36)) {
@@ -388,47 +350,6 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['internal_notes'] = $internal_notes;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_status
-     *
-     * @return string|null
-     */
-    public function getPaymentStatus()
-    {
-        return $this->container['payment_status'];
-    }
-
-    /**
-     * Sets payment_status
-     *
-     * @param string|null $payment_status The payment status of the order. Defaults to \"UNPAID\".
-     *
-     * @return self
-     */
-    public function setPaymentStatus($payment_status)
-    {
-        $allowedValues = $this->getPaymentStatusAllowableValues();
-        if (!is_null($payment_status) && !in_array($payment_status, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'payment_status', must be one of '%s'",
-                    $payment_status,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        if (!is_null($payment_status) && (mb_strlen($payment_status) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $payment_status when calling OrderPostPayload., must be smaller than or equal to 255.');
-        }
-        if (!is_null($payment_status) && (mb_strlen($payment_status) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $payment_status when calling OrderPostPayload., must be bigger than or equal to 0.');
-        }
-
-        $this->container['payment_status'] = $payment_status;
 
         return $this;
     }
