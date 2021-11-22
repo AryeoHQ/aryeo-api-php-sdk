@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **total_amount** | **int** | A positive integer in the smallest currency unit (that is, 100 cents for $1.00) representing the total order amount that was or will be charged. This accounts for order items and taxes. | [optional]
 **payment_url** | **string** | A URL of a publicly-accessible webpage to pay for the order. | [optional]
 **status_url** | **string** | A URL of a publicly-accessible webpage to see the order&#39;s status. |
+**downloads_allowed** | **bool** | Indicates if the current user is allowed to download content from the attached listing. | [optional]
+**payments_allowed** | **bool** | Indicates if the current user is allowed to make a payment for the order. | [optional]
 **address** | [**\Aryeo\Model\Address**](Address.md) |  | [optional]
 **customer** | [**\Aryeo\Model\Group**](Group.md) |  | [optional]
 **listing** | [**\Aryeo\Model\Listing**](Listing.md) |  | [optional]

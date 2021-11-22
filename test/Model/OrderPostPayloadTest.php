@@ -119,4 +119,22 @@ class OrderPostPayloadTest extends TestCase
         // TODO: implement
         $this->markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "lock_download_for_payment"
+     */
+    public function testPropertyLockDownloadForPayment()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "allow_payments_before_fulfillment"
+     */
+    public function testPropertyAllowPaymentsBeforeFulfillment()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
 }

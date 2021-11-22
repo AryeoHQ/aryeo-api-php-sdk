@@ -65,6 +65,8 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'total_amount' => 'int',
         'payment_url' => 'string',
         'status_url' => 'string',
+        'downloads_allowed' => 'bool',
+        'payments_allowed' => 'bool',
         'address' => '\Aryeo\Model\Address',
         'customer' => '\Aryeo\Model\Group',
         'listing' => '\Aryeo\Model\Listing',
@@ -90,6 +92,8 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'total_amount' => null,
         'payment_url' => null,
         'status_url' => null,
+        'downloads_allowed' => null,
+        'payments_allowed' => null,
         'address' => null,
         'customer' => null,
         'listing' => null,
@@ -134,6 +138,8 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'total_amount' => 'total_amount',
         'payment_url' => 'payment_url',
         'status_url' => 'status_url',
+        'downloads_allowed' => 'downloads_allowed',
+        'payments_allowed' => 'payments_allowed',
         'address' => 'address',
         'customer' => 'customer',
         'listing' => 'listing',
@@ -157,6 +163,8 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'total_amount' => 'setTotalAmount',
         'payment_url' => 'setPaymentUrl',
         'status_url' => 'setStatusUrl',
+        'downloads_allowed' => 'setDownloadsAllowed',
+        'payments_allowed' => 'setPaymentsAllowed',
         'address' => 'setAddress',
         'customer' => 'setCustomer',
         'listing' => 'setListing',
@@ -180,6 +188,8 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         'total_amount' => 'getTotalAmount',
         'payment_url' => 'getPaymentUrl',
         'status_url' => 'getStatusUrl',
+        'downloads_allowed' => 'getDownloadsAllowed',
+        'payments_allowed' => 'getPaymentsAllowed',
         'address' => 'getAddress',
         'customer' => 'getCustomer',
         'listing' => 'getListing',
@@ -311,6 +321,8 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['total_amount'] = $data['total_amount'] ?? null;
         $this->container['payment_url'] = $data['payment_url'] ?? null;
         $this->container['status_url'] = $data['status_url'] ?? null;
+        $this->container['downloads_allowed'] = $data['downloads_allowed'] ?? null;
+        $this->container['payments_allowed'] = $data['payments_allowed'] ?? null;
         $this->container['address'] = $data['address'] ?? null;
         $this->container['customer'] = $data['customer'] ?? null;
         $this->container['listing'] = $data['listing'] ?? null;
@@ -744,6 +756,54 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
         }
 
         $this->container['status_url'] = $status_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets downloads_allowed
+     *
+     * @return bool|null
+     */
+    public function getDownloadsAllowed()
+    {
+        return $this->container['downloads_allowed'];
+    }
+
+    /**
+     * Sets downloads_allowed
+     *
+     * @param bool|null $downloads_allowed Indicates if the current user is allowed to download content from the attached listing.
+     *
+     * @return self
+     */
+    public function setDownloadsAllowed($downloads_allowed)
+    {
+        $this->container['downloads_allowed'] = $downloads_allowed;
+
+        return $this;
+    }
+
+    /**
+     * Gets payments_allowed
+     *
+     * @return bool|null
+     */
+    public function getPaymentsAllowed()
+    {
+        return $this->container['payments_allowed'];
+    }
+
+    /**
+     * Sets payments_allowed
+     *
+     * @param bool|null $payments_allowed Indicates if the current user is allowed to make a payment for the order.
+     *
+     * @return self
+     */
+    public function setPaymentsAllowed($payments_allowed)
+    {
+        $this->container['payments_allowed'] = $payments_allowed;
 
         return $this;
     }

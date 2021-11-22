@@ -157,6 +157,24 @@ class OrderTest extends TestCase
     }
 
     /**
+     * Test attribute "downloads_allowed"
+     */
+    public function testPropertyDownloadsAllowed()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "payments_allowed"
+     */
+    public function testPropertyPaymentsAllowed()
+    {
+        // TODO: implement
+        $this->markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "address"
      */
     public function testPropertyAddress()

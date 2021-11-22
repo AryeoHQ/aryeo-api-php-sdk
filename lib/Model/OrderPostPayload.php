@@ -60,7 +60,9 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         'internal_notes' => 'string',
         'address_id' => 'string',
         'customer_id' => 'string',
-        'notify' => 'bool'
+        'notify' => 'bool',
+        'lock_download_for_payment' => 'bool',
+        'allow_payments_before_fulfillment' => 'bool'
     ];
 
     /**
@@ -75,7 +77,9 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         'internal_notes' => null,
         'address_id' => 'uuid',
         'customer_id' => 'uuid',
-        'notify' => null
+        'notify' => null,
+        'lock_download_for_payment' => null,
+        'allow_payments_before_fulfillment' => null
     ];
 
     /**
@@ -109,7 +113,9 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         'internal_notes' => 'internal_notes',
         'address_id' => 'address_id',
         'customer_id' => 'customer_id',
-        'notify' => 'notify'
+        'notify' => 'notify',
+        'lock_download_for_payment' => 'lock_download_for_payment',
+        'allow_payments_before_fulfillment' => 'allow_payments_before_fulfillment'
     ];
 
     /**
@@ -122,7 +128,9 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         'internal_notes' => 'setInternalNotes',
         'address_id' => 'setAddressId',
         'customer_id' => 'setCustomerId',
-        'notify' => 'setNotify'
+        'notify' => 'setNotify',
+        'lock_download_for_payment' => 'setLockDownloadForPayment',
+        'allow_payments_before_fulfillment' => 'setAllowPaymentsBeforeFulfillment'
     ];
 
     /**
@@ -135,7 +143,9 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         'internal_notes' => 'getInternalNotes',
         'address_id' => 'getAddressId',
         'customer_id' => 'getCustomerId',
-        'notify' => 'getNotify'
+        'notify' => 'getNotify',
+        'lock_download_for_payment' => 'getLockDownloadForPayment',
+        'allow_payments_before_fulfillment' => 'getAllowPaymentsBeforeFulfillment'
     ];
 
     /**
@@ -215,6 +225,8 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->container['address_id'] = $data['address_id'] ?? null;
         $this->container['customer_id'] = $data['customer_id'] ?? null;
         $this->container['notify'] = $data['notify'] ?? null;
+        $this->container['lock_download_for_payment'] = $data['lock_download_for_payment'] ?? null;
+        $this->container['allow_payments_before_fulfillment'] = $data['allow_payments_before_fulfillment'] ?? null;
     }
 
     /**
@@ -436,6 +448,54 @@ class OrderPostPayload implements ModelInterface, ArrayAccess, \JsonSerializable
     public function setNotify($notify)
     {
         $this->container['notify'] = $notify;
+
+        return $this;
+    }
+
+    /**
+     * Gets lock_download_for_payment
+     *
+     * @return bool|null
+     */
+    public function getLockDownloadForPayment()
+    {
+        return $this->container['lock_download_for_payment'];
+    }
+
+    /**
+     * Sets lock_download_for_payment
+     *
+     * @param bool|null $lock_download_for_payment Indicates if the downloads for the attached listing should be locked while there is an outstanding balance on the order.
+     *
+     * @return self
+     */
+    public function setLockDownloadForPayment($lock_download_for_payment)
+    {
+        $this->container['lock_download_for_payment'] = $lock_download_for_payment;
+
+        return $this;
+    }
+
+    /**
+     * Gets allow_payments_before_fulfillment
+     *
+     * @return bool|null
+     */
+    public function getAllowPaymentsBeforeFulfillment()
+    {
+        return $this->container['allow_payments_before_fulfillment'];
+    }
+
+    /**
+     * Sets allow_payments_before_fulfillment
+     *
+     * @param bool|null $allow_payments_before_fulfillment Indicates if the order will allow payments from the customer before the order is marked as fulfilled.
+     *
+     * @return self
+     */
+    public function setAllowPaymentsBeforeFulfillment($allow_payments_before_fulfillment)
+    {
+        $this->container['allow_payments_before_fulfillment'] = $allow_payments_before_fulfillment;
 
         return $this;
     }
